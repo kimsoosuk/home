@@ -1,0 +1,1009 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>수석의방 — 스스로 공부하는 힘</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ═══════════════════════════════════════
+   CSS RESET & VARIABLES
+   ═══════════════════════════════════════ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  /* Bulletin Board - deep navy like Apple Books hero */
+  --bb-bg-start: #1b2a4a;
+  --bb-bg-end: #0f1b33;
+  --bb-accent: #e8c068;
+  --bb-text: #f0f0f0;
+  --bb-text-dim: rgba(240,240,240,0.55);
+
+  /* Main palette */
+  --bg-white: #ffffff;
+  --bg-warm: #fafaf8;
+  --bg-section: #f5f5f3;
+  --bg-card: #ffffff;
+  --text-primary: #1a1a1a;
+  --text-secondary: #6b6b6b;
+  --text-tertiary: #9a9a9a;
+
+  /* Brand */
+  --brand-green: #124F1A;
+  --brand-green-light: #1a6b24;
+  --brand-gold: #c8a44e;
+
+  /* Shadows */
+  --shadow-book: 0 8px 28px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
+  --shadow-card: 0 2px 12px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
+  --shadow-card-hover: 0 6px 24px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+
+  /* Radii */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-book: 4px 10px 10px 4px;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--text-primary);
+  background: var(--bg-white);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════
+   NAVIGATION BAR
+   ═══════════════════════════════════════ */
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  background: rgba(255,255,255,0.72);
+  border-bottom: 0.5px solid rgba(0,0,0,0.08);
+  padding: 0 clamp(16px, 4vw, 40px);
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-logo {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 900;
+  font-size: 17px;
+  color: var(--brand-green);
+  letter-spacing: -0.5px;
+}
+
+.nav-logo span {
+  font-weight: 400;
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-left: 8px;
+  font-family: 'Noto Sans KR', sans-serif;
+  letter-spacing: 0;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  font-size: 13px;
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+.nav-link:hover { color: var(--text-primary); }
+
+/* ═══════════════════════════════════════
+   SECTION 1: BULLETIN BOARD (Hero)
+   ═══════════════════════════════════════ */
+.bulletin-board {
+  background: linear-gradient(168deg, var(--bb-bg-start) 0%, var(--bb-bg-end) 100%);
+  padding: clamp(28px, 5vw, 48px) clamp(20px, 5vw, 48px) clamp(32px, 5vw, 52px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle decorative grain */
+.bulletin-board::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Soft light spots */
+.bulletin-board::after {
+  content: '';
+  position: absolute;
+  top: -40%;
+  right: -20%;
+  width: 60%;
+  height: 120%;
+  background: radial-gradient(ellipse, rgba(232,192,104,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.bb-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 28px;
+  position: relative;
+  z-index: 1;
+}
+
+.bb-title {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  font-size: clamp(22px, 3.5vw, 32px);
+  color: var(--bb-text);
+  letter-spacing: -0.5px;
+  line-height: 1.3;
+}
+
+.bb-subtitle {
+  font-size: 13px;
+  color: var(--bb-text-dim);
+  margin-top: 6px;
+  font-weight: 300;
+  letter-spacing: 0.3px;
+}
+
+.bb-date-block {
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.bb-date-day {
+  font-family: 'Noto Serif KR', serif;
+  font-size: clamp(28px, 4vw, 42px);
+  font-weight: 900;
+  color: var(--bb-accent);
+  line-height: 1;
+}
+
+.bb-date-info {
+  font-size: 12px;
+  color: var(--bb-text-dim);
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+.bb-time {
+  font-size: 11px;
+  color: rgba(232,192,104,0.7);
+  margin-top: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Bulletin board content cards */
+.bb-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  position: relative;
+  z-index: 1;
+}
+
+@media (max-width: 600px) {
+  .bb-grid { grid-template-columns: 1fr; }
+}
+
+.bb-card {
+  background: rgba(255,255,255,0.06);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+.bb-card:hover {
+  background: rgba(255,255,255,0.09);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.bb-card-label {
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--bb-accent);
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.bb-card-content {
+  font-size: 14px;
+  color: var(--bb-text);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.bb-card-content strong {
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Currently reading mini book */
+.bb-reading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.bb-mini-book {
+  width: 42px;
+  height: 58px;
+  border-radius: 2px 5px 5px 2px;
+  flex-shrink: 0;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+}
+
+/* Book spine effect */
+.bb-mini-book::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(90deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 60%, transparent 100%);
+  z-index: 2;
+}
+
+.bb-mini-book::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%);
+  z-index: 1;
+}
+
+.bb-reading-info {
+  font-size: 12px;
+  color: var(--bb-text-dim);
+  line-height: 1.5;
+}
+
+.bb-reading-title {
+  color: #fff;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.bb-progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 2px;
+  margin-top: 6px;
+  overflow: hidden;
+}
+
+.bb-progress-fill {
+  height: 100%;
+  background: var(--bb-accent);
+  border-radius: 2px;
+  transition: width 0.6s ease;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 2: DIAGNOSTICS CARDS
+   ═══════════════════════════════════════ */
+.section-diagnostics {
+  background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg-section) 100%);
+  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 48px);
+}
+
+.section-header {
+  margin-bottom: 24px;
+}
+
+.section-title {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  font-size: clamp(20px, 3vw, 26px);
+  color: var(--text-primary);
+  letter-spacing: -0.3px;
+}
+
+.section-subtitle {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+.diag-scroll {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 4px 0 16px;
+  scrollbar-width: none;
+}
+.diag-scroll::-webkit-scrollbar { display: none; }
+
+.diag-card {
+  flex: 0 0 clamp(240px, 42vw, 320px);
+  scroll-snap-align: start;
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.3s, transform 0.3s;
+  cursor: pointer;
+  position: relative;
+}
+
+.diag-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-3px);
+}
+
+.diag-card-visual {
+  height: 110px;
+  position: relative;
+  overflow: hidden;
+}
+
+.diag-card-visual::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: linear-gradient(transparent, var(--bg-card));
+}
+
+/* Different gradient accents for each diagnostic card */
+.diag-card:nth-child(1) .diag-card-visual {
+  background: linear-gradient(135deg, #e8d5b7 0%, #d4b896 30%, #c9a87c 100%);
+}
+.diag-card:nth-child(2) .diag-card-visual {
+  background: linear-gradient(135deg, #b7d5e8 0%, #96b8d4 30%, #7ca8c9 100%);
+}
+.diag-card:nth-child(3) .diag-card-visual {
+  background: linear-gradient(135deg, #b7e8c4 0%, #96d4a8 30%, #7cc98c 100%);
+}
+.diag-card:nth-child(4) .diag-card-visual {
+  background: linear-gradient(135deg, #e8c4b7 0%, #d4a896 30%, #c98c7c 100%);
+}
+
+.diag-card-icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 36px;
+  opacity: 0.4;
+}
+
+.diag-card-body {
+  padding: 16px 20px 20px;
+}
+
+.diag-card-title {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  font-size: 16px;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  letter-spacing: -0.2px;
+}
+
+.diag-card-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.diag-card-tag {
+  display: inline-block;
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: 600;
+  color: var(--brand-green);
+  background: rgba(18,79,26,0.06);
+  padding: 3px 10px;
+  border-radius: 20px;
+  letter-spacing: 0.3px;
+}
+
+/* ═══════════════════════════════════════
+   SECTION 3: BOOK SHELF
+   ═══════════════════════════════════════ */
+.section-bookshelf {
+  background: linear-gradient(180deg, var(--bg-section) 0%, #eeeeec 100%);
+  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 48px) clamp(40px, 6vw, 64px);
+}
+
+.bookshelf-scroll {
+  display: flex;
+  gap: clamp(16px, 3vw, 28px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 0 24px;
+  scrollbar-width: none;
+}
+.bookshelf-scroll::-webkit-scrollbar { display: none; }
+
+/* Individual book item */
+.book-item {
+  flex: 0 0 auto;
+  width: clamp(130px, 20vw, 170px);
+  scroll-snap-align: start;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.book-item:hover {
+  transform: translateY(-6px);
+}
+
+.book-item:active {
+  transform: translateY(-2px);
+}
+
+/* The book cover with 3D spine effect */
+.book-cover {
+  width: 100%;
+  aspect-ratio: 3 / 4.2;
+  border-radius: var(--radius-book);
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--shadow-book);
+  transition: box-shadow 0.3s;
+}
+
+.book-item:hover .book-cover {
+  box-shadow: 0 12px 36px rgba(0,0,0,0.22), 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* Spine shadow (left edge) */
+.book-cover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 14px;
+  background: linear-gradient(90deg,
+    rgba(0,0,0,0.22) 0%,
+    rgba(0,0,0,0.10) 30%,
+    rgba(0,0,0,0.03) 60%,
+    transparent 100%
+  );
+  z-index: 5;
+}
+
+/* Page edge (right side) */
+.book-cover::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: 3px;
+  bottom: 3px;
+  width: 3px;
+  background: linear-gradient(90deg, #e8e4de, #f5f1eb, #e0dcd6);
+  border-radius: 0 2px 2px 0;
+  z-index: 4;
+}
+
+/* Light reflection on cover */
+.book-cover-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.15) 0%,
+    rgba(255,255,255,0.05) 25%,
+    transparent 50%,
+    rgba(0,0,0,0.02) 100%
+  );
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Cover content (gradient background + text) */
+.book-cover-bg {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 18px 16px 14px 20px;
+  z-index: 1;
+}
+
+.book-cover-title {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  font-size: clamp(13px, 1.8vw, 16px);
+  color: #fff;
+  line-height: 1.35;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  letter-spacing: -0.3px;
+  word-break: keep-all;
+}
+
+.book-cover-author {
+  font-size: 10px;
+  color: rgba(255,255,255,0.75);
+  font-weight: 300;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
+}
+
+.book-cover-icon {
+  font-size: 28px;
+  margin-bottom: 4px;
+  opacity: 0.5;
+  align-self: flex-end;
+}
+
+/* Book label underneath */
+.book-label {
+  margin-top: 10px;
+  padding: 0 4px;
+}
+
+.book-label-title {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 600;
+  font-size: 13px;
+  color: var(--text-primary);
+  line-height: 1.35;
+  letter-spacing: -0.2px;
+}
+
+.book-label-sub {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+  font-weight: 300;
+}
+
+/* NEW badge */
+.book-badge {
+  position: absolute;
+  bottom: 10px;
+  left: 16px;
+  z-index: 6;
+  background: var(--brand-green);
+  color: #fff;
+  font-size: 9px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+/* Individual book cover gradients */
+.cover-science {
+  background: linear-gradient(160deg, #2d5016 0%, #1a3a0a 40%, #0f2505 100%);
+}
+.cover-english {
+  background: linear-gradient(160deg, #163c5e 0%, #0d2640 40%, #071828 100%);
+}
+.cover-reading {
+  background: linear-gradient(160deg, #5e3016 0%, #402010 40%, #281008 100%);
+}
+.cover-study-reason {
+  background: linear-gradient(160deg, #4a1638 0%, #300d24 40%, #1e0616 100%);
+}
+.cover-schedule {
+  background: linear-gradient(160deg, #16445e 0%, #0d2e40 40%, #061c28 100%);
+}
+.cover-morning {
+  background: linear-gradient(160deg, #3d3d3d 0%, #252525 40%, #141414 100%);
+}
+.cover-essay {
+  background: linear-gradient(160deg, #5e4416 0%, #402e0d 40%, #281c06 100%);
+}
+
+/* ═══════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════ */
+.site-footer {
+  background: #f0f0ee;
+  border-top: 0.5px solid rgba(0,0,0,0.06);
+  padding: 28px clamp(20px, 5vw, 48px);
+  text-align: center;
+}
+
+.footer-brand {
+  font-family: 'Noto Serif KR', serif;
+  font-weight: 700;
+  font-size: 14px;
+  color: var(--brand-green);
+}
+
+.footer-text {
+  font-size: 11px;
+  color: var(--text-tertiary);
+  margin-top: 4px;
+  font-weight: 300;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATIONS
+   ═══════════════════════════════════════ */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-in {
+  animation: fadeInUp 0.6s ease both;
+}
+
+.delay-1 { animation-delay: 0.1s; }
+.delay-2 { animation-delay: 0.2s; }
+.delay-3 { animation-delay: 0.3s; }
+.delay-4 { animation-delay: 0.4s; }
+.delay-5 { animation-delay: 0.5s; }
+
+/* ═══════════════════════════════════════
+   RESPONSIVE
+   ═══════════════════════════════════════ */
+@media (max-width: 480px) {
+  .bb-grid { gap: 10px; }
+  .bb-card { padding: 14px 16px; }
+  .book-item { width: 120px; }
+  .diag-card { flex: 0 0 220px; }
+}
+
+@media (min-width: 900px) {
+  .bb-grid { grid-template-columns: 1fr 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════ NAV BAR ═══════════════ -->
+<nav class="nav-bar">
+  <div class="nav-logo">
+    수석의방
+    <span>스스로 공부하는 힘을 갖게 합니다</span>
+  </div>
+  <div class="nav-right">
+    <a href="#diagnostics" class="nav-link">진단</a>
+    <a href="#bookshelf" class="nav-link">프로그램</a>
+  </div>
+</nav>
+
+<!-- ═══════════════ BULLETIN BOARD ═══════════════ -->
+<section class="bulletin-board" id="bulletin">
+  <div class="bb-header animate-in">
+    <div>
+      <div class="bb-title">오늘의 학습 현황</div>
+      <div class="bb-subtitle">나의 공부 여정을 한눈에 확인합니다</div>
+    </div>
+    <div class="bb-date-block">
+      <div class="bb-date-day" id="bbDay"></div>
+      <div class="bb-date-info" id="bbDateInfo"></div>
+      <div class="bb-time" id="bbTime"></div>
+    </div>
+  </div>
+
+  <div class="bb-grid">
+    <!-- Schedule card -->
+    <div class="bb-card animate-in delay-1">
+      <div class="bb-card-label">오늘의 스케줄</div>
+      <div class="bb-card-content">
+        <strong>09:00</strong> 영어 단어 학습<br>
+        <strong>10:30</strong> 과학 개념 복습<br>
+        <strong>14:00</strong> 독서 토론 준비
+      </div>
+    </div>
+
+    <!-- Currently reading -->
+    <div class="bb-card animate-in delay-2">
+      <div class="bb-card-label">지금 읽고 있는 책</div>
+      <div class="bb-reading">
+        <div class="bb-mini-book" style="background: linear-gradient(160deg, #2d5016, #1a3a0a);"></div>
+        <div class="bb-reading-info">
+          <div class="bb-reading-title">과학 단어 선생님</div>
+          <div style="font-size:11px; color: rgba(255,255,255,0.4); margin-top:2px;">진행률 68%</div>
+          <div class="bb-progress-bar">
+            <div class="bb-progress-fill" style="width: 68%;"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Study streak -->
+    <div class="bb-card animate-in delay-3">
+      <div class="bb-card-label">학습 연속일</div>
+      <div class="bb-card-content">
+        <strong style="font-size: 28px; color: #e8c068; font-family: 'Noto Serif KR', serif;">12</strong>
+        <span style="font-size: 13px; color: rgba(255,255,255,0.5);">일째 공부 중</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ DIAGNOSTICS SECTION ═══════════════ -->
+<section class="section-diagnostics" id="diagnostics">
+  <div class="section-header animate-in">
+    <div class="section-title">나를 알아가는 진단</div>
+    <div class="section-subtitle">정확한 진단이 올바른 학습의 첫걸음입니다</div>
+  </div>
+
+  <div class="diag-scroll">
+    <!-- Card 1 -->
+    <div class="diag-card animate-in delay-1">
+      <div class="diag-card-visual">
+        <div class="diag-card-icon">🎯</div>
+      </div>
+      <div class="diag-card-body">
+        <div class="diag-card-title">학습 역량 진단</div>
+        <div class="diag-card-desc">멘탈, 머리, 기술, 환경 네 축으로 나의 학습 역량을 종합 진단합니다.</div>
+        <div class="diag-card-tag">준비중</div>
+      </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="diag-card animate-in delay-2">
+      <div class="diag-card-visual">
+        <div class="diag-card-icon">📐</div>
+      </div>
+      <div class="diag-card-body">
+        <div class="diag-card-title">공부 습관 진단</div>
+        <div class="diag-card-desc">나의 공부 루틴과 습관을 점검하고 개선 방향을 제시합니다.</div>
+        <div class="diag-card-tag">준비중</div>
+      </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="diag-card animate-in delay-3">
+      <div class="diag-card-visual">
+        <div class="diag-card-icon">🧭</div>
+      </div>
+      <div class="diag-card-body">
+        <div class="diag-card-title">진로 적성 탐색</div>
+        <div class="diag-card-desc">관심사와 강점을 분석하여 나에게 맞는 진로 방향을 탐색합니다.</div>
+        <div class="diag-card-tag">준비중</div>
+      </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="diag-card animate-in delay-4">
+      <div class="diag-card-visual">
+        <div class="diag-card-icon">💡</div>
+      </div>
+      <div class="diag-card-body">
+        <div class="diag-card-title">학습 동기 진단</div>
+        <div class="diag-card-desc">무엇이 나를 공부하게 만드는지, 내면의 동기를 발견합니다.</div>
+        <div class="diag-card-tag">준비중</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════ BOOKSHELF SECTION ═══════════════ -->
+<section class="section-bookshelf" id="bookshelf">
+  <div class="section-header animate-in">
+    <div class="section-title">수석의 프로그램</div>
+    <div class="section-subtitle">각 프로그램을 눌러 학습을 시작하세요</div>
+  </div>
+
+  <div class="bookshelf-scroll">
+
+    <!-- Book 1: 과학 단어 선생님 -->
+    <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/science_teacher/" target="_blank" rel="noopener">
+      <div class="book-cover">
+        <div class="book-cover-bg cover-science">
+          <div>
+            <div class="book-cover-icon">🔬</div>
+            <div class="book-cover-title">과학 단어<br>선생님</div>
+          </div>
+          <div class="book-cover-author">김수석 · 수석의방</div>
+        </div>
+        <div class="book-cover-shine"></div>
+      </div>
+      <div class="book-label">
+        <div class="book-label-title">과학 단어 선생님</div>
+        <div class="book-label-sub">어원으로 배우는 과학</div>
+      </div>
+    </a>
+
+    <!-- Book 2: 영어 단어 선생님 -->
+    <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/kim-soosoek-english/" target="_blank" rel="noopener">
+      <div class="book-cover">
+        <div class="book-cover-bg cover-english">
+          <div>
+            <div class="book-cover-icon">📖</div>
+            <div class="book-cover-title">영어 단어<br>선생님</div>
+          </div>
+          <div class="book-cover-author">김수석 · 수석의방</div>
+        </div>
+        <div class="book-cover-shine"></div>
+      </div>
+      <div class="book-label">
+        <div class="book-label-title">영어 단어 선생님</div>
+        <div class="book-label-sub">단계별 영어 학습</div>
+      </div>
+    </a>
+
+    <!-- Book 3: 독서 토론 선생님 -->
+    <a class="book-item animate-in delay-3" href="#" target="_blank" rel="noopener">
+      <div class="book-cover">
+        <div class="book-cover-bg cover-reading">
+          <div>
+            <div class="book-cover-icon">💬</div>
+            <div class="book-cover-title">독서 토론<br>선생님</div>
+          </div>
+          <div class="book-cover-author">김수석 · 수석의방</div>
+        </div>
+        <div class="book-cover-shine"></div>
+      </div>
+      <div class="book-label">
+        <div class="book-label-title">독서 토론 선생님</div>
+        <div class="book-label-sub">AI와 깊이 있는 토론</div>
+      </div>
+    </a>
+
+    <!-- Book 4: 공부하는 이유 -->
+    <a class="book-item animate-in delay-4" href="https://kimsoosuk.github.io/study-reason/" target="_blank" rel="noopener">
+      <div class="book-cover">
+        <div class="book-cover-bg cover-study-reason">
+          <div>
+            <div class="book-cover-icon">🌱</div>
+            <div class="book-cover-title">공부하는<br>이유</div>
+          </div>
+          <div class="book-cover-author">김수석 · 수석의방</div>
+        </div>
+        <div class="book-cover-shine"></div>
+      </div>
+      <div class="book-label">
+        <div class="book-label-title">공부하는 이유</div>
+        <div class="book-label-sub">수석의 공부법 기본편</div>
+      </div>
+    </a>
+
+    <!-- Book 5: 스케줄 짜기 AI -->
+    <a class="book-item animate-in delay-5" href="https://kimsoosuk.github.io/myschedule/" target="_blank" rel="noopener">
+      <div class="book-cover">
+        <div class="book-cover-bg cover-schedule">
+          <div>
+            <div class="book-cover-icon">📅</div>
+            <div class="book-cover-title">스케줄<br>짜기 AI</div>
+          </div>
+          <div class="book-cover-author">김수석 · 수석의방</div>
+        </div>
+        <div class="book-cover-shine"></div>
+      </div>
+      <div class="book-label">
+        <div class="book-label-title">스케줄 짜기 AI</div>
+        <div class="book-label-sub">나만의 학습 플래너</div>
+      </div>
+    </a>
+
+    <!-- Book 6: 모닝 브리프 -->
+    <a class="book-item animate-in delay-5" href="https://kimsoosuk.github.io/newsbriefs/" target="_blank" rel="noopener">
+      <div class="book-cover">
+        <div class="book-cover-bg cover-morning">
+          <div>
+            <div class="book-cover-icon">☀️</div>
+            <div class="book-cover-title">모닝<br>브리프</div>
+          </div>
+          <div class="book-cover-author">김수석 · 수석의방</div>
+        </div>
+        <div class="book-cover-shine"></div>
+      </div>
+      <div class="book-label">
+        <div class="book-label-title">모닝 브리프</div>
+        <div class="book-label-sub">AI 뉴스 팟캐스트</div>
+      </div>
+    </a>
+
+    <!-- Book 7: 자소서 컨설팅 -->
+    <a class="book-item animate-in delay-5" href="#" target="_blank" rel="noopener">
+      <div class="book-cover">
+        <div class="book-cover-bg cover-essay">
+          <div>
+            <div class="book-cover-icon">✍️</div>
+            <div class="book-cover-title">자소서<br>컨설팅</div>
+          </div>
+          <div class="book-cover-author">김수석 · 수석의방</div>
+        </div>
+        <div class="book-cover-shine"></div>
+      </div>
+      <div class="book-label">
+        <div class="book-label-title">자소서 컨설팅</div>
+        <div class="book-label-sub">입시 자기소개서 도우미</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ═══════════════ FOOTER ═══════════════ -->
+<footer class="site-footer">
+  <div class="footer-brand">수석의방</div>
+  <div class="footer-text">ⓒ 수석의방 · 스스로 공부하는 힘을 갖게 합니다</div>
+</footer>
+
+<!-- ═══════════════ SCRIPTS ═══════════════ -->
+<script>
+(function() {
+  // Date & Time
+  function updateDateTime() {
+    const now = new Date();
+    const days = ['일', '월', '화', '수', '목', '금', '토'];
+    const day = now.getDate();
+    const month = now.getMonth() + 1;
+    const year = now.getFullYear();
+    const weekday = days[now.getDay()];
+    const hours = now.getHours().toString().padStart(2, '0');
+    const minutes = now.getMinutes().toString().padStart(2, '0');
+
+    document.getElementById('bbDay').textContent = day;
+    document.getElementById('bbDateInfo').textContent = `${year}년 ${month}월 · ${weekday}요일`;
+    document.getElementById('bbTime').textContent = `${hours}:${minutes}`;
+  }
+
+  updateDateTime();
+  setInterval(updateDateTime, 30000);
+
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '';
+        entry.target.style.animationPlayState = 'running';
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.animate-in').forEach(el => {
+    el.style.opacity = '0';
+    el.style.animationPlayState = 'paused';
+    observer.observe(el);
+  });
+
+  // Smooth nav scroll
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const target = document.querySelector(link.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
