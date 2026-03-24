@@ -95,7 +95,7 @@
    BULLETIN BOARD - frameless 3-page carousel
    ═══════════════════════════════════════ */
     .bulletin-board {
-      background: linear-gradient(180deg, #f0f2f5 0%, #e4e8ee 100%);
+      background: linear-gradient(180deg, #fdfdfd 0%, #f2f4f7 100%);
       padding: 0;
       position: relative;
       overflow: hidden;
@@ -189,9 +189,9 @@
 
     .planner-day-label {
       text-align: center;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 700;
-      color: #999;
+      color: #888;
       text-transform: uppercase;
       letter-spacing: 0.5px;
       padding: 6px 0;
@@ -217,14 +217,14 @@
       grid-template-columns: 44px repeat(7, 1fr);
       border-bottom: 1px solid rgba(0, 0, 0, 0.05);
       position: relative;
-      min-height: 38px;
+      min-height: 48px;
     }
 
     .planner-time {
-      font-size: 9px;
-      color: #bbb;
+      font-size: 10px;
+      color: #999;
       font-variant-numeric: tabular-nums;
-      padding: 8px 4px 0 0;
+      padding: 8px 6px 0 0;
       text-align: right;
       line-height: 1;
     }
@@ -237,26 +237,30 @@
     .planner-cell {
       padding: 4px 3px;
       display: flex;
-      align-items: flex-start;
+      align-items: stretch;
       justify-content: center;
     }
 
-    /* current hour: highlight entire row with a box */
-    .planner-row.current-hour {
-      background: rgba(42, 125, 63, 0.05);
+    /* current hour box for today only */
+    .planner-cell.current-cell {
+      background: rgba(42, 125, 63, 0.08);
       outline: 1.5px solid var(--brand-green);
-      outline-offset: -1px;
-      border-radius: 3px;
+      outline-offset: -1.5px;
+      border-radius: 4px;
       z-index: 2;
     }
 
     .plan-block {
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       width: 100%;
+      height: 100%;
+      min-height: 38px;
       padding: 3px 4px;
       border-radius: 4px;
-      font-size: 9px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -290,189 +294,206 @@
 
     /* ─── SLIDE 2: On going (Book Spread) ─── */
     .ongoing-wrapper {
+      display: flex;
       align-items: center;
-      padding: 0 0 8px;
+      justify-content: center;
+      padding: 30px 10px 10px;
+      width: 100%;
     }
 
     .book-spread {
       display: flex;
-      /* book proportions: total width ≈ two pages side by side */
-      width: min(100%, 560px);
-      height: 220px;
-      border-radius: 3px;
-      overflow: hidden;
-      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
-      font-size: 12px;
+      width: 100%;
+      aspect-ratio: 1.45 / 1;
+      max-height: 520px;
+      /* Dark leather cover background showing at margins */
+      background: #4a3b32;
+      border-radius: 4px;
+      padding: 4px 6px 6px 6px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
     }
 
-    .book-spread-left {
-      flex: 0 0 42%;
-      background: linear-gradient(160deg, #f5eee3 0%, #ece4d4 100%);
+    .book-spread::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      width: 2px;
+      background: rgba(0, 0, 0, 0.4);
+      z-index: 10;
+      transform: translateX(-50%);
+    }
+
+    .bs-page {
+      flex: 1;
+      width: 50%;
+      background: #f8f6f0;
+      position: relative;
+      overflow: hidden;
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      position: relative;
+    }
+
+    .bs-page-left {
+      border-radius: 2px 0 0 2px;
+      box-shadow: inset -15px 0 20px -15px rgba(0, 0, 0, 0.25);
+    }
+
+    .bs-page-right {
+      border-radius: 0 2px 2px 0;
+      box-shadow: inset 15px 0 20px -15px rgba(0, 0, 0, 0.25);
+    }
+
+    /* Page Numbers */
+    .bs-page-num {
+      position: absolute;
+      bottom: 20px;
+      font-size: 10px;
+      color: #bfae9e;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .bs-page-left .bs-page-num {
+      left: 24px;
+    }
+
+    .bs-page-right .bs-page-num {
+      right: 24px;
+    }
+
+    /* Left Content */
+    .bs-left-content {
+      margin: auto;
       text-align: center;
-      border-right: 1px solid rgba(0, 0, 0, 0.08);
     }
 
-    /* Left page: spine shadow */
-    .book-spread-left::before {
-      content: '';
-      position: absolute;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      width: 12px;
-      background: linear-gradient(270deg,
-          rgba(0, 0, 0, 0.08) 0%,
-          rgba(0, 0, 0, 0.02) 50%,
-          transparent 100%);
-    }
-
-    .book-spread-left::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 6px;
-      background: linear-gradient(90deg,
-          rgba(0, 0, 0, 0.15) 0%,
-          rgba(255, 255, 255, 0.1) 40%,
-          transparent 100%);
-    }
-
-    .bs-line {
-      width: 28px;
-      height: 2px;
-      background: #c8a86e;
-      margin-bottom: 16px;
+    .bs-gold-line {
+      width: 24px;
+      height: 1.5px;
+      background: #c2a878;
+      margin: 0 auto 16px;
     }
 
     .bs-category {
-      font-size: 10px;
+      font-size: 11px;
       color: #999;
       letter-spacing: 0.5px;
-      margin-bottom: 6px;
+      margin-bottom: 8px;
     }
 
     .bs-title {
       font-weight: 700;
-      font-size: clamp(16px, 2.5vw, 20px);
-      color: #333;
-      margin-bottom: 20px;
-      line-height: 1.4;
+      font-size: clamp(20px, 3.5vw, 26px);
+      color: #4a3b32;
+      margin-bottom: 24px;
     }
 
     .bs-copyright {
-      font-size: 9px;
+      font-size: 10px;
       color: #bbb;
     }
 
-    .book-spread-right {
-      flex: 1;
-      background: #faf7f2;
-      padding: 20px clamp(14px, 2.5vw, 24px);
-      position: relative;
-      overflow-y: auto;
-    }
-
-    /* Right page: spine shadow */
-    .book-spread-right::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 10px;
-      background: linear-gradient(90deg,
-          rgba(0, 0, 0, 0.06) 0%,
-          transparent 100%);
-    }
-
-    .bs-header-label {
-      font-size: 9px;
-      color: #bbb;
+    /* Right Content */
+    .bs-right-top {
       text-align: right;
-      margin-bottom: 14px;
+      font-size: 9px;
+      color: #aaa;
+      padding: 24px 24px 0;
+    }
+
+    .bs-right-content {
+      padding: 16px clamp(16px, 3vw, 32px);
+      flex: 1;
+      display: flex;
+      flex-direction: column;
     }
 
     .bs-h1 {
       font-weight: 700;
-      font-size: clamp(14px, 2vw, 17px);
-      color: #333;
-      margin-bottom: 12px;
-      padding-bottom: 8px;
-      border-bottom: 2px solid #333;
+      font-size: clamp(15px, 2.5vw, 19px);
+      color: #a88a4a;
+      margin-bottom: 16px;
       display: inline-block;
+      border-bottom: 2px solid #e0d0a0;
+      padding-bottom: 4px;
+      align-self: flex-start;
     }
 
     .bs-paragraph {
-      font-size: clamp(11px, 1.5vw, 13px);
+      font-size: clamp(11px, 1.8vw, 14px);
       color: #555;
-      line-height: 1.75;
-      margin-bottom: 12px;
+      line-height: 1.8;
+      margin-bottom: 14px;
+      word-break: keep-all;
+    }
+
+    .bs-highlight {
+      background: rgba(194, 168, 120, 0.2);
+      padding: 0 4px;
+      border-radius: 2px;
     }
 
     .bs-form-box {
       background: #fff;
-      border: 1px solid #e0d8cc;
+      border: 1px solid #e8e2d8;
       border-radius: 8px;
-      padding: 14px;
+      padding: 16px;
       margin-top: 10px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
     }
 
     .bs-form-title {
       font-weight: 600;
       font-size: 12px;
-      color: #333;
-      margin-bottom: 8px;
+      color: #9e7f42;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       gap: 6px;
     }
 
     .bs-form-title .icon {
-      width: 18px;
-      height: 18px;
-      background: #c8a86e;
-      border-radius: 4px;
+      background: #c2a878;
+      color: white;
+      width: 16px;
+      height: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 10px;
-      color: #fff;
+      border-radius: 3px;
+      font-size: 9px;
     }
 
     .bs-form-line {
-      border-bottom: 1px solid #e8e2d8;
-      padding: 6px 0;
-      font-size: 11px;
-      color: #999;
+      border-bottom: 1px dashed #e0d8cc;
+      padding: 8px 0;
+      font-size: 12px;
+      color: #ccc;
+      font-style: italic;
     }
 
     .bs-btn {
-      display: inline-block;
-      margin-top: 10px;
-      float: right;
-      background: #555;
+      align-self: flex-end;
+      margin-top: 16px;
+      background: #6b5543;
       color: #fff;
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 4px;
+      padding: 8px 18px;
+      border-radius: 20px;
       border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(107, 85, 67, 0.3);
     }
 
     /* ─── SLIDE 3: Homework ─── */
     .homework-scroll {
       display: flex;
-      gap: 18px;
+      gap: 28px;
       overflow-x: auto;
-      padding: 8px 4px 16px;
+      padding: 24px 10px 16px;
       scrollbar-width: none;
       justify-content: center;
       flex-wrap: nowrap;
@@ -483,7 +504,7 @@
     }
 
     .hw-book {
-      flex: 0 0 130px;
+      flex: 0 0 clamp(160px, 28vw, 220px);
       cursor: pointer;
       transition: transform 0.25s;
     }
@@ -555,27 +576,18 @@
 
     .hw-cover-title {
       font-weight: 700;
-      font-size: 13px;
+      font-size: clamp(16px, 2.5vw, 20px);
       color: #fff;
-      line-height: 1.3;
-      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+      line-height: 1.35;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
       letter-spacing: -0.2px;
     }
 
     .hw-cover-subtitle {
-      font-size: 10px;
-      color: rgba(255, 255, 255, 0.7);
-      margin-top: 2px;
+      font-size: clamp(11px, 1.5vw, 13px);
+      color: rgba(255, 255, 255, 0.8);
+      margin-top: 8px;
       font-weight: 400;
-    }
-
-    .hw-book-label {
-      margin-top: 7px;
-      font-size: 11px;
-      font-weight: 600;
-      color: var(--text-primary);
-      text-align: left;
-      padding-left: 2px;
     }
 
     /* ═══════════════════════════════════════
@@ -1262,25 +1274,32 @@
           </div>
           <div class="ongoing-wrapper">
             <div class="book-spread">
-              <div class="book-spread-left">
-                <div class="bs-line"></div>
-                <div class="bs-category">수석의 공부법 기본편</div>
-                <div class="bs-title">공부하는 이유</div>
-                <div class="bs-copyright">ⓒ 수석의방</div>
-              </div>
-              <div class="book-spread-right">
-                <div class="bs-header-label">수석의 공부법 기본편</div>
-                <div class="bs-h1">공부를 왜 하나요?</div>
-                <p class="bs-paragraph">오늘은 간단한 질문으로 시작해볼게요.</p>
-                <p class="bs-paragraph">여러분, 공부를 왜 하나요?</p>
-                <p class="bs-paragraph">이 글을 읽기 전에 먼저 내가 생각하는 공부의 이유를 <u>3가지만</u> 아래 빈 칸에 적어봅시다.</p>
-                <div class="bs-form-box">
-                  <div class="bs-form-title"><span class="icon">✎</span>내가 공부하는 이유 3가지</div>
-                  <div class="bs-form-line">1.</div>
-                  <div class="bs-form-line">2.</div>
-                  <div class="bs-form-line">3.</div>
+              <div class="bs-page bs-page-left">
+                <div class="bs-page-num">1</div>
+                <div class="bs-left-content">
+                  <div class="bs-gold-line"></div>
+                  <div class="bs-category">수석의 공부법 기본편</div>
+                  <div class="bs-title">공부하는 이유</div>
+                  <div class="bs-copyright">ⓒ 수석의방</div>
                 </div>
-                <button class="bs-btn">다음으로</button>
+              </div>
+              <div class="bs-page bs-page-right">
+                <div class="bs-right-top">수석의 공부법 기본편</div>
+                <div class="bs-right-content">
+                  <div class="bs-h1">공부를 왜 하나요?</div>
+                  <p class="bs-paragraph">오늘은 간단한 질문으로 시작해볼게요.</p>
+                  <p class="bs-paragraph">여러분, 공부를 왜 하나요?</p>
+                  <p class="bs-paragraph">우리 매일 학교와 학원과 인강, 자습 등등 공부를 많이 하잖아요. 나는 왜 공부를 하고 있을까?</p>
+                  <p class="bs-paragraph">이 글을 읽기 전에 먼저 내가 생각하는 공부의 이유를 <span class="bs-highlight">3가지만</span> 아래 빈 칸에 적어봅시다.</p>
+                  <div class="bs-form-box">
+                    <div class="bs-form-title"><span class="icon">✎</span>내가 공부하는 이유 3가지</div>
+                    <div class="bs-form-line">1.</div>
+                    <div class="bs-form-line">2.</div>
+                    <div class="bs-form-line">3.</div>
+                  </div>
+                  <button class="bs-btn">다음으로</button>
+                </div>
+                <div class="bs-page-num" style="align-self: flex-end;">2</div>
               </div>
             </div>
           </div>
@@ -1297,48 +1316,44 @@
                 <div class="hw-cover-bg hw-cover-sci"></div>
                 <div class="hw-cover-shine"></div>
                 <div class="hw-inner-border"></div>
-                <div style="position:absolute;top:22px;left:0;right:0;text-align:center;z-index:5;">
+                <div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;">
                   <div class="hw-cover-title">과학 단어<br>3단원</div>
-                  <div class="hw-cover-subtitle">과학편</div>
+                  <div class="hw-cover-subtitle" style="margin-top:8px;">이과편</div>
                 </div>
               </div>
-              <div class="hw-book-label">과학 단어</div>
             </div>
             <div class="hw-book">
               <div class="hw-book-cover">
                 <div class="hw-cover-bg hw-cover-eng"></div>
                 <div class="hw-cover-shine"></div>
                 <div class="hw-inner-border"></div>
-                <div style="position:absolute;top:22px;left:0;right:0;text-align:center;z-index:5;">
+                <div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;">
                   <div class="hw-cover-title">영단어<br>Day 15</div>
-
+                  <div class="hw-cover-subtitle" style="margin-top:8px;">문과편</div>
                 </div>
               </div>
-              <div class="hw-book-label">영어 단어</div>
             </div>
             <div class="hw-book">
               <div class="hw-book-cover">
                 <div class="hw-cover-bg hw-cover-read"></div>
                 <div class="hw-cover-shine"></div>
                 <div class="hw-inner-border"></div>
-                <div style="position:absolute;top:22px;left:0;right:0;text-align:center;z-index:5;">
+                <div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;">
                   <div class="hw-cover-title">독서 감상문<br>제출</div>
-
+                  <div class="hw-cover-subtitle" style="margin-top:8px;">독서편</div>
                 </div>
               </div>
-              <div class="hw-book-label">독서 토론</div>
             </div>
             <div class="hw-book">
               <div class="hw-book-cover">
                 <div class="hw-cover-bg hw-cover-plan"></div>
                 <div class="hw-cover-shine"></div>
                 <div class="hw-inner-border"></div>
-                <div style="position:absolute;top:22px;left:0;right:0;text-align:center;z-index:5;">
-                  <div class="hw-cover-title">다음 주<br>계획</div>
-
+                <div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;">
+                  <div class="hw-cover-title">다음 주<br>계획 세우기</div>
+                  <div class="hw-cover-subtitle" style="margin-top:8px;">공부법편</div>
                 </div>
               </div>
-              <div class="hw-book-label">스케줄</div>
             </div>
           </div>
         </div>
@@ -1352,42 +1367,12 @@
     </div>
   </section>
 
-  <!-- ═══════════════ DIAGNOSTICS SECTION ═══════════════ -->
-  <section class="section-diagnostics" id="diagnostics">
-    <div class="section-header animate-in">
-      <div class="section-title">나를 알아가는 진단</div>
-      <div class="section-subtitle">정확한 진단이 올바른 학습의 첫걸음입니다</div>
-    </div>
-
-    <div class="diag-scroll">
-      <div class="diag-card animate-in delay-1">
-        <div class="diag-card-title">학습 역량 진단</div>
-        <div class="diag-card-desc">멘탈, 머리, 기술, 환경 네 축으로 나의 학습 역량을 종합 진단합니다.</div>
-        <div class="diag-card-tag">준비중</div>
-      </div>
-      <div class="diag-card animate-in delay-2">
-        <div class="diag-card-title">공부 습관 진단</div>
-        <div class="diag-card-desc">나의 공부 루틴과 습관을 점검하고 개선 방향을 제시합니다.</div>
-        <div class="diag-card-tag">준비중</div>
-      </div>
-      <div class="diag-card animate-in delay-3">
-        <div class="diag-card-title">진로 적성 탐색</div>
-        <div class="diag-card-desc">관심사와 강점을 분석하여 나에게 맞는 진로 방향을 탐색합니다.</div>
-        <div class="diag-card-tag">준비중</div>
-      </div>
-      <div class="diag-card animate-in delay-4">
-        <div class="diag-card-title">학습 동기 진단</div>
-        <div class="diag-card-desc">무엇이 나를 공부하게 만드는지, 내면의 동기를 발견합니다.</div>
-        <div class="diag-card-tag">준비중</div>
-      </div>
-    </div>
-  </section>
-
+  <!-- diagnostics section removed from home -->
   <!-- PROGRAMS: 수석의 공부법 -->
   <section class="programs-study" id="programs-study">
     <div class="program-header animate-in">
       <div class="program-title">수석의 공부법</div>
-      <div class="program-subtitle">공부의 기본기를 다져반세요</div>
+      <div class="program-subtitle">공부의 기본기를 다져보세요</div>
     </div>
     <div class="program-scroll">
       <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/study-reason/" target="_blank"
@@ -1395,14 +1380,10 @@
         <div class="book-cover">
           <div class="book-cover-bg cover-green-1">
             <div class="book-cover-title">공부하는<br>이유</div>
-            <div class="book-cover-cat">공부법 기본편</div>
+            <div class="book-cover-cat">수석의 공부법 기본편</div>
           </div>
           <div class="book-cover-inner-border"></div>
           <div class="book-cover-shine"></div>
-        </div>
-        <div class="book-label">
-          <div class="book-label-title">공부하는 이유</div>
-          <div class="book-label-sub">수석의 공부법 기본편</div>
         </div>
       </a>
       <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/myschedule/" target="_blank"
@@ -1410,14 +1391,10 @@
         <div class="book-cover">
           <div class="book-cover-bg cover-green-2">
             <div class="book-cover-title">스케줄<br>짜기 AI</div>
-            <div class="book-cover-cat">공부법 활용편</div>
+            <div class="book-cover-cat">나만의 학습 플래너</div>
           </div>
           <div class="book-cover-inner-border"></div>
           <div class="book-cover-shine"></div>
-        </div>
-        <div class="book-label">
-          <div class="book-label-title">스케줄 짜기 AI</div>
-          <div class="book-label-sub">나만의 학습 플래너</div>
         </div>
       </a>
     </div>
@@ -1430,33 +1407,14 @@
       <div class="program-subtitle">세상과 연결된 생활 학습</div>
     </div>
     <div class="program-scroll">
-      <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/newsbriefs/" target="_blank"
-        rel="noopener">
-        <div class="book-cover">
-          <div class="book-cover-bg cover-blue-1">
-            <div class="book-cover-title">모닝<br>브리프</div>
-            <div class="book-cover-cat">생활편</div>
-          </div>
-          <div class="book-cover-inner-border"></div>
-          <div class="book-cover-shine"></div>
-        </div>
-        <div class="book-label">
-          <div class="book-label-title">모닝 브리프</div>
-          <div class="book-label-sub">AI 뉴스 브리핑</div>
-        </div>
-      </a>
-      <a class="book-item animate-in delay-2" href="#" target="_blank" rel="noopener">
+      <a class="book-item animate-in delay-1" href="#" target="_blank" rel="noopener">
         <div class="book-cover">
           <div class="book-cover-bg cover-blue-2">
             <div class="book-cover-title">자소서<br>컨설팅</div>
-            <div class="book-cover-cat">생활편</div>
+            <div class="book-cover-cat">입시 자기소개서 도우미</div>
           </div>
           <div class="book-cover-inner-border"></div>
           <div class="book-cover-shine"></div>
-        </div>
-        <div class="book-label">
-          <div class="book-label-title">자소서 컨설팅</div>
-          <div class="book-label-sub">입시 자기소개서 도우미</div>
         </div>
       </a>
     </div>
@@ -1474,14 +1432,10 @@
         <div class="book-cover">
           <div class="book-cover-bg cover-purple-1">
             <div class="book-cover-title">과학 단어<br>선생님</div>
-            <div class="book-cover-cat">이과편</div>
+            <div class="book-cover-cat">어원으로 배우는 과학</div>
           </div>
           <div class="book-cover-inner-border"></div>
           <div class="book-cover-shine"></div>
-        </div>
-        <div class="book-label">
-          <div class="book-label-title">과학 단어 선생님</div>
-          <div class="book-label-sub">어원으로 배우는 과학</div>
         </div>
       </a>
       <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/kim-soosoek-english/" target="_blank"
@@ -1489,28 +1443,20 @@
         <div class="book-cover">
           <div class="book-cover-bg cover-purple-2">
             <div class="book-cover-title">영어 단어<br>선생님</div>
-            <div class="book-cover-cat">문과편</div>
+            <div class="book-cover-cat">단계별 영어 학습</div>
           </div>
           <div class="book-cover-inner-border"></div>
           <div class="book-cover-shine"></div>
-        </div>
-        <div class="book-label">
-          <div class="book-label-title">영어 단어 선생님</div>
-          <div class="book-label-sub">단계별 영어 학습</div>
         </div>
       </a>
       <a class="book-item animate-in delay-3" href="#" target="_blank" rel="noopener">
         <div class="book-cover">
           <div class="book-cover-bg cover-purple-3">
             <div class="book-cover-title">독서 토론<br>선생님</div>
-            <div class="book-cover-cat">독서편</div>
+            <div class="book-cover-cat">AI와 깊이 있는 토론</div>
           </div>
           <div class="book-cover-inner-border"></div>
           <div class="book-cover-shine"></div>
-        </div>
-        <div class="book-label">
-          <div class="book-label-title">독서 토론 선생님</div>
-          <div class="book-label-sub">AI와 깊이 있는 토론</div>
         </div>
       </a>
     </div>
@@ -1597,21 +1543,28 @@
         { day: 0, h: 9, end: 10, type: 'math', label: '수학' },
         { day: 0, h: 14, end: 15, type: 'read', label: '독서' },
         { day: 0, h: 15, end: 16, type: 'sci', label: '과학' },
+        { day: 0, h: 18, end: 19, type: 'free', label: '휴식' },
         { day: 1, h: 8, end: 9, type: 'math', label: '수학' },
         { day: 1, h: 9, end: 10, type: 'sci', label: '과학' },
         { day: 1, h: 14, end: 15, type: 'eng', label: '영단어' },
+        { day: 1, h: 17, end: 18, type: 'read', label: '독서' },
         { day: 2, h: 8, end: 9, type: 'eng', label: '영단어' },
         { day: 2, h: 10, end: 11, type: 'read', label: '독서' },
         { day: 2, h: 15, end: 16, type: 'math', label: '수학' },
+        { day: 2, h: 19, end: 20, type: 'free', label: '휴식' },
         { day: 3, h: 8, end: 9, type: 'math', label: '수학' },
         { day: 3, h: 9, end: 10, type: 'eng', label: '영단어' },
         { day: 3, h: 14, end: 15, type: 'sci', label: '과학' },
+        { day: 3, h: 16, end: 17, type: 'read', label: '독서' },
         { day: 4, h: 8, end: 9, type: 'sci', label: '과학' },
         { day: 4, h: 14, end: 15, type: 'read', label: '독서' },
         { day: 4, h: 15, end: 16, type: 'eng', label: '영단어' },
+        { day: 4, h: 18, end: 19, type: 'math', label: '수학' },
         { day: 5, h: 10, end: 11, type: 'read', label: '독서' },
         { day: 5, h: 14, end: 15, type: 'math', label: '수학' },
+        { day: 5, h: 15, end: 16, type: 'sci', label: '과학' },
         { day: 6, h: 10, end: 11, type: 'math', label: '수학' },
+        { day: 6, h: 16, end: 17, type: 'free', label: '휴식' },
       ];
 
       const now = new Date();
@@ -1644,7 +1597,7 @@
         HOURS.forEach(h => {
           const isCurrHour = (todayIdx <= 6 && h === nowH);
           const row = document.createElement('div');
-          row.className = 'planner-row' + (isCurrHour ? ' current-hour' : '');
+          row.className = 'planner-row';
 
           // time label
           const timeEl = document.createElement('div');
@@ -1656,6 +1609,10 @@
           DAY_LABELS.forEach((_, dayIdx) => {
             const cell = document.createElement('div');
             cell.className = 'planner-cell';
+            if (isCurrHour && dayIdx === todayIdx) {
+              cell.classList.add('current-cell');
+            }
+            
             // find matching schedule entry
             const entry = weekSched.find(s => s.day === dayIdx && s.h === h);
             if (entry) {
@@ -1671,7 +1628,7 @@
         });
 
         // Scroll current hour into view
-        const currentRow = body.querySelector('.current-hour');
+        const currentRow = body.querySelector('.current-cell');
         if (currentRow) {
           setTimeout(() => currentRow.scrollIntoView({ block: 'center', behavior: 'smooth' }), 300);
         }
