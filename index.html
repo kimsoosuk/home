@@ -1,1009 +1,1791 @@
 <!DOCTYPE html>
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>수석의방 — 스스로 공부하는 힘</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<style>
-/* ═══════════════════════════════════════
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>수석의방 — 스스로 공부하는 힘</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ═══════════════════════════════════════
    CSS RESET & VARIABLES
    ═══════════════════════════════════════ */
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-:root {
-  /* Bulletin Board - deep navy like Apple Books hero */
-  --bb-bg-start: #1b2a4a;
-  --bb-bg-end: #0f1b33;
-  --bb-accent: #e8c068;
-  --bb-text: #f0f0f0;
-  --bb-text-dim: rgba(240,240,240,0.55);
+    :root {
+      --bg-white: #ffffff;
+      --bg-light: #fafafa;
+      --text-primary: #222222;
+      --text-secondary: #777777;
+      --text-tertiary: #aaaaaa;
 
-  /* Main palette */
-  --bg-white: #ffffff;
-  --bg-warm: #fafaf8;
-  --bg-section: #f5f5f3;
-  --bg-card: #ffffff;
-  --text-primary: #1a1a1a;
-  --text-secondary: #6b6b6b;
-  --text-tertiary: #9a9a9a;
+      --brand-green: #2a7d3f;
+      --brand-green-light: #e8f5e9;
 
-  /* Brand */
-  --brand-green: #124F1A;
-  --brand-green-light: #1a6b24;
-  --brand-gold: #c8a44e;
+      --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --shadow-book: 0 6px 20px rgba(0, 0, 0, 0.14), 0 2px 6px rgba(0, 0, 0, 0.06);
 
-  /* Shadows */
-  --shadow-book: 0 8px 28px rgba(0,0,0,0.18), 0 2px 8px rgba(0,0,0,0.08);
-  --shadow-card: 0 2px 12px rgba(0,0,0,0.06), 0 1px 4px rgba(0,0,0,0.04);
-  --shadow-card-hover: 0 6px 24px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.06);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-book: 3px 8px 8px 3px;
+    }
 
-  /* Radii */
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-book: 4px 10px 10px 4px;
-}
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+    }
 
-html {
-  scroll-behavior: smooth;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
+    body {
+      font-family: 'Apple SD Gothic Neo', -apple-system, BlinkMacSystemFont, 'Malgun Gothic', sans-serif;
+      color: var(--text-primary);
+      background: var(--bg-white);
+      overflow-x: hidden;
+      min-height: 100vh;
+      padding-bottom: 80px;
+    }
 
-body {
-  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont, sans-serif;
-  color: var(--text-primary);
-  background: var(--bg-white);
-  overflow-x: hidden;
-  min-height: 100vh;
-}
+    /* English serif for headings */
+    .heading-en {
+      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+    }
 
-/* ═══════════════════════════════════════
+    /* ═══════════════════════════════════════
    NAVIGATION BAR
    ═══════════════════════════════════════ */
-.nav-bar {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  backdrop-filter: saturate(180%) blur(20px);
-  -webkit-backdrop-filter: saturate(180%) blur(20px);
-  background: rgba(255,255,255,0.72);
-  border-bottom: 0.5px solid rgba(0,0,0,0.08);
-  padding: 0 clamp(16px, 4vw, 40px);
-  height: 52px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
+    .nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: saturate(180%) blur(20px);
+      -webkit-backdrop-filter: saturate(180%) blur(20px);
+      background: rgba(255, 255, 255, 0.82);
+      border-bottom: 0.5px solid rgba(0, 0, 0, 0.06);
+      padding: 0 clamp(16px, 4vw, 40px);
+      height: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
 
-.nav-logo {
-  font-family: 'Noto Serif KR', serif;
-  font-weight: 900;
-  font-size: 17px;
-  color: var(--brand-green);
-  letter-spacing: -0.5px;
-}
+    .nav-logo {
+      font-weight: 800;
+      font-size: 16px;
+      color: var(--brand-green);
+      letter-spacing: -0.3px;
+    }
 
-.nav-logo span {
-  font-weight: 400;
-  font-size: 12px;
-  color: var(--text-tertiary);
-  margin-left: 8px;
-  font-family: 'Noto Sans KR', sans-serif;
-  letter-spacing: 0;
-}
+    .nav-logo span {
+      font-weight: 400;
+      font-size: 11px;
+      color: var(--text-tertiary);
+      margin-left: 6px;
+    }
 
-.nav-right {
-  display: flex;
-  align-items: center;
-  gap: 20px;
-}
-
-.nav-link {
-  font-size: 13px;
-  color: var(--text-secondary);
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.nav-link:hover { color: var(--text-primary); }
-
-/* ═══════════════════════════════════════
-   SECTION 1: BULLETIN BOARD (Hero)
+    /* ═══════════════════════════════════════
+   BULLETIN BOARD - frameless 3-page carousel
    ═══════════════════════════════════════ */
-.bulletin-board {
-  background: linear-gradient(168deg, var(--bb-bg-start) 0%, var(--bb-bg-end) 100%);
-  padding: clamp(28px, 5vw, 48px) clamp(20px, 5vw, 48px) clamp(32px, 5vw, 52px);
-  position: relative;
-  overflow: hidden;
-}
+    .bulletin-board {
+      background: linear-gradient(180deg, #f0f2f5 0%, #e4e8ee 100%);
+      padding: 0;
+      position: relative;
+      overflow: hidden;
+      /* section divider: heavy bottom shadow */
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14), 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
 
-/* Subtle decorative grain */
-.bulletin-board::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
-  pointer-events: none;
-}
+    .bb-carousel {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      /* no card: content directly on background */
+      background: transparent;
+      box-shadow: none;
+      border-radius: 0;
+    }
 
-/* Soft light spots */
-.bulletin-board::after {
-  content: '';
-  position: absolute;
-  top: -40%;
-  right: -20%;
-  width: 60%;
-  height: 120%;
-  background: radial-gradient(ellipse, rgba(232,192,104,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
+    .bb-slides {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      width: 300%;
+    }
 
-.bb-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  margin-bottom: 28px;
-  position: relative;
-  z-index: 1;
-}
+    .bb-slide {
+      width: 33.3333%;
+      flex-shrink: 0;
+      padding: clamp(20px, 4vw, 36px) clamp(16px, 4vw, 40px) clamp(16px, 3vw, 28px);
+      overflow: hidden;
+      /* each slide fills viewport height proportionally */
+      min-height: clamp(480px, 60vh, 680px);
+      display: flex;
+      flex-direction: column;
+    }
 
-.bb-title {
-  font-family: 'Noto Serif KR', serif;
-  font-weight: 700;
-  font-size: clamp(22px, 3.5vw, 32px);
-  color: var(--bb-text);
-  letter-spacing: -0.5px;
-  line-height: 1.3;
-}
+    /* Slide header — no subtitle */
+    .bb-slide-header {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-bottom: clamp(16px, 2.5vw, 26px);
+    }
 
-.bb-subtitle {
-  font-size: 13px;
-  color: var(--bb-text-dim);
-  margin-top: 6px;
-  font-weight: 300;
-  letter-spacing: 0.3px;
-}
+    .bb-slide-title {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(28px, 4.5vw, 42px);
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
 
-.bb-date-block {
-  text-align: right;
-  flex-shrink: 0;
-}
+    /* Dot indicators */
+    .bb-dots {
+      display: flex;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px 0 14px;
+    }
 
-.bb-date-day {
-  font-family: 'Noto Serif KR', serif;
-  font-size: clamp(28px, 4vw, 42px);
-  font-weight: 900;
-  color: var(--bb-accent);
-  line-height: 1;
-}
+    .bb-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(0, 0, 0, 0.18);
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s;
+      padding: 0;
+    }
 
-.bb-date-info {
-  font-size: 12px;
-  color: var(--bb-text-dim);
-  margin-top: 4px;
-  font-weight: 300;
-}
+    .bb-dot.active {
+      background: var(--brand-green);
+      width: 20px;
+      border-radius: 4px;
+    }
 
-.bb-time {
-  font-size: 11px;
-  color: rgba(232,192,104,0.7);
-  margin-top: 2px;
-  font-variant-numeric: tabular-nums;
-}
+    /* ─── SLIDE 1: Planner — weekly × hourly grid ─── */
+    .planner-week {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      gap: 0;
+    }
 
-/* Bulletin board content cards */
-.bb-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
-  position: relative;
-  z-index: 1;
-}
+    .planner-week-header {
+      display: grid;
+      grid-template-columns: 44px repeat(7, 1fr);
+      border-bottom: 1.5px solid rgba(0, 0, 0, 0.1);
+      margin-bottom: 0;
+    }
 
-@media (max-width: 600px) {
-  .bb-grid { grid-template-columns: 1fr; }
-}
+    .planner-day-label {
+      text-align: center;
+      font-size: 10px;
+      font-weight: 700;
+      color: #999;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      padding: 6px 0;
+    }
 
-.bb-card {
-  background: rgba(255,255,255,0.06);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: var(--radius-md);
-  padding: 18px 20px;
-  transition: background 0.3s, border-color 0.3s;
-}
+    .planner-day-label.today {
+      color: var(--brand-green);
+    }
 
-.bb-card:hover {
-  background: rgba(255,255,255,0.09);
-  border-color: rgba(255,255,255,0.12);
-}
+    .planner-body {
+      flex: 1;
+      overflow-y: auto;
+      scrollbar-width: none;
+      position: relative;
+    }
 
-.bb-card-label {
-  font-size: 10px;
-  text-transform: uppercase;
-  letter-spacing: 1.5px;
-  color: var(--bb-accent);
-  font-weight: 600;
-  margin-bottom: 10px;
-}
+    .planner-body::-webkit-scrollbar {
+      display: none;
+    }
 
-.bb-card-content {
-  font-size: 14px;
-  color: var(--bb-text);
-  line-height: 1.6;
-  font-weight: 300;
-}
+    .planner-row {
+      display: grid;
+      grid-template-columns: 44px repeat(7, 1fr);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      position: relative;
+      min-height: 38px;
+    }
 
-.bb-card-content strong {
-  font-weight: 600;
-  color: #fff;
-}
+    .planner-time {
+      font-size: 9px;
+      color: #bbb;
+      font-variant-numeric: tabular-nums;
+      padding: 8px 4px 0 0;
+      text-align: right;
+      line-height: 1;
+    }
 
-/* Currently reading mini book */
-.bb-reading {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-top: 8px;
-}
+    .planner-time.current {
+      color: var(--brand-green);
+      font-weight: 700;
+    }
 
-.bb-mini-book {
-  width: 42px;
-  height: 58px;
-  border-radius: 2px 5px 5px 2px;
-  flex-shrink: 0;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
-}
+    .planner-cell {
+      padding: 4px 3px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
 
-/* Book spine effect */
-.bb-mini-book::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  background: linear-gradient(90deg, rgba(0,0,0,0.25) 0%, rgba(0,0,0,0.05) 60%, transparent 100%);
-  z-index: 2;
-}
+    /* current hour: highlight entire row with a box */
+    .planner-row.current-hour {
+      background: rgba(42, 125, 63, 0.05);
+      outline: 1.5px solid var(--brand-green);
+      outline-offset: -1px;
+      border-radius: 3px;
+      z-index: 2;
+    }
 
-.bb-mini-book::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(135deg, rgba(255,255,255,0.12) 0%, transparent 50%);
-  z-index: 1;
-}
+    .plan-block {
+      display: block;
+      width: 100%;
+      padding: 3px 4px;
+      border-radius: 4px;
+      font-size: 9px;
+      font-weight: 600;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
 
-.bb-reading-info {
-  font-size: 12px;
-  color: var(--bb-text-dim);
-  line-height: 1.5;
-}
+    .plan-block.math {
+      background: rgba(26, 107, 181, 0.12);
+      color: #1a6bb5;
+    }
 
-.bb-reading-title {
-  color: #fff;
-  font-weight: 500;
-  font-size: 13px;
-}
+    .plan-block.eng {
+      background: rgba(199, 43, 106, 0.12);
+      color: #c72b6a;
+    }
 
-.bb-progress-bar {
-  width: 100%;
-  height: 3px;
-  background: rgba(255,255,255,0.1);
-  border-radius: 2px;
-  margin-top: 6px;
-  overflow: hidden;
-}
+    .plan-block.sci {
+      background: rgba(30, 125, 75, 0.12);
+      color: #1e7d4b;
+    }
 
-.bb-progress-fill {
-  height: 100%;
-  background: var(--bb-accent);
-  border-radius: 2px;
-  transition: width 0.6s ease;
-}
+    .plan-block.read {
+      background: rgba(196, 95, 0, 0.12);
+      color: #c45f00;
+    }
 
-/* ═══════════════════════════════════════
-   SECTION 2: DIAGNOSTICS CARDS
+    .plan-block.free {
+      background: rgba(107, 63, 192, 0.12);
+      color: #6b3fc0;
+    }
+
+    /* ─── SLIDE 2: On going (Book Spread) ─── */
+    .ongoing-wrapper {
+      align-items: center;
+      padding: 0 0 8px;
+    }
+
+    .book-spread {
+      display: flex;
+      /* book proportions: total width ≈ two pages side by side */
+      width: min(100%, 560px);
+      height: 220px;
+      border-radius: 3px;
+      overflow: hidden;
+      box-shadow: 0 6px 28px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.08);
+      font-size: 12px;
+    }
+
+    .book-spread-left {
+      flex: 0 0 42%;
+      background: linear-gradient(160deg, #f5eee3 0%, #ece4d4 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      position: relative;
+      text-align: center;
+      border-right: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    /* Left page: spine shadow */
+    .book-spread-left::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      width: 12px;
+      background: linear-gradient(270deg,
+          rgba(0, 0, 0, 0.08) 0%,
+          rgba(0, 0, 0, 0.02) 50%,
+          transparent 100%);
+    }
+
+    .book-spread-left::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 6px;
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 0.15) 0%,
+          rgba(255, 255, 255, 0.1) 40%,
+          transparent 100%);
+    }
+
+    .bs-line {
+      width: 28px;
+      height: 2px;
+      background: #c8a86e;
+      margin-bottom: 16px;
+    }
+
+    .bs-category {
+      font-size: 10px;
+      color: #999;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .bs-title {
+      font-weight: 700;
+      font-size: clamp(16px, 2.5vw, 20px);
+      color: #333;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    .bs-copyright {
+      font-size: 9px;
+      color: #bbb;
+    }
+
+    .book-spread-right {
+      flex: 1;
+      background: #faf7f2;
+      padding: 20px clamp(14px, 2.5vw, 24px);
+      position: relative;
+      overflow-y: auto;
+    }
+
+    /* Right page: spine shadow */
+    .book-spread-right::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 10px;
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 0.06) 0%,
+          transparent 100%);
+    }
+
+    .bs-header-label {
+      font-size: 9px;
+      color: #bbb;
+      text-align: right;
+      margin-bottom: 14px;
+    }
+
+    .bs-h1 {
+      font-weight: 700;
+      font-size: clamp(14px, 2vw, 17px);
+      color: #333;
+      margin-bottom: 12px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #333;
+      display: inline-block;
+    }
+
+    .bs-paragraph {
+      font-size: clamp(11px, 1.5vw, 13px);
+      color: #555;
+      line-height: 1.75;
+      margin-bottom: 12px;
+    }
+
+    .bs-form-box {
+      background: #fff;
+      border: 1px solid #e0d8cc;
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: 10px;
+    }
+
+    .bs-form-title {
+      font-weight: 600;
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .bs-form-title .icon {
+      width: 18px;
+      height: 18px;
+      background: #c8a86e;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #fff;
+    }
+
+    .bs-form-line {
+      border-bottom: 1px solid #e8e2d8;
+      padding: 6px 0;
+      font-size: 11px;
+      color: #999;
+    }
+
+    .bs-btn {
+      display: inline-block;
+      margin-top: 10px;
+      float: right;
+      background: #555;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 4px;
+      border: none;
+    }
+
+    /* ─── SLIDE 3: Homework ─── */
+    .homework-scroll {
+      display: flex;
+      gap: 18px;
+      overflow-x: auto;
+      padding: 8px 4px 16px;
+      scrollbar-width: none;
+      justify-content: center;
+      flex-wrap: nowrap;
+    }
+
+    .homework-scroll::-webkit-scrollbar {
+      display: none;
+    }
+
+    .hw-book {
+      flex: 0 0 130px;
+      cursor: pointer;
+      transition: transform 0.25s;
+    }
+
+    .hw-book:hover {
+      transform: translateY(-5px) scale(1.02);
+    }
+
+    .hw-book-cover {
+      width: 100%;
+      aspect-ratio: 3 / 4.2;
+      border-radius: var(--radius-book);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .hw-book-cover::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 14px;
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 0.25) 0%,
+          rgba(0, 0, 0, 0.12) 15%,
+          rgba(255, 255, 255, 0.15) 20%,
+          rgba(255, 255, 255, 0.05) 26%,
+          rgba(0, 0, 0, 0.04) 38%,
+          transparent 100%);
+      z-index: 3;
+    }
+
+    .hw-book-cover::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 3px;
+      bottom: 3px;
+      width: 3px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.15));
+      border-radius: 0 2px 2px 0;
+      z-index: 3;
+    }
+
+    .hw-cover-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 12px 16px 14px;
+      z-index: 1;
+    }
+
+    /* cover shine overlay */
+    .hw-cover-shine {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.18) 0%,
+          rgba(255, 255, 255, 0.06) 30%,
+          transparent 55%,
+          rgba(0, 0, 0, 0.04) 100%);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .hw-cover-title {
+      font-weight: 700;
+      font-size: 13px;
+      color: #fff;
+      line-height: 1.3;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+      letter-spacing: -0.2px;
+    }
+
+    .hw-cover-subtitle {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+
+    .hw-book-label {
+      margin-top: 7px;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-align: left;
+      padding-left: 2px;
+    }
+
+    /* ═══════════════════════════════════════
+   SECTION: DIAGNOSTICS  
    ═══════════════════════════════════════ */
-.section-diagnostics {
-  background: linear-gradient(180deg, var(--bg-warm) 0%, var(--bg-section) 100%);
-  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 48px);
-}
+    .section-diagnostics {
+      background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
+      padding: clamp(32px, 5vw, 48px) clamp(16px, 4vw, 40px);
+    }
 
-.section-header {
-  margin-bottom: 24px;
-}
+    .section-header {
+      margin-bottom: 22px;
+    }
 
-.section-title {
-  font-family: 'Noto Serif KR', serif;
-  font-weight: 700;
-  font-size: clamp(20px, 3vw, 26px);
-  color: var(--text-primary);
-  letter-spacing: -0.3px;
-}
+    .section-title {
+      font-weight: 700;
+      font-size: clamp(18px, 2.8vw, 24px);
+      color: var(--text-primary);
+      letter-spacing: -0.3px;
+    }
 
-.section-subtitle {
-  font-size: 13px;
-  color: var(--text-secondary);
-  margin-top: 4px;
-  font-weight: 300;
-}
+    .section-subtitle {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 3px;
+      font-weight: 400;
+    }
 
-.diag-scroll {
-  display: flex;
-  gap: 16px;
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 4px 0 16px;
-  scrollbar-width: none;
-}
-.diag-scroll::-webkit-scrollbar { display: none; }
+    .diag-scroll {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 2px 0 12px;
+      scrollbar-width: none;
+    }
 
-.diag-card {
-  flex: 0 0 clamp(240px, 42vw, 320px);
-  scroll-snap-align: start;
-  background: var(--bg-card);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-  transition: box-shadow 0.3s, transform 0.3s;
-  cursor: pointer;
-  position: relative;
-}
+    .diag-scroll::-webkit-scrollbar {
+      display: none;
+    }
 
-.diag-card:hover {
-  box-shadow: var(--shadow-card-hover);
-  transform: translateY(-3px);
-}
+    .diag-card {
+      flex: 0 0 clamp(200px, 40vw, 280px);
+      scroll-snap-align: start;
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 18px 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: box-shadow 0.3s, transform 0.3s;
+      cursor: pointer;
+    }
 
-.diag-card-visual {
-  height: 110px;
-  position: relative;
-  overflow: hidden;
-}
+    .diag-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
 
-.diag-card-visual::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 40px;
-  background: linear-gradient(transparent, var(--bg-card));
-}
+    .diag-card-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+      margin-bottom: 5px;
+    }
 
-/* Different gradient accents for each diagnostic card */
-.diag-card:nth-child(1) .diag-card-visual {
-  background: linear-gradient(135deg, #e8d5b7 0%, #d4b896 30%, #c9a87c 100%);
-}
-.diag-card:nth-child(2) .diag-card-visual {
-  background: linear-gradient(135deg, #b7d5e8 0%, #96b8d4 30%, #7ca8c9 100%);
-}
-.diag-card:nth-child(3) .diag-card-visual {
-  background: linear-gradient(135deg, #b7e8c4 0%, #96d4a8 30%, #7cc98c 100%);
-}
-.diag-card:nth-child(4) .diag-card-visual {
-  background: linear-gradient(135deg, #e8c4b7 0%, #d4a896 30%, #c98c7c 100%);
-}
+    .diag-card-desc {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
 
-.diag-card-icon {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 36px;
-  opacity: 0.4;
-}
+    .diag-card-tag {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--brand-green);
+      background: var(--brand-green-light);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
 
-.diag-card-body {
-  padding: 16px 20px 20px;
-}
-
-.diag-card-title {
-  font-family: 'Noto Serif KR', serif;
-  font-weight: 700;
-  font-size: 16px;
-  color: var(--text-primary);
-  margin-bottom: 6px;
-  letter-spacing: -0.2px;
-}
-
-.diag-card-desc {
-  font-size: 12px;
-  color: var(--text-secondary);
-  line-height: 1.6;
-  font-weight: 300;
-}
-
-.diag-card-tag {
-  display: inline-block;
-  margin-top: 10px;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--brand-green);
-  background: rgba(18,79,26,0.06);
-  padding: 3px 10px;
-  border-radius: 20px;
-  letter-spacing: 0.3px;
-}
-
-/* ═══════════════════════════════════════
-   SECTION 3: BOOK SHELF
+    /* ═══════════════════════════════════════
+   PROGRAM SECTIONS - Apple Books gradient pattern
+   White top → gray bottom, heavy shadow at section bottom
    ═══════════════════════════════════════ */
-.section-bookshelf {
-  background: linear-gradient(180deg, var(--bg-section) 0%, #eeeeec 100%);
-  padding: clamp(32px, 5vw, 48px) clamp(20px, 5vw, 48px) clamp(40px, 6vw, 64px);
-}
 
-.bookshelf-scroll {
-  display: flex;
-  gap: clamp(16px, 3vw, 28px);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  padding: 8px 0 24px;
-  scrollbar-width: none;
-}
-.bookshelf-scroll::-webkit-scrollbar { display: none; }
+    .programs-study,
+    .programs-life,
+    .programs-mind {
+      background: linear-gradient(180deg, #ffffff 0%, #e8e8e8 100%);
+      padding: clamp(28px, 4vw, 48px) clamp(16px, 4vw, 40px);
+      /* Heavy bottom shadow = section depth */
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.13), 0 2px 8px rgba(0, 0, 0, 0.07);
+    }
 
-/* Individual book item */
-.book-item {
-  flex: 0 0 auto;
-  width: clamp(130px, 20vw, 170px);
-  scroll-snap-align: start;
-  cursor: pointer;
-  transition: transform 0.3s ease;
-  text-decoration: none;
-  color: inherit;
-  display: block;
-}
+    .program-header {
+      margin-bottom: 22px;
+    }
 
-.book-item:hover {
-  transform: translateY(-6px);
-}
+    .program-title {
+      font-weight: 800;
+      font-size: clamp(24px, 3.5vw, 32px);
+      color: var(--text-primary);
+      letter-spacing: -0.5px;
+    }
 
-.book-item:active {
-  transform: translateY(-2px);
-}
+    .program-subtitle {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      font-weight: 400;
+    }
 
-/* The book cover with 3D spine effect */
-.book-cover {
-  width: 100%;
-  aspect-ratio: 3 / 4.2;
-  border-radius: var(--radius-book);
-  position: relative;
-  overflow: hidden;
-  box-shadow: var(--shadow-book);
-  transition: box-shadow 0.3s;
-}
+    .program-scroll {
+      display: flex;
+      gap: clamp(14px, 2.5vw, 22px);
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px 0 20px;
+      scrollbar-width: none;
+    }
 
-.book-item:hover .book-cover {
-  box-shadow: 0 12px 36px rgba(0,0,0,0.22), 0 4px 12px rgba(0,0,0,0.1);
-}
+    .program-scroll::-webkit-scrollbar {
+      display: none;
+    }
 
-/* Spine shadow (left edge) */
-.book-cover::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  bottom: 0;
-  width: 14px;
-  background: linear-gradient(90deg,
-    rgba(0,0,0,0.22) 0%,
-    rgba(0,0,0,0.10) 30%,
-    rgba(0,0,0,0.03) 60%,
-    transparent 100%
-  );
-  z-index: 5;
-}
+    /* Book item (shared) */
+    .book-item {
+      flex: 0 0 auto;
+      width: clamp(140px, 22vw, 180px);
+      scroll-snap-align: start;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
 
-/* Page edge (right side) */
-.book-cover::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  top: 3px;
-  bottom: 3px;
-  width: 3px;
-  background: linear-gradient(90deg, #e8e4de, #f5f1eb, #e0dcd6);
-  border-radius: 0 2px 2px 0;
-  z-index: 4;
-}
+    .book-item:hover {
+      transform: translateY(-5px);
+    }
 
-/* Light reflection on cover */
-.book-cover-shine {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    135deg,
-    rgba(255,255,255,0.15) 0%,
-    rgba(255,255,255,0.05) 25%,
-    transparent 50%,
-    rgba(0,0,0,0.02) 100%
-  );
-  z-index: 3;
-  pointer-events: none;
-}
+    .book-item:active {
+      transform: translateY(-2px);
+    }
 
-/* Cover content (gradient background + text) */
-.book-cover-bg {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding: 18px 16px 14px 20px;
-  z-index: 1;
-}
+    .book-cover {
+      width: 100%;
+      aspect-ratio: 3 / 4.2;
+      border-radius: var(--radius-book);
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-book);
+      transition: box-shadow 0.3s;
+    }
 
-.book-cover-title {
-  font-family: 'Noto Serif KR', serif;
-  font-weight: 700;
-  font-size: clamp(13px, 1.8vw, 16px);
-  color: #fff;
-  line-height: 1.35;
-  text-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  letter-spacing: -0.3px;
-  word-break: keep-all;
-}
+    .book-item:hover .book-cover {
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.18);
+    }
 
-.book-cover-author {
-  font-size: 10px;
-  color: rgba(255,255,255,0.75);
-  font-weight: 300;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.15);
-}
+    /* Spine - hardcover fold */
+    .book-cover::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 16px;
+      background: linear-gradient(90deg,
+          rgba(0, 0, 0, 0.28) 0%,
+          rgba(0, 0, 0, 0.15) 15%,
+          rgba(255, 255, 255, 0.12) 20%,
+          rgba(255, 255, 255, 0.05) 26%,
+          rgba(0, 0, 0, 0.06) 35%,
+          rgba(0, 0, 0, 0.02) 55%,
+          transparent 100%);
+      z-index: 5;
+    }
 
-.book-cover-icon {
-  font-size: 28px;
-  margin-bottom: 4px;
-  opacity: 0.5;
-  align-self: flex-end;
-}
+    /* Page edge right */
+    .book-cover::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 3px;
+      bottom: 3px;
+      width: 3px;
+      background: linear-gradient(90deg, #e8e4de, #f5f1eb, #e0dcd6);
+      border-radius: 0 2px 2px 0;
+      z-index: 4;
+    }
 
-/* Book label underneath */
-.book-label {
-  margin-top: 10px;
-  padding: 0 4px;
-}
+    .book-cover-shine {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg,
+          rgba(255, 255, 255, 0.13) 0%,
+          rgba(255, 255, 255, 0.04) 25%,
+          transparent 50%,
+          rgba(0, 0, 0, 0.02) 100%);
+      z-index: 3;
+      pointer-events: none;
+    }
 
-.book-label-title {
-  font-family: 'Noto Serif KR', serif;
-  font-weight: 600;
-  font-size: 13px;
-  color: var(--text-primary);
-  line-height: 1.35;
-  letter-spacing: -0.2px;
-}
+    .book-cover-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      text-align: center;
+      padding: clamp(18px, 2.5vw, 28px) 12px clamp(14px, 2vw, 22px);
+      z-index: 1;
+    }
 
-.book-label-sub {
-  font-size: 11px;
-  color: var(--text-tertiary);
-  margin-top: 2px;
-  font-weight: 300;
-}
+    .book-cover-title {
+      font-weight: 700;
+      font-size: clamp(13px, 1.9vw, 17px);
+      color: #fff;
+      line-height: 1.35;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
+      letter-spacing: -0.2px;
+      word-break: keep-all;
+    }
 
-/* NEW badge */
-.book-badge {
-  position: absolute;
-  bottom: 10px;
-  left: 16px;
-  z-index: 6;
-  background: var(--brand-green);
-  color: #fff;
-  font-size: 9px;
-  font-weight: 700;
-  padding: 2px 8px;
-  border-radius: 3px;
-  letter-spacing: 0.5px;
-  text-transform: uppercase;
-}
+    .book-label {
+      margin-top: 8px;
+      padding: 0 2px;
+    }
 
-/* Individual book cover gradients */
-.cover-science {
-  background: linear-gradient(160deg, #2d5016 0%, #1a3a0a 40%, #0f2505 100%);
-}
-.cover-english {
-  background: linear-gradient(160deg, #163c5e 0%, #0d2640 40%, #071828 100%);
-}
-.cover-reading {
-  background: linear-gradient(160deg, #5e3016 0%, #402010 40%, #281008 100%);
-}
-.cover-study-reason {
-  background: linear-gradient(160deg, #4a1638 0%, #300d24 40%, #1e0616 100%);
-}
-.cover-schedule {
-  background: linear-gradient(160deg, #16445e 0%, #0d2e40 40%, #061c28 100%);
-}
-.cover-morning {
-  background: linear-gradient(160deg, #3d3d3d 0%, #252525 40%, #141414 100%);
-}
-.cover-essay {
-  background: linear-gradient(160deg, #5e4416 0%, #402e0d 40%, #281c06 100%);
-}
+    .book-label-title {
+      font-weight: 600;
+      font-size: 12px;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
 
-/* ═══════════════════════════════════════
-   FOOTER
+    .book-label-sub {
+      font-size: 10px;
+      color: var(--text-tertiary);
+      margin-top: 1px;
+    }
+
+    /* Cover color variants — dark, muted, sophisticated */
+    /* apple-books style: top lighter shade → bottom darker */
+    /* 공부하는 이유 — deep navy */
+    .cover-green-1 {
+      background: linear-gradient(180deg, #3a4a6a 0%, #1e2d4e 60%, #111d38 100%);
+    }
+
+    /* 스케줄짜기 — forest */
+    .cover-green-2 {
+      background: linear-gradient(180deg, #2e5040 0%, #1a3428 60%, #0e2018 100%);
+    }
+
+    /* 모닝브리프 — wine */
+    .cover-blue-1 {
+      background: linear-gradient(180deg, #6a2840 0%, #4a1828 60%, #300e18 100%);
+    }
+
+    /* 자소서 — steel */
+    .cover-blue-2 {
+      background: linear-gradient(180deg, #2a4060 0%, #162838 60%, #0a1820 100%);
+    }
+
+    /* 과학단어 — amber brown */
+    .cover-purple-1 {
+      background: linear-gradient(180deg, #5a3a20 0%, #3a2210 60%, #221408 100%);
+    }
+
+    /* 영어단어 — slate purple */
+    .cover-purple-2 {
+      background: linear-gradient(180deg, #3a2a50 0%, #241838 60%, #160e24 100%);
+    }
+
+    /* 독서토론 — deep teal */
+    .cover-purple-3 {
+      background: linear-gradient(180deg, #1e4040 0%, #102828 60%, #081818 100%);
+    }
+
+    /* Homework covers — same dark muted palette */
+    .hw-cover-sci {
+      background: linear-gradient(180deg, #5a3a20 0%, #3a2210 60%, #221408 100%);
+    }
+
+    .hw-cover-eng {
+      background: linear-gradient(180deg, #2a4060 0%, #162838 60%, #0a1820 100%);
+    }
+
+    .hw-cover-read {
+      background: linear-gradient(180deg, #3a2a50 0%, #241838 60%, #160e24 100%);
+    }
+
+    .hw-cover-plan {
+      background: linear-gradient(180deg, #2e5040 0%, #1a3428 60%, #0e2018 100%);
+    }
+
+    /* Apple Books inner-border design for ALL book covers */
+    .book-cover-inner-border {
+      position: absolute;
+      inset: 8px 7px;
+      border: 1px solid rgba(255, 220, 120, 0.35);
+      border-radius: 1px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    .hw-inner-border {
+      position: absolute;
+      inset: 8px 7px;
+      border: 1px solid rgba(255, 220, 120, 0.35);
+      border-radius: 1px;
+      z-index: 4;
+      pointer-events: none;
+    }
+
+    /* Book category sub-label inside cover */
+    .book-cover-cat {
+      font-size: clamp(9px, 1.1vw, 11px);
+      color: rgba(255, 255, 255, 0.48);
+      font-weight: 400;
+      margin-top: 8px;
+      letter-spacing: 0.4px;
+    }
+
+    /* ═══════════════════════════════════════
+   BOTTOM NAV - White frosted glass (iOS style, no desk)
    ═══════════════════════════════════════ */
-.site-footer {
-  background: #f0f0ee;
-  border-top: 0.5px solid rgba(0,0,0,0.06);
-  padding: 28px clamp(20px, 5vw, 48px);
-  text-align: center;
-}
+    .dock-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      /* White frosted glass */
+      background: rgba(255, 255, 255, 0.86);
+      backdrop-filter: blur(20px) saturate(160%);
+      -webkit-backdrop-filter: blur(20px) saturate(160%);
+      border-top: 0.5px solid rgba(0, 0, 0, 0.10);
+      box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.05);
+      padding: 8px clamp(12px, 4vw, 40px) 10px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-around;
+    }
 
-.footer-brand {
-  font-family: 'Noto Serif KR', serif;
-  font-weight: 700;
-  font-size: 14px;
-  color: var(--brand-green);
-}
+    .dock-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      text-decoration: none;
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      transition: transform 0.18s;
+      background: none;
+      border: none;
+      padding: 0;
+    }
 
-.footer-text {
-  font-size: 11px;
-  color: var(--text-tertiary);
-  margin-top: 4px;
-  font-weight: 300;
-}
+    .dock-item:hover {
+      transform: translateY(-2px);
+    }
 
-/* ═══════════════════════════════════════
+    .dock-item:active {
+      transform: scale(0.95);
+    }
+
+    .dock-icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .dock-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: #999;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .dock-item.active .dock-icon svg {
+      stroke: var(--brand-green);
+    }
+
+    .dock-label {
+      font-size: 9.5px;
+      font-weight: 500;
+      color: #aaa;
+      letter-spacing: 0.1px;
+    }
+
+    .dock-item.active .dock-label {
+      color: var(--brand-green);
+      font-weight: 600;
+    }
+
+    /* AI chat modal */
+    .ai-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 500;
+      background: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(4px);
+      align-items: flex-end;
+      justify-content: center;
+    }
+
+    .ai-modal.open {
+      display: flex;
+    }
+
+    .ai-modal-box {
+      width: 100%;
+      max-width: 600px;
+      height: 72vh;
+      background: #fff;
+      border-radius: 20px 20px 0 0;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .ai-modal-header {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ai-modal-title {
+      font-weight: 700;
+      font-size: 16px;
+      color: var(--text-primary);
+    }
+
+    .ai-modal-title span {
+      font-weight: 400;
+      font-size: 12px;
+      color: var(--text-tertiary);
+      margin-left: 6px;
+    }
+
+    .ai-modal-close {
+      background: #f0f0f0;
+      border: none;
+      border-radius: 50%;
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #666;
+    }
+
+    .ai-chat-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .ai-bubble {
+      max-width: 78%;
+      padding: 10px 14px;
+      border-radius: 16px;
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .ai-bubble.ai {
+      background: #f5f5f5;
+      border-radius: 4px 16px 16px 16px;
+      align-self: flex-start;
+      color: #333;
+    }
+
+    .ai-bubble.user {
+      background: #a878d8;
+      color: #fff;
+      border-radius: 16px 4px 16px 16px;
+      align-self: flex-end;
+    }
+
+    .ai-input-row {
+      padding: 12px 16px;
+      border-top: 1px solid #f0f0f0;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .ai-input {
+      flex: 1;
+      border: 1px solid #e0e0e0;
+      border-radius: 20px;
+      padding: 10px 16px;
+      font-size: 13px;
+      outline: none;
+      font-family: inherit;
+      background: #fafafa;
+    }
+
+    .ai-input:focus {
+      border-color: #a878d8;
+    }
+
+    .ai-send-btn {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #a878d8;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .ai-send-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: #fff;
+      stroke: none;
+    }
+
+    /* Safe area */
+    @supports (padding-bottom: env(safe-area-inset-bottom)) {
+      .dock-nav {
+        padding-bottom: calc(8px + env(safe-area-inset-bottom));
+      }
+
+      body {
+        padding-bottom: calc(80px + env(safe-area-inset-bottom));
+      }
+    }
+
+    /* ═══════════════════════════════════════
    ANIMATIONS
    ═══════════════════════════════════════ */
-@keyframes fadeInUp {
-  from { opacity: 0; transform: translateY(18px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px);
+      }
 
-.animate-in {
-  animation: fadeInUp 0.6s ease both;
-}
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-.delay-1 { animation-delay: 0.1s; }
-.delay-2 { animation-delay: 0.2s; }
-.delay-3 { animation-delay: 0.3s; }
-.delay-4 { animation-delay: 0.4s; }
-.delay-5 { animation-delay: 0.5s; }
+    .animate-in {
+      animation: fadeInUp 0.5s ease both;
+    }
 
-/* ═══════════════════════════════════════
+    .delay-1 {
+      animation-delay: 0.1s;
+    }
+
+    .delay-2 {
+      animation-delay: 0.2s;
+    }
+
+    .delay-3 {
+      animation-delay: 0.3s;
+    }
+
+    .delay-4 {
+      animation-delay: 0.4s;
+    }
+
+    /* ═══════════════════════════════════════
    RESPONSIVE
    ═══════════════════════════════════════ */
-@media (max-width: 480px) {
-  .bb-grid { gap: 10px; }
-  .bb-card { padding: 14px 16px; }
-  .book-item { width: 120px; }
-  .diag-card { flex: 0 0 220px; }
-}
+    @media (max-width: 480px) {
+      .book-item {
+        width: 105px;
+      }
 
-@media (min-width: 900px) {
-  .bb-grid { grid-template-columns: 1fr 1fr 1fr; }
-}
-</style>
+      .diag-card {
+        flex: 0 0 200px;
+      }
+
+      .book-spread {
+        flex-direction: column;
+      }
+
+      .book-spread-left {
+        flex: 0 0 auto;
+        padding: 18px 14px;
+      }
+
+      .book-spread-left::before {
+        display: none;
+      }
+
+      .book-spread-left::after {
+        display: none;
+      }
+
+      .book-spread-right::before {
+        display: none;
+      }
+
+      .dock-icon {
+        width: 42px;
+        height: 42px;
+      }
+    }
+
+    @media (max-width: 360px) {
+      .dock-shelf {
+        gap: 8px;
+        padding: 8px 12px;
+      }
+
+      .dock-icon {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+      }
+
+      .dock-label {
+        font-size: 8px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- ═══════════════ NAV BAR ═══════════════ -->
-<nav class="nav-bar">
-  <div class="nav-logo">
-    수석의방
-    <span>스스로 공부하는 힘을 갖게 합니다</span>
-  </div>
-  <div class="nav-right">
-    <a href="#diagnostics" class="nav-link">진단</a>
-    <a href="#bookshelf" class="nav-link">프로그램</a>
-  </div>
-</nav>
-
-<!-- ═══════════════ BULLETIN BOARD ═══════════════ -->
-<section class="bulletin-board" id="bulletin">
-  <div class="bb-header animate-in">
-    <div>
-      <div class="bb-title">오늘의 학습 현황</div>
-      <div class="bb-subtitle">나의 공부 여정을 한눈에 확인합니다</div>
+  <!-- ═══════════════ NAV BAR ═══════════════ -->
+  <nav class="nav-bar">
+    <div class="nav-logo">
+      수석의방
+      <span>스스로 공부하는 힘</span>
     </div>
-    <div class="bb-date-block">
-      <div class="bb-date-day" id="bbDay"></div>
-      <div class="bb-date-info" id="bbDateInfo"></div>
-      <div class="bb-time" id="bbTime"></div>
-    </div>
-  </div>
+  </nav>
 
-  <div class="bb-grid">
-    <!-- Schedule card -->
-    <div class="bb-card animate-in delay-1">
-      <div class="bb-card-label">오늘의 스케줄</div>
-      <div class="bb-card-content">
-        <strong>09:00</strong> 영어 단어 학습<br>
-        <strong>10:30</strong> 과학 개념 복습<br>
-        <strong>14:00</strong> 독서 토론 준비
-      </div>
-    </div>
+  <!-- ═══════════════ BULLETIN BOARD CAROUSEL ═══════════════ -->
+  <section class="bulletin-board" id="bulletin">
+    <div class="bb-carousel" id="bbCarousel">
+      <div class="bb-slides" id="bbSlides">
 
-    <!-- Currently reading -->
-    <div class="bb-card animate-in delay-2">
-      <div class="bb-card-label">지금 읽고 있는 책</div>
-      <div class="bb-reading">
-        <div class="bb-mini-book" style="background: linear-gradient(160deg, #2d5016, #1a3a0a);"></div>
-        <div class="bb-reading-info">
-          <div class="bb-reading-title">과학 단어 선생님</div>
-          <div style="font-size:11px; color: rgba(255,255,255,0.4); margin-top:2px;">진행률 68%</div>
-          <div class="bb-progress-bar">
-            <div class="bb-progress-fill" style="width: 68%;"></div>
+        <!-- SLIDE 1: Planner -->
+        <div class="bb-slide">
+          <div class="bb-slide-header">
+            <div class="bb-slide-title heading-en">Planner</div>
+          </div>
+          <!-- weekly × hourly grid generated by JS -->
+          <div class="planner-week" id="plannerWeek">
+            <div class="planner-week-header" id="plannerWeekHeader">
+              <!-- day labels injected by JS -->
+            </div>
+            <div class="planner-body" id="plannerBody">
+              <!-- rows injected by JS -->
+            </div>
           </div>
         </div>
+
+        <!-- SLIDE 2: On going -->
+        <div class="bb-slide">
+          <div class="bb-slide-header">
+            <div class="bb-slide-title heading-en">On going</div>
+          </div>
+          <div class="ongoing-wrapper">
+            <div class="book-spread">
+              <div class="book-spread-left">
+                <div class="bs-line"></div>
+                <div class="bs-category">수석의 공부법 기본편</div>
+                <div class="bs-title">공부하는 이유</div>
+                <div class="bs-copyright">ⓒ 수석의방</div>
+              </div>
+              <div class="book-spread-right">
+                <div class="bs-header-label">수석의 공부법 기본편</div>
+                <div class="bs-h1">공부를 왜 하나요?</div>
+                <p class="bs-paragraph">오늘은 간단한 질문으로 시작해볼게요.</p>
+                <p class="bs-paragraph">여러분, 공부를 왜 하나요?</p>
+                <p class="bs-paragraph">이 글을 읽기 전에 먼저 내가 생각하는 공부의 이유를 <u>3가지만</u> 아래 빈 칸에 적어봅시다.</p>
+                <div class="bs-form-box">
+                  <div class="bs-form-title"><span class="icon">✎</span>내가 공부하는 이유 3가지</div>
+                  <div class="bs-form-line">1.</div>
+                  <div class="bs-form-line">2.</div>
+                  <div class="bs-form-line">3.</div>
+                </div>
+                <button class="bs-btn">다음으로</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SLIDE 3: Homework -->
+        <div class="bb-slide">
+          <div class="bb-slide-header">
+            <div class="bb-slide-title heading-en">Homework</div>
+          </div>
+          <div class="homework-scroll">
+            <div class="hw-book">
+              <div class="hw-book-cover">
+                <div class="hw-cover-bg hw-cover-sci"></div>
+                <div class="hw-cover-shine"></div>
+                <div class="hw-inner-border"></div>
+                <div style="position:absolute;top:22px;left:0;right:0;text-align:center;z-index:5;">
+                  <div class="hw-cover-title">과학 단어<br>3단원</div>
+                  <div class="hw-cover-subtitle">과학편</div>
+                </div>
+              </div>
+              <div class="hw-book-label">과학 단어</div>
+            </div>
+            <div class="hw-book">
+              <div class="hw-book-cover">
+                <div class="hw-cover-bg hw-cover-eng"></div>
+                <div class="hw-cover-shine"></div>
+                <div class="hw-inner-border"></div>
+                <div style="position:absolute;top:22px;left:0;right:0;text-align:center;z-index:5;">
+                  <div class="hw-cover-title">영단어<br>Day 15</div>
+
+                </div>
+              </div>
+              <div class="hw-book-label">영어 단어</div>
+            </div>
+            <div class="hw-book">
+              <div class="hw-book-cover">
+                <div class="hw-cover-bg hw-cover-read"></div>
+                <div class="hw-cover-shine"></div>
+                <div class="hw-inner-border"></div>
+                <div style="position:absolute;top:22px;left:0;right:0;text-align:center;z-index:5;">
+                  <div class="hw-cover-title">독서 감상문<br>제출</div>
+
+                </div>
+              </div>
+              <div class="hw-book-label">독서 토론</div>
+            </div>
+            <div class="hw-book">
+              <div class="hw-book-cover">
+                <div class="hw-cover-bg hw-cover-plan"></div>
+                <div class="hw-cover-shine"></div>
+                <div class="hw-inner-border"></div>
+                <div style="position:absolute;top:22px;left:0;right:0;text-align:center;z-index:5;">
+                  <div class="hw-cover-title">다음 주<br>계획</div>
+
+                </div>
+              </div>
+              <div class="hw-book-label">스케줄</div>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
-
-    <!-- Study streak -->
-    <div class="bb-card animate-in delay-3">
-      <div class="bb-card-label">학습 연속일</div>
-      <div class="bb-card-content">
-        <strong style="font-size: 28px; color: #e8c068; font-family: 'Noto Serif KR', serif;">12</strong>
-        <span style="font-size: 13px; color: rgba(255,255,255,0.5);">일째 공부 중</span>
-      </div>
+    <div class="bb-dots">
+      <button class="bb-dot active" data-slide="0"></button>
+      <button class="bb-dot" data-slide="1"></button>
+      <button class="bb-dot" data-slide="2"></button>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══════════════ DIAGNOSTICS SECTION ═══════════════ -->
-<section class="section-diagnostics" id="diagnostics">
-  <div class="section-header animate-in">
-    <div class="section-title">나를 알아가는 진단</div>
-    <div class="section-subtitle">정확한 진단이 올바른 학습의 첫걸음입니다</div>
-  </div>
+  <!-- ═══════════════ DIAGNOSTICS SECTION ═══════════════ -->
+  <section class="section-diagnostics" id="diagnostics">
+    <div class="section-header animate-in">
+      <div class="section-title">나를 알아가는 진단</div>
+      <div class="section-subtitle">정확한 진단이 올바른 학습의 첫걸음입니다</div>
+    </div>
 
-  <div class="diag-scroll">
-    <!-- Card 1 -->
-    <div class="diag-card animate-in delay-1">
-      <div class="diag-card-visual">
-        <div class="diag-card-icon">🎯</div>
-      </div>
-      <div class="diag-card-body">
+    <div class="diag-scroll">
+      <div class="diag-card animate-in delay-1">
         <div class="diag-card-title">학습 역량 진단</div>
         <div class="diag-card-desc">멘탈, 머리, 기술, 환경 네 축으로 나의 학습 역량을 종합 진단합니다.</div>
         <div class="diag-card-tag">준비중</div>
       </div>
-    </div>
-
-    <!-- Card 2 -->
-    <div class="diag-card animate-in delay-2">
-      <div class="diag-card-visual">
-        <div class="diag-card-icon">📐</div>
-      </div>
-      <div class="diag-card-body">
+      <div class="diag-card animate-in delay-2">
         <div class="diag-card-title">공부 습관 진단</div>
         <div class="diag-card-desc">나의 공부 루틴과 습관을 점검하고 개선 방향을 제시합니다.</div>
         <div class="diag-card-tag">준비중</div>
       </div>
-    </div>
-
-    <!-- Card 3 -->
-    <div class="diag-card animate-in delay-3">
-      <div class="diag-card-visual">
-        <div class="diag-card-icon">🧭</div>
-      </div>
-      <div class="diag-card-body">
+      <div class="diag-card animate-in delay-3">
         <div class="diag-card-title">진로 적성 탐색</div>
         <div class="diag-card-desc">관심사와 강점을 분석하여 나에게 맞는 진로 방향을 탐색합니다.</div>
         <div class="diag-card-tag">준비중</div>
       </div>
-    </div>
-
-    <!-- Card 4 -->
-    <div class="diag-card animate-in delay-4">
-      <div class="diag-card-visual">
-        <div class="diag-card-icon">💡</div>
-      </div>
-      <div class="diag-card-body">
+      <div class="diag-card animate-in delay-4">
         <div class="diag-card-title">학습 동기 진단</div>
         <div class="diag-card-desc">무엇이 나를 공부하게 만드는지, 내면의 동기를 발견합니다.</div>
         <div class="diag-card-tag">준비중</div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ═══════════════ BOOKSHELF SECTION ═══════════════ -->
-<section class="section-bookshelf" id="bookshelf">
-  <div class="section-header animate-in">
-    <div class="section-title">수석의 프로그램</div>
-    <div class="section-subtitle">각 프로그램을 눌러 학습을 시작하세요</div>
-  </div>
-
-  <div class="bookshelf-scroll">
-
-    <!-- Book 1: 과학 단어 선생님 -->
-    <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/science_teacher/" target="_blank" rel="noopener">
-      <div class="book-cover">
-        <div class="book-cover-bg cover-science">
-          <div>
-            <div class="book-cover-icon">🔬</div>
-            <div class="book-cover-title">과학 단어<br>선생님</div>
-          </div>
-          <div class="book-cover-author">김수석 · 수석의방</div>
-        </div>
-        <div class="book-cover-shine"></div>
-      </div>
-      <div class="book-label">
-        <div class="book-label-title">과학 단어 선생님</div>
-        <div class="book-label-sub">어원으로 배우는 과학</div>
-      </div>
-    </a>
-
-    <!-- Book 2: 영어 단어 선생님 -->
-    <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/kim-soosoek-english/" target="_blank" rel="noopener">
-      <div class="book-cover">
-        <div class="book-cover-bg cover-english">
-          <div>
-            <div class="book-cover-icon">📖</div>
-            <div class="book-cover-title">영어 단어<br>선생님</div>
-          </div>
-          <div class="book-cover-author">김수석 · 수석의방</div>
-        </div>
-        <div class="book-cover-shine"></div>
-      </div>
-      <div class="book-label">
-        <div class="book-label-title">영어 단어 선생님</div>
-        <div class="book-label-sub">단계별 영어 학습</div>
-      </div>
-    </a>
-
-    <!-- Book 3: 독서 토론 선생님 -->
-    <a class="book-item animate-in delay-3" href="#" target="_blank" rel="noopener">
-      <div class="book-cover">
-        <div class="book-cover-bg cover-reading">
-          <div>
-            <div class="book-cover-icon">💬</div>
-            <div class="book-cover-title">독서 토론<br>선생님</div>
-          </div>
-          <div class="book-cover-author">김수석 · 수석의방</div>
-        </div>
-        <div class="book-cover-shine"></div>
-      </div>
-      <div class="book-label">
-        <div class="book-label-title">독서 토론 선생님</div>
-        <div class="book-label-sub">AI와 깊이 있는 토론</div>
-      </div>
-    </a>
-
-    <!-- Book 4: 공부하는 이유 -->
-    <a class="book-item animate-in delay-4" href="https://kimsoosuk.github.io/study-reason/" target="_blank" rel="noopener">
-      <div class="book-cover">
-        <div class="book-cover-bg cover-study-reason">
-          <div>
-            <div class="book-cover-icon">🌱</div>
+  <!-- PROGRAMS: 수석의 공부법 -->
+  <section class="programs-study" id="programs-study">
+    <div class="program-header animate-in">
+      <div class="program-title">수석의 공부법</div>
+      <div class="program-subtitle">공부의 기본기를 다져반세요</div>
+    </div>
+    <div class="program-scroll">
+      <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/study-reason/" target="_blank"
+        rel="noopener">
+        <div class="book-cover">
+          <div class="book-cover-bg cover-green-1">
             <div class="book-cover-title">공부하는<br>이유</div>
+            <div class="book-cover-cat">공부법 기본편</div>
           </div>
-          <div class="book-cover-author">김수석 · 수석의방</div>
+          <div class="book-cover-inner-border"></div>
+          <div class="book-cover-shine"></div>
         </div>
-        <div class="book-cover-shine"></div>
-      </div>
-      <div class="book-label">
-        <div class="book-label-title">공부하는 이유</div>
-        <div class="book-label-sub">수석의 공부법 기본편</div>
-      </div>
-    </a>
-
-    <!-- Book 5: 스케줄 짜기 AI -->
-    <a class="book-item animate-in delay-5" href="https://kimsoosuk.github.io/myschedule/" target="_blank" rel="noopener">
-      <div class="book-cover">
-        <div class="book-cover-bg cover-schedule">
-          <div>
-            <div class="book-cover-icon">📅</div>
+        <div class="book-label">
+          <div class="book-label-title">공부하는 이유</div>
+          <div class="book-label-sub">수석의 공부법 기본편</div>
+        </div>
+      </a>
+      <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/myschedule/" target="_blank"
+        rel="noopener">
+        <div class="book-cover">
+          <div class="book-cover-bg cover-green-2">
             <div class="book-cover-title">스케줄<br>짜기 AI</div>
+            <div class="book-cover-cat">공부법 활용편</div>
           </div>
-          <div class="book-cover-author">김수석 · 수석의방</div>
+          <div class="book-cover-inner-border"></div>
+          <div class="book-cover-shine"></div>
         </div>
-        <div class="book-cover-shine"></div>
-      </div>
-      <div class="book-label">
-        <div class="book-label-title">스케줄 짜기 AI</div>
-        <div class="book-label-sub">나만의 학습 플래너</div>
-      </div>
-    </a>
+        <div class="book-label">
+          <div class="book-label-title">스케줄 짜기 AI</div>
+          <div class="book-label-sub">나만의 학습 플래너</div>
+        </div>
+      </a>
+    </div>
+  </section>
 
-    <!-- Book 6: 모닝 브리프 -->
-    <a class="book-item animate-in delay-5" href="https://kimsoosuk.github.io/newsbriefs/" target="_blank" rel="noopener">
-      <div class="book-cover">
-        <div class="book-cover-bg cover-morning">
-          <div>
-            <div class="book-cover-icon">☀️</div>
+  <!-- ═══════════════ PROGRAMS: 수석의 생활 ═══════════════ -->
+  <section class="programs-life" id="programs-life">
+    <div class="program-header animate-in">
+      <div class="program-title">수석의 생활</div>
+      <div class="program-subtitle">세상과 연결된 생활 학습</div>
+    </div>
+    <div class="program-scroll">
+      <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/newsbriefs/" target="_blank"
+        rel="noopener">
+        <div class="book-cover">
+          <div class="book-cover-bg cover-blue-1">
             <div class="book-cover-title">모닝<br>브리프</div>
+            <div class="book-cover-cat">생활편</div>
           </div>
-          <div class="book-cover-author">김수석 · 수석의방</div>
+          <div class="book-cover-inner-border"></div>
+          <div class="book-cover-shine"></div>
         </div>
-        <div class="book-cover-shine"></div>
-      </div>
-      <div class="book-label">
-        <div class="book-label-title">모닝 브리프</div>
-        <div class="book-label-sub">AI 뉴스 팟캐스트</div>
-      </div>
-    </a>
-
-    <!-- Book 7: 자소서 컨설팅 -->
-    <a class="book-item animate-in delay-5" href="#" target="_blank" rel="noopener">
-      <div class="book-cover">
-        <div class="book-cover-bg cover-essay">
-          <div>
-            <div class="book-cover-icon">✍️</div>
+        <div class="book-label">
+          <div class="book-label-title">모닝 브리프</div>
+          <div class="book-label-sub">AI 뉴스 브리핑</div>
+        </div>
+      </a>
+      <a class="book-item animate-in delay-2" href="#" target="_blank" rel="noopener">
+        <div class="book-cover">
+          <div class="book-cover-bg cover-blue-2">
             <div class="book-cover-title">자소서<br>컨설팅</div>
+            <div class="book-cover-cat">생활편</div>
           </div>
-          <div class="book-cover-author">김수석 · 수석의방</div>
+          <div class="book-cover-inner-border"></div>
+          <div class="book-cover-shine"></div>
         </div>
-        <div class="book-cover-shine"></div>
+        <div class="book-label">
+          <div class="book-label-title">자소서 컨설팅</div>
+          <div class="book-label-sub">입시 자기소개서 도우미</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PROGRAMS: 수석의 머리 ═══════════════ -->
+  <section class="programs-mind" id="programs-mind">
+    <div class="program-header animate-in">
+      <div class="program-title">수석의 머리</div>
+      <div class="program-subtitle">사고력을 키우는 학습 컨텐츠</div>
+    </div>
+    <div class="program-scroll">
+      <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/science_teacher/" target="_blank"
+        rel="noopener">
+        <div class="book-cover">
+          <div class="book-cover-bg cover-purple-1">
+            <div class="book-cover-title">과학 단어<br>선생님</div>
+            <div class="book-cover-cat">이과편</div>
+          </div>
+          <div class="book-cover-inner-border"></div>
+          <div class="book-cover-shine"></div>
+        </div>
+        <div class="book-label">
+          <div class="book-label-title">과학 단어 선생님</div>
+          <div class="book-label-sub">어원으로 배우는 과학</div>
+        </div>
+      </a>
+      <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/kim-soosoek-english/" target="_blank"
+        rel="noopener">
+        <div class="book-cover">
+          <div class="book-cover-bg cover-purple-2">
+            <div class="book-cover-title">영어 단어<br>선생님</div>
+            <div class="book-cover-cat">문과편</div>
+          </div>
+          <div class="book-cover-inner-border"></div>
+          <div class="book-cover-shine"></div>
+        </div>
+        <div class="book-label">
+          <div class="book-label-title">영어 단어 선생님</div>
+          <div class="book-label-sub">단계별 영어 학습</div>
+        </div>
+      </a>
+      <a class="book-item animate-in delay-3" href="#" target="_blank" rel="noopener">
+        <div class="book-cover">
+          <div class="book-cover-bg cover-purple-3">
+            <div class="book-cover-title">독서 토론<br>선생님</div>
+            <div class="book-cover-cat">독서편</div>
+          </div>
+          <div class="book-cover-inner-border"></div>
+          <div class="book-cover-shine"></div>
+        </div>
+        <div class="book-label">
+          <div class="book-label-title">독서 토론 선생님</div>
+          <div class="book-label-sub">AI와 깊이 있는 토론</div>
+        </div>
+      </a>
+    </div>
+  </section>
+
+  <!-- DOCK -->
+  <nav class="dock-nav" id="dockNav">
+    <a class="dock-item active" href="#bulletin" id="dockHome">
+      <div class="dock-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" />
+        </svg>
       </div>
-      <div class="book-label">
-        <div class="book-label-title">자소서 컨설팅</div>
-        <div class="book-label-sub">입시 자기소개서 도우미</div>
-      </div>
+      <span class="dock-label">홈</span>
     </a>
+    <a class="dock-item" href="diagnostics.html" id="dockDiag">
+      <div class="dock-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
+        </svg>
+      </div>
+      <span class="dock-label">진단</span>
+    </a>
+    <a class="dock-item" href="#programs-study" id="dockProg">
+      <div class="dock-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg>
+      </div>
+      <span class="dock-label">프로그램</span>
+    </a>
+    <a class="dock-item" href="#" id="dockStudy">
+      <div class="dock-icon">
+        <svg viewBox="0 0 24 24">
+          <path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+        </svg>
+      </div>
+      <span class="dock-label">내 학습</span>
+    </a>
+    <button class="dock-item" id="dockAI">
+      <div class="dock-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-4 4-1-4z" />
+        </svg>
+      </div>
+      <span class="dock-label">김수석</span>
+    </button>
+  </nav>
 
+  <!-- AI CHAT MODAL -->
+  <div class="ai-modal" id="aiModal">
+    <div class="ai-modal-box">
+      <div class="ai-modal-header">
+        <div class="ai-modal-title">김수석 <span>AI 선생님</span></div>
+        <button class="ai-modal-close" id="aiModalClose">✕</button>
+      </div>
+      <div class="ai-chat-area" id="aiChatArea">
+        <div class="ai-bubble ai">안녕! 나는 김수석이야. 공부에 관한 것이라면 뭐든지 묻어븐. 학습 방법, 시간 관리, 진로 고민... 나는 너의 일에 관심이 많아!</div>
+      </div>
+      <div class="ai-input-row">
+        <input class="ai-input" id="aiInput" type="text" placeholder="김수석에게 묻어보세요..." />
+        <button class="ai-send-btn" id="aiSendBtn">
+          <svg viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" fill="none" />
+          </svg>
+        </button>
+      </div>
+    </div>
   </div>
-</section>
 
-<!-- ═══════════════ FOOTER ═══════════════ -->
-<footer class="site-footer">
-  <div class="footer-brand">수석의방</div>
-  <div class="footer-text">ⓒ 수석의방 · 스스로 공부하는 힘을 갖게 합니다</div>
-</footer>
+  <!-- ═══════════════ SCRIPTS ═══════════════ -->
+  <script>
+    (function () {
+      // ─── Planner: weekly × hourly grid ───
+      // Sample weekly schedule (Mon-Sun index 0-6)
+      // Each entry: { day: 0-6 (Mon=0), h: start hour, end: end hour, type, label }
+      const weekSched = [
+        { day: 0, h: 8, end: 9, type: 'eng', label: '영단어' },
+        { day: 0, h: 9, end: 10, type: 'math', label: '수학' },
+        { day: 0, h: 14, end: 15, type: 'read', label: '독서' },
+        { day: 0, h: 15, end: 16, type: 'sci', label: '과학' },
+        { day: 1, h: 8, end: 9, type: 'math', label: '수학' },
+        { day: 1, h: 9, end: 10, type: 'sci', label: '과학' },
+        { day: 1, h: 14, end: 15, type: 'eng', label: '영단어' },
+        { day: 2, h: 8, end: 9, type: 'eng', label: '영단어' },
+        { day: 2, h: 10, end: 11, type: 'read', label: '독서' },
+        { day: 2, h: 15, end: 16, type: 'math', label: '수학' },
+        { day: 3, h: 8, end: 9, type: 'math', label: '수학' },
+        { day: 3, h: 9, end: 10, type: 'eng', label: '영단어' },
+        { day: 3, h: 14, end: 15, type: 'sci', label: '과학' },
+        { day: 4, h: 8, end: 9, type: 'sci', label: '과학' },
+        { day: 4, h: 14, end: 15, type: 'read', label: '독서' },
+        { day: 4, h: 15, end: 16, type: 'eng', label: '영단어' },
+        { day: 5, h: 10, end: 11, type: 'read', label: '독서' },
+        { day: 5, h: 14, end: 15, type: 'math', label: '수학' },
+        { day: 6, h: 10, end: 11, type: 'math', label: '수학' },
+      ];
 
-<!-- ═══════════════ SCRIPTS ═══════════════ -->
-<script>
-(function() {
-  // Date & Time
-  function updateDateTime() {
-    const now = new Date();
-    const days = ['일', '월', '화', '수', '목', '금', '토'];
-    const day = now.getDate();
-    const month = now.getMonth() + 1;
-    const year = now.getFullYear();
-    const weekday = days[now.getDay()];
-    const hours = now.getHours().toString().padStart(2, '0');
-    const minutes = now.getMinutes().toString().padStart(2, '0');
+      const now = new Date();
+      const todayDow = now.getDay(); // 0=Sun..6=Sat
+      // Convert Sun=0..Sat=6 to Mon=0..Sun=6
+      const todayIdx = (todayDow + 6) % 7;
+      const nowH = now.getHours();
 
-    document.getElementById('bbDay').textContent = day;
-    document.getElementById('bbDateInfo').textContent = `${year}년 ${month}월 · ${weekday}요일`;
-    document.getElementById('bbTime').textContent = `${hours}:${minutes}`;
-  }
+      const DAY_LABELS = ['월', '화', '수', '목', '금', '토', '일'];
+      const HOURS = [7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
-  updateDateTime();
-  setInterval(updateDateTime, 30000);
-
-  // Intersection Observer for scroll animations
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '';
-        entry.target.style.animationPlayState = 'running';
+      // Build header
+      const header = document.getElementById('plannerWeekHeader');
+      if (header) {
+        // time gutter
+        const gutter = document.createElement('div');
+        gutter.className = 'planner-time';
+        header.appendChild(gutter);
+        DAY_LABELS.forEach((label, i) => {
+          const d = document.createElement('div');
+          d.className = 'planner-day-label' + (i === todayIdx ? ' today' : '');
+          d.textContent = label;
+          header.appendChild(d);
+        });
       }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
-  document.querySelectorAll('.animate-in').forEach(el => {
-    el.style.opacity = '0';
-    el.style.animationPlayState = 'paused';
-    observer.observe(el);
-  });
+      // Build body rows
+      const body = document.getElementById('plannerBody');
+      if (body) {
+        HOURS.forEach(h => {
+          const isCurrHour = (todayIdx <= 6 && h === nowH);
+          const row = document.createElement('div');
+          row.className = 'planner-row' + (isCurrHour ? ' current-hour' : '');
 
-  // Smooth nav scroll
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', (e) => {
-      e.preventDefault();
-      const target = document.querySelector(link.getAttribute('href'));
-      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  });
-})();
-</script>
+          // time label
+          const timeEl = document.createElement('div');
+          timeEl.className = 'planner-time' + (isCurrHour ? ' current' : '');
+          timeEl.textContent = String(h).padStart(2, '0') + ':00';
+          row.appendChild(timeEl);
+
+          // 7 day cells
+          DAY_LABELS.forEach((_, dayIdx) => {
+            const cell = document.createElement('div');
+            cell.className = 'planner-cell';
+            // find matching schedule entry
+            const entry = weekSched.find(s => s.day === dayIdx && s.h === h);
+            if (entry) {
+              const block = document.createElement('span');
+              block.className = 'plan-block ' + entry.type;
+              block.textContent = entry.label;
+              cell.appendChild(block);
+            }
+            row.appendChild(cell);
+          });
+
+          body.appendChild(row);
+        });
+
+        // Scroll current hour into view
+        const currentRow = body.querySelector('.current-hour');
+        if (currentRow) {
+          setTimeout(() => currentRow.scrollIntoView({ block: 'center', behavior: 'smooth' }), 300);
+        }
+      }
+
+      // ─── Carousel ───
+      const slides = document.getElementById('bbSlides');
+      const dots = document.querySelectorAll('.bb-dot');
+      let currentSlide = 0;
+      const totalSlides = 3;
+      let autoTimer;
+
+      function goToSlide(index) {
+        currentSlide = index;
+        slides.style.transform = `translateX(-${index * (100 / totalSlides)}%)`;
+        dots.forEach((d, i) => d.classList.toggle('active', i === index));
+      }
+      function nextSlide() { goToSlide((currentSlide + 1) % totalSlides); }
+      function startAuto() { autoTimer = setInterval(nextSlide, 5000); }
+      function stopAuto() { clearInterval(autoTimer); }
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', () => { stopAuto(); goToSlide(parseInt(dot.dataset.slide)); startAuto(); });
+      });
+
+      const carousel = document.getElementById('bbCarousel');
+      let touchStartX = 0;
+      carousel.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; stopAuto(); }, { passive: true });
+      carousel.addEventListener('touchend', e => {
+        const diff = touchStartX - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 50) {
+          if (diff > 0 && currentSlide < totalSlides - 1) goToSlide(currentSlide + 1);
+          else if (diff < 0 && currentSlide > 0) goToSlide(currentSlide - 1);
+        }
+        startAuto();
+      }, { passive: true });
+      carousel.addEventListener('mouseenter', stopAuto);
+      carousel.addEventListener('mouseleave', startAuto);
+      startAuto();
+
+      // ─── Scroll animations ───
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.style.opacity = '';
+            e.target.style.animationPlayState = 'running';
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+      document.querySelectorAll('.animate-in').forEach(el => {
+        el.style.opacity = '0';
+        el.style.animationPlayState = 'paused';
+        observer.observe(el);
+      });
+
+      // ─── Dock scroll + spy ───
+      document.querySelectorAll('.dock-item[href]').forEach(link => {
+        link.addEventListener('click', e => {
+          const href = link.getAttribute('href');
+          if (!href || href === '#' || href.includes('.html')) return;
+          e.preventDefault();
+          const target = document.querySelector(href);
+          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          document.querySelectorAll('.dock-item').forEach(i => i.classList.remove('active'));
+          link.classList.add('active');
+        });
+      });
+
+      const spy = [
+        { id: 'bulletin', el: document.getElementById('dockHome') },
+        { id: 'programs-study', el: document.getElementById('dockProg') },
+      ];
+      let scrollTimer;
+      window.addEventListener('scroll', () => {
+        clearTimeout(scrollTimer);
+        scrollTimer = setTimeout(() => {
+          const scrollY = window.scrollY + window.innerHeight / 3;
+          let active = spy[0];
+          spy.forEach(s => { const el = document.getElementById(s.id); if (el && el.offsetTop <= scrollY) active = s; });
+          document.querySelectorAll('.dock-item').forEach(i => i.classList.remove('active'));
+          if (active.el) active.el.classList.add('active');
+        }, 80);
+      });
+
+      // ─── AI Modal ───
+      const aiModal = document.getElementById('aiModal');
+      const aiInput = document.getElementById('aiInput');
+      const aiArea = document.getElementById('aiChatArea');
+      document.getElementById('dockAI').addEventListener('click', () => aiModal.classList.add('open'));
+      document.getElementById('aiModalClose').addEventListener('click', () => aiModal.classList.remove('open'));
+      aiModal.addEventListener('click', e => { if (e.target === aiModal) aiModal.classList.remove('open'); });
+
+      function addBubble(text, role) {
+        const b = document.createElement('div');
+        b.className = 'ai-bubble ' + role;
+        b.textContent = text;
+        aiArea.appendChild(b);
+        aiArea.scrollTop = aiArea.scrollHeight;
+      }
+      const replies = ['어떤 과목이 힘들어?', '조금 더 자세히 말해줘.', '1주일 헬틴 슐새는 어때?', '같이 찾아보자!'];
+      let replyIdx = 0;
+      function sendMsg() {
+        const txt = aiInput.value.trim();
+        if (!txt) return;
+        addBubble(txt, 'user');
+        aiInput.value = '';
+        setTimeout(() => addBubble(replies[replyIdx++ % replies.length], 'ai'), 700);
+      }
+      document.getElementById('aiSendBtn').addEventListener('click', sendMsg);
+      aiInput.addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
+
+    })();
+  </script>
 
 </body>
+
 </html>
