@@ -2003,14 +2003,10 @@
 
       // ─── Carousel nav arrows ───
       document.getElementById('bbPrev').addEventListener('click', () => {
-        stopAuto();
         goToSlide(currentSlide > 0 ? currentSlide - 1 : totalSlides - 1);
-        startAuto();
       });
       document.getElementById('bbNext').addEventListener('click', () => {
-        stopAuto();
         goToSlide((currentSlide + 1) % totalSlides);
-        startAuto();
       });
 
     })();
