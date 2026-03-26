@@ -7,42 +7,39 @@
   <title>수석의방 — 스스로 공부하는 힘</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet">
   <style>
-    /* ═══════════════════════════════════════
-   CSS RESET & VARIABLES
-   ═══════════════════════════════════════ */
     *,
     *::before,
     *::after {
       margin: 0;
       padding: 0;
-      box-sizing: border-box;
+      box-sizing: border-box
     }
 
     :root {
-      --bg-white: #ffffff;
-      --bg-light: #fafafa;
-      --text-primary: #222222;
-      --text-secondary: #777777;
-      --text-tertiary: #aaaaaa;
-
-      --brand-green: #2a7d3f;
-      --brand-green-light: #e8f5e9;
-
-      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04);
-      --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06);
-      --shadow-book: 0 4px 16px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.04);
-
+      --bg-white: #fff;
+      --text-primary: #222;
+      --text-secondary: #777;
+      --text-tertiary: #aaa;
+      --brand: #5b3a7a;
+      --brand-light: #f3eef8;
+      --brand-dark: #3d2258;
+      --brand-dim: rgba(91, 58, 122, .12);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, .04);
+      --shadow-md: 0 4px 12px rgba(0, 0, 0, .06);
+      --shadow-book: 0 4px 16px rgba(0, 0, 0, .1), 0 2px 4px rgba(0, 0, 0, .04);
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
-      --radius-book: 3px 8px 8px 3px;
+      --radius-book: 3px 8px 8px 3px
     }
 
     html {
       scroll-behavior: smooth;
-      -webkit-font-smoothing: antialiased;
+      -webkit-font-smoothing: antialiased
     }
 
     body {
@@ -51,65 +48,49 @@
       background: var(--bg-white);
       overflow-x: hidden;
       min-height: 100vh;
-      padding-bottom: 80px;
+      padding-bottom: 60px
     }
 
-    /* English serif for headings */
-    .heading-en {
-      font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
-    }
-
-    /* Korean serif for book body text */
-    .serif-kr {
-      font-family: 'Noto Serif KR', Georgia, serif;
-    }
-
-    /* ═══════════════════════════════════════
-   BULLETIN BOARD - frameless 3-page carousel
-   ═══════════════════════════════════════ */
+    /* ═══ BULLETIN BOARD ═══ */
     .bulletin-board {
-      background: linear-gradient(180deg, #ffffff 0%, #ffffff 70%, #f0f2f5 100%);
+      background: linear-gradient(180deg, #fff 0%, #fff 70%, #f0f2f5 100%);
       padding: 0;
       position: relative;
       overflow: hidden;
       height: calc(100vh - 120px);
       min-height: 500px;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, .1), 0 2px 6px rgba(0, 0, 0, .05)
     }
 
     .bb-carousel {
       position: relative;
       width: 100%;
       height: 100%;
-      overflow: hidden;
-      background: transparent;
-      box-shadow: none;
-      border-radius: 0;
+      overflow: hidden
     }
 
     .bb-slides {
       display: flex;
-      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-      width: 300%;
-      height: 100%;
+      transition: transform .5s cubic-bezier(.4, 0, .2, 1);
+      width: 500%;
+      height: 100%
     }
 
     .bb-slide {
-      width: 33.3333%;
+      width: 20%;
       flex-shrink: 0;
       padding: clamp(20px, 4vw, 36px) clamp(16px, 4vw, 40px) clamp(16px, 3vw, 28px);
       overflow: hidden;
       height: 100%;
       display: flex;
-      flex-direction: column;
+      flex-direction: column
     }
 
-    /* Slide header — no subtitle */
     .bb-slide-header {
       display: flex;
       align-items: baseline;
       gap: 10px;
-      margin-bottom: clamp(16px, 2.5vw, 26px);
+      margin-bottom: clamp(16px, 2.5vw, 26px)
     }
 
     .bb-slide-title {
@@ -117,35 +98,33 @@
       font-weight: 700;
       font-size: clamp(28px, 4.5vw, 42px);
       color: var(--text-primary);
-      letter-spacing: -0.5px;
+      letter-spacing: -.5px
     }
 
-    /* Dot indicators */
     .bb-dots {
       display: flex;
       justify-content: center;
       gap: 8px;
-      padding: 12px 0 14px;
+      padding: 12px 0 14px
     }
 
     .bb-dot {
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: rgba(0, 0, 0, 0.18);
+      background: rgba(0, 0, 0, .18);
       border: none;
       cursor: pointer;
-      transition: all 0.3s;
-      padding: 0;
+      transition: all .3s;
+      padding: 0
     }
 
     .bb-dot.active {
-      background: var(--brand-green);
+      background: var(--brand);
       width: 20px;
-      border-radius: 4px;
+      border-radius: 4px
     }
 
-    /* Carousel navigation arrows */
     .bb-nav-btn {
       position: absolute;
       top: 50%;
@@ -154,20 +133,20 @@
       width: 36px;
       height: 36px;
       border-radius: 50%;
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(255, 255, 255, .85);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(0, 0, 0, 0.08);
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      border: 1px solid rgba(0, 0, 0, .08);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .08);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.2s;
+      transition: all .2s
     }
 
     .bb-nav-btn:hover {
-      background: rgba(255, 255, 255, 1);
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.12);
+      background: #fff;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, .12)
     }
 
     .bb-nav-btn svg {
@@ -177,26 +156,29 @@
       stroke-width: 2;
       fill: none;
       stroke-linecap: round;
-      stroke-linejoin: round;
+      stroke-linejoin: round
     }
 
-    .bb-nav-prev { left: 12px; }
-    .bb-nav-next { right: 12px; }
+    .bb-nav-prev {
+      left: 12px
+    }
 
-    /* ─── SLIDE 1: Planner — weekly × hourly grid ─── */
+    .bb-nav-next {
+      right: 12px
+    }
+
+    /* Planner */
     .planner-week {
       flex: 1;
       display: flex;
       flex-direction: column;
-      overflow: hidden;
-      gap: 0;
+      overflow: hidden
     }
 
     .planner-week-header {
       display: grid;
       grid-template-columns: 44px repeat(7, 1fr);
-      border-bottom: 1.5px solid rgba(0, 0, 0, 0.1);
-      margin-bottom: 0;
+      border-bottom: 1.5px solid rgba(0, 0, 0, .1)
     }
 
     .planner-day-label {
@@ -204,32 +186,28 @@
       font-size: 11px;
       font-weight: 700;
       color: #888;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      padding: 6px 0;
+      padding: 6px 0
     }
 
     .planner-day-label.today {
-      color: var(--brand-green);
+      color: var(--brand)
     }
 
     .planner-body {
       flex: 1;
       overflow-y: auto;
-      scrollbar-width: none;
-      position: relative;
+      scrollbar-width: none
     }
 
     .planner-body::-webkit-scrollbar {
-      display: none;
+      display: none
     }
 
     .planner-row {
       display: grid;
       grid-template-columns: 44px repeat(7, 1fr);
-      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-      position: relative;
-      min-height: 48px;
+      border-bottom: 1px solid rgba(0, 0, 0, .05);
+      min-height: 48px
     }
 
     .planner-time {
@@ -238,28 +216,27 @@
       font-variant-numeric: tabular-nums;
       padding: 8px 6px 0 0;
       text-align: right;
-      line-height: 1;
+      line-height: 1
     }
 
     .planner-time.current {
-      color: var(--brand-green);
-      font-weight: 700;
+      color: var(--brand);
+      font-weight: 700
     }
 
     .planner-cell {
       padding: 4px 3px;
       display: flex;
       align-items: stretch;
-      justify-content: center;
+      justify-content: center
     }
 
-    /* current hour box for today only */
     .planner-cell.current-cell {
-      background: rgba(42, 125, 63, 0.08);
-      outline: 1.5px solid var(--brand-green);
+      background: var(--brand-dim);
+      outline: 1.5px solid var(--brand);
       outline-offset: -1.5px;
       border-radius: 4px;
-      z-index: 2;
+      z-index: 2
     }
 
     .plan-block {
@@ -267,7 +244,6 @@
       align-items: center;
       justify-content: center;
       width: 100%;
-      height: 100%;
       min-height: 38px;
       padding: 3px 4px;
       border-radius: 4px;
@@ -276,35 +252,30 @@
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      text-align: center;
+      text-align: center
     }
 
     .plan-block.math {
-      background: rgba(26, 107, 181, 0.12);
-      color: #1a6bb5;
+      background: rgba(26, 107, 181, .12);
+      color: #1a6bb5
     }
 
     .plan-block.eng {
-      background: rgba(199, 43, 106, 0.12);
-      color: #c72b6a;
+      background: rgba(199, 43, 106, .12);
+      color: #c72b6a
     }
 
     .plan-block.sci {
-      background: rgba(30, 125, 75, 0.12);
-      color: #1e7d4b;
+      background: rgba(30, 125, 75, .12);
+      color: #1e7d4b
     }
 
     .plan-block.read {
-      background: rgba(196, 95, 0, 0.12);
-      color: #c45f00;
+      background: rgba(196, 95, 0, .12);
+      color: #c45f00
     }
 
-    .plan-block.free {
-      background: rgba(107, 63, 192, 0.12);
-      color: #6b3fc0;
-    }
-
-    /* ─── SLIDE 2: On going (Book Spread) ─── */
+    /* Ongoing */
     .ongoing-wrapper {
       flex: 1;
       display: flex;
@@ -312,22 +283,21 @@
       justify-content: center;
       padding: 10px;
       width: 100%;
-      min-height: 0;
+      min-height: 0
     }
 
     .book-spread {
       display: flex;
-      aspect-ratio: 1.4 / 1;
+      aspect-ratio: 1.4/1;
       height: 100%;
       max-height: 520px;
       width: auto;
       max-width: 100%;
-      /* Dark leather cover background showing at margins */
       background: #4a3b32;
       border-radius: 4px;
-      padding: 4px 6px 6px 6px;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      position: relative;
+      padding: 4px 6px 6px;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, .25), inset 0 1px 0 rgba(255, 255, 255, .1);
+      position: relative
     }
 
     .book-spread::after {
@@ -337,9 +307,9 @@
       bottom: 0;
       left: 50%;
       width: 2px;
-      background: rgba(0, 0, 0, 0.4);
+      background: rgba(0, 0, 0, .4);
       z-index: 10;
-      transform: translateX(-50%);
+      transform: translateX(-50%)
     }
 
     .bs-page {
@@ -349,54 +319,36 @@
       position: relative;
       overflow: hidden;
       display: flex;
-      flex-direction: column;
+      flex-direction: column
     }
 
     .bs-page-left {
       border-radius: 2px 0 0 2px;
-      box-shadow: inset -15px 0 20px -15px rgba(0, 0, 0, 0.25);
+      box-shadow: inset -15px 0 20px -15px rgba(0, 0, 0, .25)
     }
 
     .bs-page-right {
       border-radius: 0 2px 2px 0;
-      box-shadow: inset 15px 0 20px -15px rgba(0, 0, 0, 0.25);
+      box-shadow: inset 15px 0 20px -15px rgba(0, 0, 0, .25)
     }
 
-    /* Page Numbers */
-    .bs-page-num {
-      position: absolute;
-      bottom: 20px;
-      font-size: 10px;
-      color: #bfae9e;
-      font-family: 'Playfair Display', serif;
-    }
-
-    .bs-page-left .bs-page-num {
-      left: 24px;
-    }
-
-    .bs-page-right .bs-page-num {
-      right: 24px;
-    }
-
-    /* Left Content */
     .bs-left-content {
       margin: auto;
-      text-align: center;
+      text-align: center
     }
 
     .bs-gold-line {
       width: 24px;
       height: 1.5px;
       background: #c2a878;
-      margin: 0 auto 16px;
+      margin: 0 auto 16px
     }
 
     .bs-category {
       font-size: 11px;
       color: #999;
-      letter-spacing: 0.5px;
-      margin-bottom: 8px;
+      letter-spacing: .5px;
+      margin-bottom: 8px
     }
 
     .bs-title {
@@ -404,27 +356,26 @@
       font-weight: 700;
       font-size: clamp(20px, 3.5vw, 26px);
       color: #4a3b32;
-      margin-bottom: 24px;
+      margin-bottom: 24px
     }
 
     .bs-copyright {
       font-size: 10px;
-      color: #bbb;
+      color: #bbb
     }
 
-    /* Right Content */
     .bs-right-top {
       text-align: right;
       font-size: 9px;
       color: #aaa;
-      padding: 24px 24px 0;
+      padding: 24px 24px 0
     }
 
     .bs-right-content {
       padding: 16px clamp(16px, 3vw, 32px);
       flex: 1;
       display: flex;
-      flex-direction: column;
+      flex-direction: column
     }
 
     .bs-h1 {
@@ -436,7 +387,7 @@
       display: inline-block;
       border-bottom: 2px solid #e0d0a0;
       padding-bottom: 4px;
-      align-self: flex-start;
+      align-self: flex-start
     }
 
     .bs-paragraph {
@@ -445,13 +396,13 @@
       color: #555;
       line-height: 1.8;
       margin-bottom: 14px;
-      word-break: keep-all;
+      word-break: keep-all
     }
 
     .bs-highlight {
-      background: rgba(194, 168, 120, 0.2);
+      background: rgba(194, 168, 120, .2);
       padding: 0 4px;
-      border-radius: 2px;
+      border-radius: 2px
     }
 
     .bs-form-box {
@@ -460,7 +411,7 @@
       border-radius: 8px;
       padding: 16px;
       margin-top: 10px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .02)
     }
 
     .bs-form-title {
@@ -470,19 +421,19 @@
       margin-bottom: 12px;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 6px
     }
 
     .bs-form-title .icon {
       background: #c2a878;
-      color: white;
+      color: #fff;
       width: 16px;
       height: 16px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 3px;
-      font-size: 9px;
+      font-size: 9px
     }
 
     .bs-form-line {
@@ -490,24 +441,10 @@
       padding: 8px 0;
       font-size: 12px;
       color: #ccc;
-      font-style: italic;
+      font-style: italic
     }
 
-    .bs-btn {
-      align-self: flex-end;
-      margin-top: 16px;
-      background: #6b5543;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 8px 18px;
-      border-radius: 20px;
-      border: none;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(107, 85, 67, 0.3);
-    }
-
-    /* ─── SLIDE 3: Homework ─── */
+    /* Homework */
     .homework-scroll {
       flex: 1;
       display: flex;
@@ -517,30 +454,30 @@
       overflow-x: auto;
       padding: 10px;
       scrollbar-width: none;
-      flex-wrap: nowrap;
+      flex-wrap: nowrap
     }
 
     .homework-scroll::-webkit-scrollbar {
-      display: none;
+      display: none
     }
 
     .hw-book {
       flex: 0 0 clamp(160px, 28vw, 220px);
       cursor: pointer;
-      transition: transform 0.25s;
+      transition: transform .25s
     }
 
     .hw-book:hover {
-      transform: translateY(-5px) scale(1.02);
+      transform: translateY(-5px) scale(1.02)
     }
 
     .hw-book-cover {
       width: 100%;
-      aspect-ratio: 3 / 4.2;
+      aspect-ratio: 3/4.2;
       border-radius: var(--radius-book);
       position: relative;
       overflow: hidden;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18), 0 2px 6px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .18), 0 2px 6px rgba(0, 0, 0, .08)
     }
 
     .hw-book-cover::before {
@@ -550,14 +487,8 @@
       top: 0;
       bottom: 0;
       width: 14px;
-      background: linear-gradient(90deg,
-          rgba(0, 0, 0, 0.25) 0%,
-          rgba(0, 0, 0, 0.12) 15%,
-          rgba(255, 255, 255, 0.15) 20%,
-          rgba(255, 255, 255, 0.05) 26%,
-          rgba(0, 0, 0, 0.04) 38%,
-          transparent 100%);
-      z-index: 3;
+      background: linear-gradient(90deg, rgba(0, 0, 0, .25) 0%, rgba(0, 0, 0, .12) 15%, rgba(255, 255, 255, .15) 20%, rgba(255, 255, 255, .05) 26%, rgba(0, 0, 0, .04) 38%, transparent 100%);
+      z-index: 3
     }
 
     .hw-book-cover::after {
@@ -567,32 +498,32 @@
       top: 3px;
       bottom: 3px;
       width: 3px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.15));
+      background: linear-gradient(180deg, rgba(255, 255, 255, .4), rgba(255, 255, 255, .15));
       border-radius: 0 2px 2px 0;
-      z-index: 3;
+      z-index: 3
     }
 
     .hw-cover-bg {
       position: absolute;
       inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 12px 16px 14px;
-      z-index: 1;
+      z-index: 1
     }
 
-    /* cover shine overlay */
     .hw-cover-shine {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg,
-          rgba(255, 255, 255, 0.18) 0%,
-          rgba(255, 255, 255, 0.06) 30%,
-          transparent 55%,
-          rgba(0, 0, 0, 0.04) 100%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, .18) 0%, rgba(255, 255, 255, .06) 30%, transparent 55%, rgba(0, 0, 0, .04) 100%);
       z-index: 2;
-      pointer-events: none;
+      pointer-events: none
+    }
+
+    .hw-inner-border {
+      position: absolute;
+      inset: 8px 7px;
+      border: 1px solid rgba(255, 220, 120, .35);
+      border-radius: 1px;
+      z-index: 4;
+      pointer-events: none
     }
 
     .hw-cover-title {
@@ -600,127 +531,71 @@
       font-size: clamp(16px, 2.5vw, 20px);
       color: #fff;
       line-height: 1.35;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
-      letter-spacing: -0.2px;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, .45)
     }
 
     .hw-cover-subtitle {
       font-size: clamp(11px, 1.5vw, 13px);
-      color: rgba(255, 255, 255, 0.8);
-      margin-top: 8px;
-      font-weight: 400;
+      color: rgba(255, 255, 255, .8);
+      margin-top: 8px
     }
 
-    /* ═══════════════════════════════════════
-   SECTION: DIAGNOSTICS  
-   ═══════════════════════════════════════ */
-    .section-diagnostics {
-      background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 100%);
-      padding: clamp(32px, 5vw, 48px) clamp(16px, 4vw, 40px);
+    .hw-cover-sci {
+      background: linear-gradient(180deg, #2e5040 0%, #1a3428 60%, #0e2018 100%)
     }
 
-    .section-header {
-      margin-bottom: 22px;
+    .hw-cover-eng {
+      background: linear-gradient(180deg, #2a4060 0%, #162838 60%, #0a1820 100%)
     }
 
-    .section-title {
-      font-weight: 700;
-      font-size: clamp(18px, 2.8vw, 24px);
-      color: var(--text-primary);
-      letter-spacing: -0.3px;
+    .hw-cover-read {
+      background: linear-gradient(180deg, #4a2a50 0%, #301838 60%, #1e0e24 100%)
     }
 
-    .section-subtitle {
-      font-size: 12px;
-      color: var(--text-secondary);
-      margin-top: 3px;
-      font-weight: 400;
+    .hw-cover-plan {
+      background: linear-gradient(180deg, #2e4868 0%, #1a3048 60%, #0e1c2e 100%)
     }
 
-    .diag-scroll {
-      display: flex;
-      gap: 14px;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      padding: 2px 0 12px;
-      scrollbar-width: none;
+    /* ═══ PROGRAM SECTIONS ═══ */
+    .programs-section {
+      background: linear-gradient(180deg, #fff 0%, #fff 70%, #f0f2f5 100%);
+      padding: clamp(44px, 6vw, 68px) clamp(16px, 4vw, 40px) clamp(40px, 5vw, 56px);
+      position: relative;
+      z-index: 1;
+      overflow: visible
     }
 
-    .diag-scroll::-webkit-scrollbar {
-      display: none;
+    /* Bottom edge shadow that darkens upward */
+    .programs-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 20px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .06));
+      pointer-events: none
     }
 
-    .diag-card {
-      flex: 0 0 clamp(200px, 40vw, 280px);
-      scroll-snap-align: start;
-      background: #fff;
-      border-radius: var(--radius-md);
-      padding: 18px 20px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(0, 0, 0, 0.04);
-      transition: box-shadow 0.3s, transform 0.3s;
-      cursor: pointer;
-    }
-
-    .diag-card:hover {
-      box-shadow: var(--shadow-md);
-      transform: translateY(-2px);
-    }
-
-    .diag-card-title {
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--text-primary);
-      margin-bottom: 5px;
-    }
-
-    .diag-card-desc {
-      font-size: 11px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
-    .diag-card-tag {
-      display: inline-block;
-      margin-top: 10px;
-      font-size: 10px;
-      font-weight: 600;
-      color: var(--brand-green);
-      background: var(--brand-green-light);
-      padding: 3px 10px;
-      border-radius: 20px;
-    }
-
-    /* ═══════════════════════════════════════
-   PROGRAM SECTIONS - Apple Books gradient pattern
-   White top → gray bottom, heavy shadow at section bottom
-   ═══════════════════════════════════════ */
-
-    .programs-study,
-    .programs-life,
-    .programs-mind {
-      background: linear-gradient(180deg, #ffffff 0%, #ffffff 70%, #f0f2f5 100%);
-      padding: clamp(28px, 4vw, 48px) clamp(16px, 4vw, 40px);
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1), 0 2px 6px rgba(0, 0, 0, 0.05);
+    #sec-diag::after {
+      display: none
     }
 
     .program-header {
-      margin-bottom: 22px;
+      margin-bottom: 32px
     }
 
     .program-title {
       font-weight: 800;
       font-size: clamp(24px, 3.5vw, 32px);
       color: var(--text-primary);
-      letter-spacing: -0.5px;
+      letter-spacing: -.5px
     }
 
     .program-subtitle {
       font-size: 13px;
       color: var(--text-secondary);
-      margin-top: 4px;
-      font-weight: 400;
+      margin-top: 6px
     }
 
     .program-scroll {
@@ -729,70 +604,68 @@
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
-      padding: 6px 0 20px;
+      padding: 6px 4px 36px;
       scrollbar-width: none;
+      overflow-y: visible
     }
 
     .program-scroll::-webkit-scrollbar {
-      display: none;
+      display: none
     }
 
-    /* Book item (shared) */
+    /* Book item */
     .book-item {
       flex: 0 0 auto;
       width: clamp(160px, 28vw, 220px);
       scroll-snap-align: start;
       cursor: pointer;
-      transition: transform 0.25s ease;
+      transition: transform .25s ease;
       text-decoration: none;
       color: inherit;
       display: block;
+      position: relative;
+      z-index: 2
     }
 
     .book-item:hover {
-      transform: translateY(-8px) scale(1.05);
-    }
-
-    .book-item:active {
-      transform: translateY(-2px);
+      transform: translateY(-8px) scale(1.03);
+      z-index: 10
     }
 
     .book-cover {
       width: 100%;
-      aspect-ratio: 3 / 4.2;
+      aspect-ratio: 3/4.2;
+      border-radius: var(--radius-book);
+      position: relative;
+      overflow: visible
+    }
+
+    .book-cover-iw {
+      width: 100%;
+      height: 100%;
       border-radius: var(--radius-book);
       position: relative;
       overflow: hidden;
-      box-shadow: var(--shadow-book);
-      transition: box-shadow 0.25s ease, transform 0.25s ease;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06);
+      transition: box-shadow .25s ease
     }
 
-    .book-item:hover .book-cover {
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25), 0 6px 14px rgba(0, 0, 0, 0.10);
-      transform: scale(1.03);
+    .book-item:hover .book-cover-iw {
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .12), 0 4px 10px rgba(0, 0, 0, .06)
     }
 
-    /* Spine - hardcover fold */
-    .book-cover::before {
+    .book-cover-iw::before {
       content: '';
       position: absolute;
       left: 0;
       top: 0;
       bottom: 0;
       width: 16px;
-      background: linear-gradient(90deg,
-          rgba(0, 0, 0, 0.28) 0%,
-          rgba(0, 0, 0, 0.15) 15%,
-          rgba(255, 255, 255, 0.12) 20%,
-          rgba(255, 255, 255, 0.05) 26%,
-          rgba(0, 0, 0, 0.06) 35%,
-          rgba(0, 0, 0, 0.02) 55%,
-          transparent 100%);
-      z-index: 5;
+      background: linear-gradient(90deg, rgba(0, 0, 0, .28) 0%, rgba(0, 0, 0, .15) 15%, rgba(255, 255, 255, .12) 20%, rgba(255, 255, 255, .05) 26%, rgba(0, 0, 0, .06) 35%, rgba(0, 0, 0, .02) 55%, transparent 100%);
+      z-index: 5
     }
 
-    /* Page edge right */
-    .book-cover::after {
+    .book-cover-iw::after {
       content: '';
       position: absolute;
       right: 0;
@@ -801,31 +674,46 @@
       width: 3px;
       background: linear-gradient(90deg, #e8e4de, #f5f1eb, #e0dcd6);
       border-radius: 0 2px 2px 0;
-      z-index: 4;
+      z-index: 4
     }
 
     .book-cover-shine {
       position: absolute;
       inset: 0;
-      background: linear-gradient(135deg,
-          rgba(255, 255, 255, 0.13) 0%,
-          rgba(255, 255, 255, 0.04) 25%,
-          transparent 50%,
-          rgba(0, 0, 0, 0.02) 100%);
+      background: linear-gradient(135deg, rgba(255, 255, 255, .13) 0%, rgba(255, 255, 255, .04) 25%, transparent 50%, rgba(0, 0, 0, .02) 100%);
       z-index: 3;
-      pointer-events: none;
+      pointer-events: none
     }
 
     .book-cover-bg {
       position: absolute;
       inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
+      z-index: 1
+    }
+
+    .book-cover-inner-border {
+      position: absolute;
+      inset: 8px 7px;
+      border: 1px solid rgba(255, 220, 120, .35);
+      border-radius: 1px;
+      z-index: 4;
+      pointer-events: none
+    }
+
+    .bc-text {
+      position: absolute;
+      left: 0;
+      right: 0;
       text-align: center;
-      padding: clamp(18px, 2.5vw, 28px) 12px clamp(14px, 2vw, 22px);
-      z-index: 1;
+      z-index: 5
+    }
+
+    .bc-top {
+      top: 32px
+    }
+
+    .bc-bot {
+      bottom: 32px
     }
 
     .book-cover-title {
@@ -833,322 +721,823 @@
       font-size: clamp(17px, 2.5vw, 22px);
       color: #fff;
       line-height: 1.35;
-      text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
-      letter-spacing: -0.2px;
-      word-break: keep-all;
+      text-shadow: 0 2px 6px rgba(0, 0, 0, .45);
+      letter-spacing: -.2px;
+      word-break: keep-all
+    }
+
+    .book-cover-cat {
+      font-size: clamp(10px, 1.4vw, 13px);
+      color: rgba(255, 255, 255, .55);
+      font-weight: 400;
+      margin-top: 8px;
+      letter-spacing: .4px
     }
 
     .book-label {
-      margin-top: 8px;
-      padding: 0 2px;
+      margin-top: 12px;
+      padding: 0 2px
     }
 
     .book-label-title {
       font-weight: 600;
       font-size: 12px;
       color: var(--text-primary);
-      line-height: 1.3;
+      line-height: 1.3
     }
 
     .book-label-sub {
       font-size: 10px;
       color: var(--text-tertiary);
-      margin-top: 1px;
+      margin-top: 1px
     }
 
-    /* Cover color variants — dark, muted, sophisticated */
-    /* ═══ 공부법 (Study) — green/forest/moss tones ═══ */
-    .cover-study-1 {
-      background: linear-gradient(180deg, #2e5040 0%, #1a3428 60%, #0e2018 100%);
-    }
-    .cover-study-2 {
-      background: linear-gradient(180deg, #3a5a3a 0%, #243a22 60%, #152014 100%);
-    }
-    .cover-study-3 {
-      background: linear-gradient(180deg, #2a4a38 0%, #183020 60%, #0c1c10 100%);
-    }
-    .cover-study-4 {
-      background: linear-gradient(180deg, #3c5c44 0%, #264030 60%, #162818 100%);
-    }
-    .cover-study-5 {
-      background: linear-gradient(180deg, #344e3c 0%, #1e3424 60%, #102014 100%);
-    }
-    .cover-study-6 {
-      background: linear-gradient(180deg, #2a4830 0%, #183020 60%, #0c1c10 100%);
-    }
-    .cover-study-7 {
-      background: linear-gradient(180deg, #385040 0%, #223828 60%, #142418 100%);
+    /* Cover colors */
+    .cover-s1 {
+      background: linear-gradient(180deg, #2e5040 0%, #1a3428 60%, #0e2018 100%)
     }
 
-    /* ═══ 생활 (Life) — blue/steel/navy tones ═══ */
-    .cover-life-1 {
-      background: linear-gradient(180deg, #2a4060 0%, #162838 60%, #0a1820 100%);
-    }
-    .cover-life-2 {
-      background: linear-gradient(180deg, #2e4868 0%, #1a3048 60%, #0e1c2e 100%);
-    }
-    .cover-life-3 {
-      background: linear-gradient(180deg, #243a58 0%, #142840 60%, #0a1828 100%);
-    }
-    .cover-life-4 {
-      background: linear-gradient(180deg, #324c6a 0%, #1e3450 60%, #102236 100%);
+    .cover-s2 {
+      background: linear-gradient(180deg, #3a5a3a 0%, #243a22 60%, #152014 100%)
     }
 
-    /* ═══ 머리 (Mind) — purple/wine/plum tones ═══ */
-    .cover-mind-1 {
-      background: linear-gradient(180deg, #4a2a50 0%, #301838 60%, #1e0e24 100%);
-    }
-    .cover-mind-2 {
-      background: linear-gradient(180deg, #5a2840 0%, #3e1828 60%, #280e18 100%);
+    .cover-s3 {
+      background: linear-gradient(180deg, #2a4a38 0%, #183020 60%, #0c1c10 100%)
     }
 
-    /* Homework covers */
-    .hw-cover-sci {
-      background: linear-gradient(180deg, #2e5040 0%, #1a3428 60%, #0e2018 100%);
+    .cover-s4 {
+      background: linear-gradient(180deg, #3c5c44 0%, #264030 60%, #162818 100%)
     }
 
-    .hw-cover-eng {
-      background: linear-gradient(180deg, #2a4060 0%, #162838 60%, #0a1820 100%);
+    .cover-s5 {
+      background: linear-gradient(180deg, #344e3c 0%, #1e3424 60%, #102014 100%)
     }
 
-    .hw-cover-read {
-      background: linear-gradient(180deg, #4a2a50 0%, #301838 60%, #1e0e24 100%);
+    .cover-m1 {
+      background: linear-gradient(180deg, #4a2a50 0%, #301838 60%, #1e0e24 100%)
     }
 
-    .hw-cover-plan {
-      background: linear-gradient(180deg, #2e4868 0%, #1a3048 60%, #0e1c2e 100%);
+    .cover-m2 {
+      background: linear-gradient(180deg, #5a2840 0%, #3e1828 60%, #280e18 100%)
     }
 
-    /* Apple Books inner-border design for ALL book covers */
-    .book-cover-inner-border {
-      position: absolute;
-      inset: 8px 7px;
-      border: 1px solid rgba(255, 220, 120, 0.35);
-      border-radius: 1px;
-      z-index: 4;
-      pointer-events: none;
+    .cover-h1 {
+      background: linear-gradient(180deg, #6b4a30 0%, #4a3018 60%, #2e1c0c 100%)
     }
 
-    .hw-inner-border {
-      position: absolute;
-      inset: 8px 7px;
-      border: 1px solid rgba(255, 220, 120, 0.35);
-      border-radius: 1px;
-      z-index: 4;
-      pointer-events: none;
+    .cover-h2 {
+      background: linear-gradient(180deg, #5a4028 0%, #3e2a16 60%, #28180a 100%)
     }
 
-    /* Book category sub-label inside cover */
-    .book-cover-cat {
-      font-size: clamp(10px, 1.4vw, 13px);
-      color: rgba(255, 255, 255, 0.55);
-      font-weight: 400;
+    .cover-h3 {
+      background: linear-gradient(180deg, #704e34 0%, #4e3420 60%, #30200e 100%)
+    }
+
+    .cover-h4 {
+      background: linear-gradient(180deg, #604228 0%, #422c14 60%, #2a1a08 100%)
+    }
+
+    .cover-h5 {
+      background: linear-gradient(180deg, #5e4830 0%, #40301c 60%, #261c0c 100%)
+    }
+
+    .cover-h6 {
+      background: linear-gradient(180deg, #6a4e38 0%, #4c3422 60%, #2c1e10 100%)
+    }
+
+    .cover-h7 {
+      background: linear-gradient(180deg, #584028 0%, #3c2a14 60%, #221808 100%)
+    }
+
+    .cover-t1 {
+      background: linear-gradient(180deg, #5a2838 0%, #3e1824 60%, #280e16 100%)
+    }
+
+    .cover-d1 {
+      background: linear-gradient(180deg, #3a3a40 0%, #262628 60%, #141416 100%)
+    }
+
+    .cover-d2 {
+      background: linear-gradient(180deg, #404048 0%, #2a2a30 60%, #18181c 100%)
+    }
+
+    .cover-d3 {
+      background: linear-gradient(180deg, #383840 0%, #242428 60%, #121214 100%)
+    }
+
+    .cover-d4 {
+      background: linear-gradient(180deg, #3c3c44 0%, #28282e 60%, #161618 100%)
+    }
+
+    .cover-d5 {
+      background: linear-gradient(180deg, #343438 0%, #222224 60%, #101012 100%)
+    }
+
+    .cover-d6 {
+      background: linear-gradient(180deg, #3e3e46 0%, #2c2c32 60%, #1a1a1e 100%)
+    }
+
+    /* White covers */
+    .cover-white .book-cover-iw {
+      box-shadow: 0 2px 8px rgba(0, 0, 0, .08), 0 4px 16px rgba(0, 0, 0, .06), 0 0 0 1px rgba(91, 58, 122, .15)
+    }
+
+    .book-item:hover .cover-white .book-cover-iw {
+      box-shadow: 0 8px 28px rgba(0, 0, 0, .12), 0 4px 10px rgba(0, 0, 0, .06), 0 0 0 1px rgba(91, 58, 122, .25)
+    }
+
+    .cover-white .book-cover-iw::before {
+      background: linear-gradient(90deg, rgba(0, 0, 0, .10) 0%, rgba(0, 0, 0, .06) 15%, rgba(0, 0, 0, .02) 20%, rgba(255, 255, 255, .3) 22%, rgba(0, 0, 0, .03) 30%, transparent 100%)
+    }
+
+    .cover-white .book-cover-iw::after {
+      background: linear-gradient(90deg, #ddd, #eee, #ddd);
+      box-shadow: 1px 0 2px rgba(0, 0, 0, .04)
+    }
+
+    .white-jamo {
+      font-family: 'Noto Serif KR', Georgia, serif;
+      font-weight: 700;
+      font-size: clamp(56px, 10vw, 80px);
+      line-height: 1;
+      margin-top: clamp(8px, 1.5vw, 14px);
+      color: var(--brand-dark)
+    }
+
+    .white-sub {
+      font-size: clamp(15px, 2.2vw, 19px);
+      color: #444;
       margin-top: 8px;
-      letter-spacing: 0.4px;
+      letter-spacing: -.1px;
+      font-weight: 600
     }
 
-    /* ═══════════════════════════════════════
-   MAIN LAYOUT — desktop: left chat + right scroll
-   ═══════════════════════════════════════ */
-    .main-layout { display: flex; width: 100%; min-height: 100vh; position: relative; overflow-x: hidden; }
+    /* ═══ CHAT PANEL ═══ */
+    .main-layout {
+      display: flex;
+      width: 100%;
+      min-height: 100vh;
+      position: relative;
+      overflow-x: hidden
+    }
+
     .chat-panel {
-      width: 320px; flex-shrink: 0; position: fixed; top: 0; left: 0; bottom: 0;
-      height: 100vh; padding-bottom: calc(64px + env(safe-area-inset-bottom)); box-sizing: border-box;
-      display: flex; flex-direction: column;
-      background: #fafafa; border-right: 0.5px solid rgba(0,0,0,0.08);
+      width: 320px;
+      flex-shrink: 0;
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      height: 100vh;
+      padding-bottom: calc(64px + env(safe-area-inset-bottom));
+      display: flex;
+      flex-direction: column;
+      background: #fafafa;
+      border-right: .5px solid rgba(0, 0, 0, .08);
       z-index: 100;
-      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transition: transform .3s cubic-bezier(.2, .8, .2, 1)
     }
 
-    /* Make bulletin board align with chat panel on desktop */
-    @media (min-width: 769px) {
+    .chat-panel.collapsed {
+      transform: translateX(-100%)
+    }
+
+    @media(min-width:769px) {
       .bulletin-board {
         margin-left: 320px;
-        transition: margin-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+        transition: margin-left .3s cubic-bezier(.2, .8, .2, 1)
       }
+
       body.chat-collapsed .bulletin-board {
-        margin-left: 0;
+        margin-left: 0
       }
     }
-    .chat-panel.collapsed {
-      transform: translateX(-100%);
-    }
-    .chat-toggle-btn {
-      position: absolute; top: 18px; right: -42px; width: 34px; height: 34px;
-      background: #fff; border: 1px solid #e0e0e0; border-radius: 50%;
-      display: flex; align-items: center; justify-content: center;
-      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 101;
-      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
-    }
-    .chat-toggle-btn svg { width: 18px; height: 18px; fill: none; stroke: #666; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
-    .chat-panel.collapsed .chat-toggle-btn {
-      transform: rotate(180deg);
-    }
+
     .chat-panel-header {
-      padding: 18px 20px 14px; border-bottom: 1px solid rgba(0,0,0,0.06);
-      display: flex; align-items: center; gap: 8px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(0, 0, 0, .06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between
     }
-    .chat-panel-title { font-weight: 700; font-size: 15px; color: var(--text-primary); display: flex; align-items: center; gap: 8px; }
-    .chat-panel-title .ai-status { width: 8px; height: 8px; border-radius: 50%; background: var(--brand-green); display: inline-block; animation: pulse-dot 2s infinite; }
-    @keyframes pulse-dot { 0%,100%{opacity:1;} 50%{opacity:0.4;} }
-    .chat-panel-title span { font-weight: 400; font-size: 11px; color: var(--text-tertiary); margin-left: 4px; }
+
+    .chat-panel-left {
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .chat-panel-avatar {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 1.5px solid var(--brand-light)
+    }
+
+    .chat-panel-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary)
+    }
+
+    .chat-collapse-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+      background: rgba(0, 0, 0, .04);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .2s
+    }
+
+    .chat-collapse-btn:hover {
+      background: rgba(0, 0, 0, .08)
+    }
+
+    .chat-collapse-btn svg {
+      width: 16px;
+      height: 16px;
+      stroke: #888;
+      stroke-width: 2;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round
+    }
+
+    .chat-bookmark {
+      position: fixed;
+      left: 0;
+      top: 18%;
+      width: 18px;
+      height: 52px;
+      background: var(--brand);
+      border-radius: 0 6px 6px 0;
+      cursor: pointer;
+      z-index: 99;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 2px 0 6px rgba(0, 0, 0, .08);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s
+    }
+
+    body.chat-collapsed .chat-bookmark {
+      opacity: 1;
+      pointer-events: auto
+    }
+
+    .chat-bookmark svg {
+      width: 12px;
+      height: 12px;
+      stroke: #fff;
+      stroke-width: 2.5;
+      fill: none;
+      stroke-linecap: round;
+      stroke-linejoin: round
+    }
+
     .ai-chat-area {
-      flex: 1; overflow-y: auto; padding: 16px;
-      display: flex; flex-direction: column; gap: 12px; scrollbar-width: none;
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      scrollbar-width: none
     }
-    .ai-chat-area::-webkit-scrollbar { display: none; }
-    .ai-bubble { max-width: 85%; padding: 10px 14px; border-radius: 16px; font-size: 13px; line-height: 1.6; }
-    .ai-bubble.ai { background: #f0f0f0; border-radius: 4px 16px 16px 16px; align-self: flex-start; color: #333; }
-    .ai-bubble.user { background: var(--brand-green); color: #fff; border-radius: 16px 4px 16px 16px; align-self: flex-end; }
-    .ai-input-row { padding: 10px 14px; border-top: 1px solid rgba(0,0,0,0.06); display: flex; gap: 8px; align-items: center; }
-    .ai-input { flex:1; border: 1px solid #e0e0e0; border-radius: 20px; padding: 10px 14px; font-size: 13px; outline: none; font-family: inherit; background: #fff; }
-    .ai-input:focus { border-color: var(--brand-green); }
-    .ai-send-btn { width: 34px; height: 34px; border-radius: 50%; background: var(--brand-green); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
-    .ai-send-btn:hover { background: #228636; }
-    .ai-send-btn svg { width: 16px; height: 16px; fill: #fff; stroke: none; }
+
+    .ai-chat-area::-webkit-scrollbar {
+      display: none
+    }
+
+    .ai-bubble {
+      max-width: 85%;
+      padding: 12px 16px;
+      border-radius: 16px;
+      font-size: 14px;
+      line-height: 1.6
+    }
+
+    .ai-bubble.ai {
+      background: #f0f0f0;
+      border-radius: 4px 16px 16px 16px;
+      align-self: flex-start;
+      color: #333
+    }
+
+    .ai-bubble.user {
+      background: var(--brand);
+      color: #fff;
+      border-radius: 16px 4px 16px 16px;
+      align-self: flex-end
+    }
+
+    .ai-input-row {
+      padding: 10px 14px;
+      border-top: 1px solid rgba(0, 0, 0, .06);
+      display: flex;
+      gap: 8px;
+      align-items: center
+    }
+
+    .ai-input {
+      flex: 1;
+      border: 1px solid #e0e0e0;
+      border-radius: 20px;
+      padding: 10px 14px;
+      font-size: 14px;
+      outline: none;
+      font-family: inherit;
+      background: #fff
+    }
+
+    .ai-input:focus {
+      border-color: var(--brand)
+    }
+
+    .ai-send-btn {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--brand);
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .ai-send-btn:hover {
+      background: var(--brand-dark)
+    }
+
+    .ai-send-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: #fff
+    }
+
     .content-area {
-      flex: 1; min-width: 0; margin-left: 320px;
-      transition: margin-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      flex: 1;
+      min-width: 0;
+      margin-left: 320px;
+      transition: margin-left .3s cubic-bezier(.2, .8, .2, 1)
     }
+
     body.chat-collapsed .content-area {
-      margin-left: 0;
+      margin-left: 0
     }
 
-    /* ═══════════════════════════════════════
-   BOTTOM NAV — 4 items
-   ═══════════════════════════════════════ */
+    /* Timer */
+    .timer-section {
+      padding: clamp(44px, 6vw, 68px) clamp(16px, 4vw, 40px);
+      background: linear-gradient(180deg, #fff 0%, #fff 70%, #f0f2f5 100%);
+      text-align: center;
+      position: relative
+    }
+
+    .timer-section::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 20px;
+      background: linear-gradient(180deg, transparent, rgba(0, 0, 0, .06));
+      pointer-events: none
+    }
+
+    .timer-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px
+    }
+
+    .timer-svg {
+      width: 200px;
+      height: 200px
+    }
+
+    .timer-bg {
+      fill: none;
+      stroke: #eee;
+      stroke-width: 8
+    }
+
+    .timer-progress {
+      fill: none;
+      stroke: var(--brand);
+      stroke-width: 8;
+      stroke-linecap: round;
+      transition: stroke-dashoffset 1s linear;
+      transform: rotate(-90deg);
+      transform-origin: center
+    }
+
+    .timer-progress.rest {
+      stroke: #e8a838
+    }
+
+    .timer-text {
+      font-size: 26px;
+      font-weight: 700;
+      fill: var(--text-primary);
+      font-family: 'Playfair Display', serif
+    }
+
+    .timer-label-txt {
+      font-size: 8.5px;
+      fill: var(--text-secondary);
+      font-weight: 500
+    }
+
+    .timer-controls {
+      display: flex;
+      gap: 12px
+    }
+
+    .timer-btn {
+      padding: 10px 28px;
+      border-radius: 24px;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit
+    }
+
+    .timer-btn.start {
+      background: var(--brand);
+      color: #fff
+    }
+
+    .timer-btn.start:hover {
+      background: var(--brand-dark)
+    }
+
+    .timer-btn.reset {
+      background: #f0f0f0;
+      color: #666
+    }
+
+    .timer-btn.reset:hover {
+      background: #e0e0e0
+    }
+
+    .timer-mode {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--brand)
+    }
+
+    .timer-mode.rest-mode {
+      color: #e8a838
+    }
+
+    /* Diagnostics */
+    .diag-scroll {
+      display: flex;
+      gap: 16px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      padding: 6px 0 20px;
+      scrollbar-width: none
+    }
+
+    .diag-scroll::-webkit-scrollbar {
+      display: none
+    }
+
+    .diag-card {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+      background: #fff;
+      border-radius: var(--radius-md);
+      padding: 22px 20px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 0, 0, .05);
+      transition: box-shadow .3s, transform .3s;
+      cursor: pointer
+    }
+
+    .diag-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-3px)
+    }
+
+    .diag-card-title {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+      margin-bottom: 8px
+    }
+
+    .diag-card-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      word-break: keep-all
+    }
+
+    .diag-card-tag {
+      display: inline-block;
+      margin-top: 12px;
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--brand);
+      background: var(--brand-light);
+      padding: 3px 10px;
+      border-radius: 20px
+    }
+
+    /* Dock */
     .dock-nav {
-      position: fixed; bottom: 0; left: 0; right: 0; z-index: 200;
-      background: rgba(255,255,255,0.86); backdrop-filter: blur(20px) saturate(160%);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: rgba(255, 255, 255, .86);
+      backdrop-filter: blur(20px) saturate(160%);
       -webkit-backdrop-filter: blur(20px) saturate(160%);
-      border-top: 0.5px solid rgba(0,0,0,0.10); box-shadow: 0 -1px 0 rgba(0,0,0,0.05);
-      padding: 8px clamp(12px,4vw,40px) 10px; display: flex; align-items: flex-start; justify-content: space-around;
+      border-top: .5px solid rgba(0, 0, 0, .10);
+      padding: 8px clamp(12px, 4vw, 40px) 10px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-around
     }
-    .dock-item { display: flex; flex-direction: column; align-items: center; gap: 3px; text-decoration: none; cursor: pointer; position: relative; z-index: 1; transition: transform 0.18s; background: none; border: none; padding: 0; }
-    .dock-item:hover { transform: translateY(-2px); }
-    .dock-item:active { transform: scale(0.95); }
-    .dock-icon { width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; }
-    .dock-icon svg { width: 24px; height: 24px; fill: none; stroke: #999; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
-    .dock-item.active .dock-icon svg { stroke: var(--brand-green); }
-    .dock-label { font-size: 9.5px; font-weight: 500; color: #aaa; letter-spacing: 0.1px; }
-    .dock-item.active .dock-label { color: var(--brand-green); font-weight: 600; }
 
-    /* ═══════════════════════════════════════
-   COVER COLORS — new categories
-   ═══════════════════════════════════════ */
-    /* 생활 (Habit) — warm earth/terracotta */
-    .cover-habit-1 { background: linear-gradient(180deg, #6b4a30 0%, #4a3018 60%, #2e1c0c 100%); }
-    .cover-habit-2 { background: linear-gradient(180deg, #5a4028 0%, #3e2a16 60%, #28180a 100%); }
-    .cover-habit-3 { background: linear-gradient(180deg, #704e34 0%, #4e3420 60%, #30200e 100%); }
-    .cover-habit-4 { background: linear-gradient(180deg, #604228 0%, #422c14 60%, #2a1a08 100%); }
-    .cover-habit-5 { background: linear-gradient(180deg, #5e4830 0%, #40301c 60%, #261c0c 100%); }
-    .cover-habit-6 { background: linear-gradient(180deg, #6a4e38 0%, #4c3422 60%, #2c1e10 100%); }
-    .cover-habit-7 { background: linear-gradient(180deg, #584028 0%, #3c2a14 60%, #221808 100%); }
-    /* 생각 (Think) — deep burgundy */
-    .cover-think-1 { background: linear-gradient(180deg, #5a2838 0%, #3e1824 60%, #280e16 100%); }
-    /* 사전 (Dict) — charcoal/scholarly */
-    .cover-dict-1 { background: linear-gradient(180deg, #3a3a40 0%, #262628 60%, #141416 100%); }
-    .cover-dict-2 { background: linear-gradient(180deg, #404048 0%, #2a2a30 60%, #18181c 100%); }
-    .cover-dict-3 { background: linear-gradient(180deg, #383840 0%, #242428 60%, #121214 100%); }
-    .cover-dict-4 { background: linear-gradient(180deg, #3c3c44 0%, #28282e 60%, #161618 100%); }
-    .cover-dict-5 { background: linear-gradient(180deg, #343438 0%, #222224 60%, #101012 100%); }
-    .cover-dict-6 { background: linear-gradient(180deg, #3e3e46 0%, #2c2c32 60%, #1a1a1e 100%); }
-
-    /* ═══════════════════════════════════════
-   POMODORO TIMER
-   ═══════════════════════════════════════ */
-    .timer-section { padding: clamp(28px,4vw,48px) clamp(16px,4vw,40px); background: linear-gradient(180deg,#fff 0%,#fff 70%,#f0f2f5 100%); box-shadow: 0 6px 24px rgba(0,0,0,0.1),0 2px 6px rgba(0,0,0,0.05); text-align: center; }
-    .timer-wrap { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-    .timer-svg { width: 200px; height: 200px; }
-    .timer-bg { fill: none; stroke: #eee; stroke-width: 8; }
-    .timer-progress { fill: none; stroke: var(--brand-green); stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1s linear; transform: rotate(-90deg); transform-origin: center; }
-    .timer-progress.rest { stroke: #e8a838; }
-    .timer-text { font-size: 26px; font-weight: 700; fill: var(--text-primary); font-family: 'Playfair Display', serif; }
-    .timer-label { font-size: 8.5px; fill: var(--text-secondary); font-weight: 500; }
-    .timer-controls { display: flex; gap: 12px; }
-    .timer-btn { padding: 10px 28px; border-radius: 24px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
-    .timer-btn.start { background: var(--brand-green); color: #fff; }
-    .timer-btn.start:hover { background: #228636; }
-    .timer-btn.reset { background: #f0f0f0; color: #666; }
-    .timer-btn.reset:hover { background: #e0e0e0; }
-    .timer-mode { font-size: 13px; font-weight: 600; color: var(--brand-green); }
-    .timer-mode.rest-mode { color: #e8a838; }
-
-    /* ═══════════════════════════════════════
-   DIAGNOSTICS — horizontal cards
-   ═══════════════════════════════════════ */
-    .diag-section { padding: clamp(28px,4vw,48px) clamp(16px,4vw,40px); background: linear-gradient(180deg,#fff 0%,#fff 70%,#f0f2f5 100%); }
-    .diag-scroll { display: flex; gap: 16px; overflow-x: auto; scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; padding: 6px 0 20px; scrollbar-width: none; }
-    .diag-scroll::-webkit-scrollbar { display: none; }
-    .diag-card { flex: 0 0 280px; scroll-snap-align: start; background: #fff; border-radius: var(--radius-md); padding: 22px 20px; box-shadow: var(--shadow-sm); border: 1px solid rgba(0,0,0,0.05); transition: box-shadow 0.3s, transform 0.3s; cursor: pointer; }
-    .diag-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
-    .diag-card-title { font-weight: 700; font-size: 15px; color: var(--text-primary); margin-bottom: 8px; }
-    .diag-card-desc { font-size: 12px; color: var(--text-secondary); line-height: 1.7; word-break: keep-all; }
-    .diag-card-tag { display: inline-block; margin-top: 12px; font-size: 10px; font-weight: 600; color: var(--brand-green); background: var(--brand-green-light); padding: 3px 10px; border-radius: 20px; }
-
-    /* ═══════════════════════════════════════
-   SAFE AREA & ANIMATIONS
-   ═══════════════════════════════════════ */
-    @supports (padding-bottom: env(safe-area-inset-bottom)) {
-      .dock-nav { padding-bottom: calc(8px + env(safe-area-inset-bottom)); }
-      body { padding-bottom: calc(80px + env(safe-area-inset-bottom)); }
+    .dock-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      text-decoration: none;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      transition: transform .18s
     }
-    @keyframes fadeInUp { from { opacity:0; transform:translateY(14px); } to { opacity:1; transform:translateY(0); } }
-    .animate-in { animation: fadeInUp 0.5s ease both; }
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
-    .delay-4 { animation-delay: 0.4s; }
 
-    /* ═══════════════════════════════════════
-   RESPONSIVE
-   ═══════════════════════════════════════ */
-    @media (max-width: 768px) {
-      .main-layout { flex-direction: column; overflow-x: visible; }
-      .chat-panel, .chat-panel.collapsed { position: relative; width: 100%; height: 75vh; transform: none !important; padding-bottom: 0px; }
-      .chat-toggle-btn { display: none; }
-      .content-area { width: 100%; margin-left: 0 !important; }
-      .book-spread { aspect-ratio: 3 / 4; }
-      .bs-page-left { display: none; }
-      .bs-page-right { width: 100%; border-radius: 2px; box-shadow: none; }
-      .book-spread::after { display: none; }
+    .dock-item:hover {
+      transform: translateY(-2px)
     }
-    @media (max-width: 480px) {
-      .book-item { width: 155px; }
-      .book-cover-title { font-size: clamp(17px, 5vw, 20px); line-height: 1.25; margin-bottom: 6px; }
-      .book-cover-cat { font-size: clamp(11.5px, 3.5vw, 13.5px); }
-      .diag-card { flex: 0 0 240px; }
+
+    .dock-item:active {
+      transform: scale(.95)
+    }
+
+    .dock-icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center
+    }
+
+    .dock-icon svg {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: #999;
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      stroke-linejoin: round
+    }
+
+    .dock-item.active .dock-icon svg {
+      stroke: var(--brand)
+    }
+
+    .dock-label {
+      font-size: 9.5px;
+      font-weight: 500;
+      color: #aaa
+    }
+
+    .dock-item.active .dock-label {
+      color: var(--brand);
+      font-weight: 600
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(14px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .animate-in {
+      animation: fadeInUp .5s ease both
+    }
+
+    .delay-1 {
+      animation-delay: .1s
+    }
+
+    .delay-2 {
+      animation-delay: .2s
+    }
+
+    .delay-3 {
+      animation-delay: .3s
+    }
+
+    .delay-4 {
+      animation-delay: .4s
+    }
+
+    /* Responsive */
+    @media(max-width:768px) {
+      .main-layout {
+        flex-direction: column
+      }
+
+      .chat-panel {
+        position: fixed;
+        width: 100%;
+        height: 100vh;
+        z-index: 300;
+        right: 0;
+        padding-bottom: 0
+      }
+
+      .chat-panel.collapsed {
+        transform: translateX(-100%)
+      }
+
+      body.chat-collapsed .chat-bookmark {
+        z-index: 250
+      }
+
+      /* Mobile bookmark: 75% of desktop size */
+      .chat-bookmark {
+        width: 13px;
+        height: 40px;
+        border-radius: 0 5px 5px 0
+      }
+
+      .chat-bookmark svg {
+        width: 9px;
+        height: 9px
+      }
+
+      .content-area {
+        width: 100%;
+        margin-left: 0 !important
+      }
+
+      .bulletin-board {
+        margin-left: 0 !important
+      }
+
+      .homework-scroll {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 16px;
+        overflow-x: visible
+      }
+
+      .hw-book {
+        flex: 0 0 calc(50% - 12px);
+        max-width: 180px
+      }
+
+      .book-spread {
+        aspect-ratio: 3/4
+      }
+
+      .bs-page-left {
+        display: none
+      }
+
+      .bs-page-right {
+        width: 100%;
+        border-radius: 2px;
+        box-shadow: none
+      }
+
+      .book-spread::after {
+        display: none
+      }
+
+      /* Mobile chat: bigger everything */
+      .ai-bubble {
+        font-size: 17px;
+        padding: 16px 20px;
+        max-width: 88%;
+        line-height: 1.7
+      }
+
+      .ai-input-row {
+        padding: 10px 16px;
+        gap: 0;
+        justify-content: center;
+        align-items: center;
+        min-height: 52px
+      }
+
+      .ai-input {
+        font-size: 17px;
+        padding: 20px 60px 20px 24px;
+        border-radius: 32px;
+        flex: 1;
+        max-width: calc(100% - 10px);
+        line-height: 1.4
+      }
+
+      .ai-send-btn {
+        width: 42px;
+        height: 42px;
+        margin-left: -52px;
+        position: relative;
+        z-index: 2
+      }
+
+      .ai-send-btn svg {
+        width: 20px;
+        height: 20px
+      }
+
+      .chat-panel-avatar {
+        width: 42px;
+        height: 42px
+      }
+
+      .chat-panel-title {
+        font-size: 19px
+      }
+
+      .chat-panel-header {
+        padding: 16px 18px
+      }
+
+      .chat-collapse-btn {
+        width: 36px;
+        height: 36px
+      }
+
+      .chat-collapse-btn svg {
+        width: 20px;
+        height: 20px
+      }
+    }
+
+    @media(max-width:480px) {
+      .book-item {
+        width: 155px
+      }
+
+      .diag-card {
+        flex: 0 0 240px
+      }
+    }
+
+    @supports(padding-bottom:env(safe-area-inset-bottom)) {
+      .dock-nav {
+        padding-bottom: calc(8px + env(safe-area-inset-bottom))
+      }
+
+      body {
+        padding-bottom: calc(60px + env(safe-area-inset-bottom))
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- ═══════════════ BULLETIN BOARD CAROUSEL ═══════════════ -->
   <section class="bulletin-board" id="bulletin">
     <div class="bb-carousel" id="bbCarousel">
       <div class="bb-slides" id="bbSlides">
-
-        <!-- SLIDE 1: Planner -->
         <div class="bb-slide">
           <div class="bb-slide-header">
-            <div class="bb-slide-title heading-en">Planner</div>
+            <div class="bb-slide-title">Planner</div>
           </div>
-          <!-- weekly × hourly grid generated by JS -->
-          <div class="planner-week" id="plannerWeek">
-            <div class="planner-week-header" id="plannerWeekHeader">
-              <!-- day labels injected by JS -->
-            </div>
-            <div class="planner-body" id="plannerBody">
-              <!-- rows injected by JS -->
-            </div>
+          <div class="planner-week">
+            <div class="planner-week-header" id="pwH"></div>
+            <div class="planner-body" id="pwB"></div>
           </div>
         </div>
-
-        <!-- SLIDE 2: On going -->
         <div class="bb-slide">
           <div class="bb-slide-header">
-            <div class="bb-slide-title heading-en">On going</div>
+            <div class="bb-slide-title">On going</div>
           </div>
           <div class="ongoing-wrapper">
             <div class="book-spread">
@@ -1166,8 +1555,8 @@
                   <div class="bs-h1">공부를 왜 하나요?</div>
                   <p class="bs-paragraph">오늘은 간단한 질문으로 시작해볼게요.</p>
                   <p class="bs-paragraph">여러분, 공부를 왜 하나요?</p>
-                  <p class="bs-paragraph">우리 매일 학교와 학원과 인강, 자습 등등 공부를 많이 하잖아요. 나는 왜 공부를 하고 있을까?</p>
-                  <p class="bs-paragraph">이 글을 읽기 전에 먼저 내가 생각하는 공부의 이유를 <span class="bs-highlight">3가지만</span> 아래 빈 칸에 적어봅시다.</p>
+                  <p class="bs-paragraph">이 글을 읽기 전에 먼저 내가 생각하는 공부의 이유를 <span class="bs-highlight">3가지만</span> 아래 빈 칸에
+                    적어봅시다.</p>
                   <div class="bs-form-box">
                     <div class="bs-form-title"><span class="icon">✎</span>내가 공부하는 이유 3가지</div>
                     <div class="bs-form-line">1.</div>
@@ -1179,354 +1568,292 @@
             </div>
           </div>
         </div>
-
-        <!-- SLIDE 3: Homework -->
         <div class="bb-slide">
           <div class="bb-slide-header">
-            <div class="bb-slide-title heading-en">Homework</div>
+            <div class="bb-slide-title">Homework</div>
           </div>
-          <div class="homework-scroll">
-            <div class="hw-book">
-              <div class="hw-book-cover">
-                <div class="hw-cover-bg hw-cover-sci"></div>
-                <div class="hw-cover-shine"></div>
-                <div class="hw-inner-border"></div>
-                <div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;">
-                  <div class="hw-cover-title">과학 단어<br>3단원</div>
-                </div>
-                <div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;">
-                  <div class="hw-cover-subtitle">이과편</div>
-                </div>
-              </div>
-            </div>
-            <div class="hw-book">
-              <div class="hw-book-cover">
-                <div class="hw-cover-bg hw-cover-eng"></div>
-                <div class="hw-cover-shine"></div>
-                <div class="hw-inner-border"></div>
-                <div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;">
-                  <div class="hw-cover-title">영단어<br>Day 15</div>
-                </div>
-                <div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;">
-                  <div class="hw-cover-subtitle">문과편</div>
-                </div>
-              </div>
-            </div>
-            <div class="hw-book">
-              <div class="hw-book-cover">
-                <div class="hw-cover-bg hw-cover-read"></div>
-                <div class="hw-cover-shine"></div>
-                <div class="hw-inner-border"></div>
-                <div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;">
-                  <div class="hw-cover-title">독서 감상문<br>제출</div>
-                </div>
-                <div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;">
-                  <div class="hw-cover-subtitle">사고력편</div>
-                </div>
-              </div>
-            </div>
-            <div class="hw-book">
-              <div class="hw-book-cover">
-                <div class="hw-cover-bg hw-cover-plan"></div>
-                <div class="hw-cover-shine"></div>
-                <div class="hw-inner-border"></div>
-                <div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;">
-                  <div class="hw-cover-title">다음 주<br>계획 세우기</div>
-                </div>
-                <div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;">
-                  <div class="hw-cover-subtitle">생활편</div>
-                </div>
-              </div>
-            </div>
-          </div>
+          <div class="homework-scroll" id="hwScroll"></div>
         </div>
-
       </div>
-      <!-- Carousel navigation arrows -->
-      <button class="bb-nav-btn bb-nav-prev" id="bbPrev" aria-label="이전">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
-      <button class="bb-nav-btn bb-nav-next" id="bbNext" aria-label="다음">
-        <svg viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></svg>
-      </button>
+      <button class="bb-nav-btn bb-nav-prev" id="bbPrev"><svg viewBox="0 0 24 24">
+          <polyline points="15 18 9 12 15 6" />
+        </svg></button>
+      <button class="bb-nav-btn bb-nav-next" id="bbNext"><svg viewBox="0 0 24 24">
+          <polyline points="9 6 15 12 9 18" />
+        </svg></button>
     </div>
-    <div class="bb-dots">
-      <button class="bb-dot active" data-slide="0"></button>
-      <button class="bb-dot" data-slide="1"></button>
-      <button class="bb-dot" data-slide="2"></button>
-    </div>
+    <div class="bb-dots"><button class="bb-dot active" data-slide="0"></button><button class="bb-dot"
+        data-slide="1"></button><button class="bb-dot" data-slide="2"></button></div>
   </section>
 
-
-  <!-- ═══════════════ MAIN LAYOUT ═══════════════ -->
   <div class="main-layout">
-    <!-- CHAT PANEL (left on desktop, inline on mobile) -->
-    <aside class="chat-panel" id="sec-chat">
-      <button class="chat-toggle-btn" id="chatToggleBtn" aria-label="채팅 접기/펴기">
-        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
-      </button>
+    <aside class="chat-panel" id="chatPanel">
       <div class="chat-panel-header">
-        <div class="chat-panel-title">
-          <span class="ai-status"></span>김수석 선생님
+        <div class="chat-panel-left">
+          <img class="chat-panel-avatar"
+            src="https://res.cloudinary.com/dms5vyofw/image/upload/v1774507434/%E1%84%80%E1%85%B5%E1%86%B7%E1%84%89%E1%85%AE%E1%84%89%E1%85%A5%E1%86%A8%E1%84%8B%E1%85%A1%E1%84%8B%E1%85%B5%E1%84%8F%E1%85%A9%E1%86%AB_%E1%84%85%E1%85%A1%E1%84%8B%E1%85%B5%E1%86%AB_%E1%84%8F%E1%85%A5%E1%86%AF%E1%84%85%E1%85%A5_%E1%84%87%E1%85%A9%E1%84%85%E1%85%A1_hxd2bm.png"
+            alt="김수석">
+          <div class="chat-panel-title">김수석 선생님</div>
         </div>
+        <button class="chat-collapse-btn" id="chatCollapseBtn"><svg viewBox="0 0 24 24">
+            <polyline points="11 17 6 12 11 7" />
+            <line x1="18" y1="12" x2="6" y2="12" />
+          </svg></button>
       </div>
       <div class="ai-chat-area" id="aiChatArea"></div>
       <div class="ai-input-row">
-        <input class="ai-input" id="aiInput" type="text" placeholder="김수석 선생님에게 물어보세요..." />
-        <button class="ai-send-btn" id="aiSendBtn">
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-        </button>
+        <input class="ai-input" id="aiInput" type="text" placeholder="김수석 선생님에게 물어보세요...">
+        <button class="ai-send-btn" id="aiSendBtn"><svg viewBox="0 0 24 24">
+            <path d="M5 12h14M12 5l7 7-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" fill="none" />
+          </svg></button>
       </div>
     </aside>
+    <div class="chat-bookmark" id="chatBookmark"><svg viewBox="0 0 24 24">
+        <polyline points="9 6 15 12 9 18" />
+      </svg></div>
 
-    <!-- CONTENT AREA (scrollable) -->
-    <div class="content-area">
+    <div class="content-area" id="contentArea"></div>
+  </div>
 
-      <!-- 1. 오늘 할 일 -->
-      <section class="programs-study" id="sec-today">
-        <div class="program-header animate-in"><div class="program-title">오늘 할 일</div><div class="program-subtitle">오늘 학습할 프로그램</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/study-reason/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">공부하는<br>이유</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">기본편</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-mind-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">변환<br>사고력</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">두정엽</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 2. 나의 공부법 -->
-      <section class="programs-study" id="sec-study">
-        <div class="program-header animate-in"><div class="program-title">나의 공부법</div><div class="program-subtitle">공부의 기본기를 다져보세요</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/study-reason/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">공부하는<br>이유</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">기본편</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/myschedule/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-2"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">내공부<br>스케줄짜기</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">기본편</div></div></div></a>
-          <a class="book-item animate-in delay-3" href="https://kimsoosuk.github.io/bible-english/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-3"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">영어 바이블<br>문학</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">문과편</div></div></div></a>
-          <a class="book-item animate-in delay-4" href="https://kimsoosuk.github.io/science_exam/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-4"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">고1 3모<br>대비법</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">과학편</div></div></div></a>
-          <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/eng-exam/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-5"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">고1 3모<br>대비법</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">영어편</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 3. 나의 머리 -->
-      <section class="programs-study" id="sec-mind">
-        <div class="program-header animate-in"><div class="program-title">나의 머리</div><div class="program-subtitle">사고력을 키우는 학습 컨텐츠</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-mind-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">변환<br>사고력</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">두정엽</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-mind-2"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">가치<br>사고력</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">변연계</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 4. 나의 생활 -->
-      <section class="programs-study" id="sec-life">
-        <div class="program-header animate-in"><div class="program-title">나의 생활</div><div class="program-subtitle">공부 체질을 만드는 생활 습관</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">겸손</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-2"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">연표</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-3" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-3"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">예습</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-4" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-4"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">과정</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-1" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-5"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">훈련</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-6"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">실험</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-3" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-7"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">문제집</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 5. 나의 생각 -->
-      <section class="programs-study" id="sec-think">
-        <div class="program-header animate-in"><div class="program-title">나의 생각</div><div class="program-subtitle">가치관과 사고를 정리하는 공간</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/value/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-think-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">가치관<br>선생님</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">기본편</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 6. 수석의 사전 -->
-      <section class="programs-study" id="sec-dict">
-        <div class="program-header animate-in"><div class="program-title">수석의 사전</div><div class="program-subtitle">과목별 핵심 사전</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/science_teacher/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">과학<br>사전</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">이과편</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/eng_dictionary/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-2"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">영어<br>사전</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">문과편</div></div></div></a>
-          <a class="book-item animate-in delay-3" href="https://kimsoosuk.github.io/kor-dictionary/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-3"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">국어<br>사전</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">문과편</div></div></div></a>
-          <a class="book-item animate-in delay-4" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-4"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">수학<br>사전</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">이과편</div></div></div></a>
-          <a class="book-item animate-in delay-1" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-5"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">역사<br>사전</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">문과편</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/book_teacher/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-6"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">독서<br>선생님</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">기본편</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 7. 공부 타이머 (포모도로) -->
-      <section class="timer-section" id="sec-timer">
-        <div class="program-header animate-in"><div class="program-title">공부 타이머</div><div class="program-subtitle">25분 집중, 5분 휴식 — 포모도로 기법</div></div>
-        <div class="timer-wrap">
-          <div class="timer-mode" id="timerModeLabel">공부 시간</div>
-          <svg class="timer-svg" viewBox="0 0 120 120">
-            <circle class="timer-bg" cx="60" cy="60" r="52"/>
-            <circle class="timer-progress" id="timerProgress" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="0"/>
-            <text class="timer-text" id="timerText" x="60" y="45" text-anchor="middle" dominant-baseline="central">25:00</text>
-            <text class="timer-label" x="60" y="80" text-anchor="middle">25분 집중 / 5분 휴식</text>
-          </svg>
-          <div class="timer-controls">
-            <button class="timer-btn start" id="timerStartBtn">시작</button>
-            <button class="timer-btn reset" id="timerResetBtn">초기화</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- 8. 진단 -->
-      <section class="diag-section" id="sec-diag">
-        <div class="program-header animate-in"><div class="program-title">진단</div><div class="program-subtitle">나를 알아가는 공부 진단</div></div>
-        <div class="diag-scroll">
-          <div class="diag-card animate-in delay-1">
-            <div class="diag-card-title">공부머리 진단</div>
-            <div class="diag-card-desc">IQ보다 더 성적에 실질적인 영향을 미치는 공부머리를 진단합니다. 교과과정을 기반으로 공부에 꼭 필요한 100가지 뇌의 활동과 사고력을 직접적으로 진단합니다.</div>
-            <span class="diag-card-tag">진단하기</span>
-          </div>
-          <div class="diag-card animate-in delay-2">
-            <div class="diag-card-title">공부체질 진단</div>
-            <div class="diag-card-desc">몰입, 보상, 경쟁, 기질, 원칙, 학원, 선행, 공부방, 생활, 기술, 이과목, 문과목 등 수많은 공부 조건들을 분석하여 정체된 학습 문제의 근본 원인을 발견합니다.</div>
-            <span class="diag-card-tag">진단하기</span>
-          </div>
-          <div class="diag-card animate-in delay-3">
-            <div class="diag-card-title">사춘기 학습유형 진단</div>
-            <div class="diag-card-desc">사춘기 때 공부가 한 번에 무너질 수 있습니다. 부모 자녀 기질 분석으로 사춘기 문제를 예방하고 사춘기 시기에도 흔들림 없는 학습이 가능하도록 합니다.</div>
-            <span class="diag-card-tag">진단하기</span>
-          </div>
-          <div class="diag-card animate-in delay-4">
-            <div class="diag-card-title">중학수학능력 진단</div>
-            <div class="diag-card-desc">필요한 경우 수학, 국어 등 과목 별 실력을 파악하기 위한 진단을 실시합니다. 보통 예비중1을 대상으로 실시되며 중1~2 학생들도 필요에 따라 진행합니다.</div>
-            <span class="diag-card-tag">진단하기</span>
-          </div>
-          <div class="diag-card animate-in delay-1">
-            <div class="diag-card-title">학습저항성 진단</div>
-            <div class="diag-card-desc">공부에 안 좋은 감정을 가지고 있으면 뇌가 감정 처리를 위해 활발히 사용되지 못합니다. 이를 '학습저항성'이라 하며 어떤 분야에 얼만큼 발생하는지까지 알아냅니다.</div>
-            <span class="diag-card-tag">진단하기</span>
-          </div>
-        </div>
-      </section>
-
-    </div><!-- /content-area -->
-  </div><!-- /main-layout -->
-
-  <!-- ═══════════════ DOCK (4 items) ═══════════════ -->
-  <nav class="dock-nav" id="dockNav">
+  <nav class="dock-nav">
     <a class="dock-item active" href="#bulletin" id="dockHome">
-      <div class="dock-icon"><svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg></div>
-      <span class="dock-label">수석의방</span>
+      <div class="dock-icon"><svg viewBox="0 0 24 24">
+          <path
+            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z" />
+        </svg></div><span class="dock-label">수석의방</span>
     </a>
     <a class="dock-item" href="#sec-today" id="dockToday">
-      <!-- 연필 아이콘 -->
-      <div class="dock-icon"><svg viewBox="0 0 24 24"><path d="M16 4l4 4-13 13H3v-4L16 4z" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <span class="dock-label">내공부</span>
+      <div class="dock-icon"><svg viewBox="0 0 24 24">
+          <path d="M16 4l4 4-13 13H3v-4L16 4z" />
+        </svg></div><span class="dock-label">내공부</span>
     </a>
     <a class="dock-item" href="#sec-study" id="dockStudy">
-      <!-- 진단/책 단순 아이콘 -->
-      <div class="dock-icon"><svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
-      <span class="dock-label">공부법</span>
+      <div class="dock-icon"><svg viewBox="0 0 24 24">
+          <path
+            d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+        </svg></div><span class="dock-label">공부법</span>
     </a>
-    <a class="dock-item" href="#sec-chat" id="dockChat">
-      <!-- 채팅 말풍선 아이콘 -->
-      <div class="dock-icon"><svg viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-4 4-1-4z"/></svg></div>
-      <span class="dock-label">김수석</span>
-    </a>
+    <button class="dock-item" id="dockChat">
+      <div class="dock-icon"><svg viewBox="0 0 24 24">
+          <path
+            d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-4 4-1-4z" />
+        </svg></div><span class="dock-label">김수석</span>
+    </button>
   </nav>
 
-  <!-- ═══════════════ SCRIPTS ═══════════════ -->
   <script>
-  (function(){
-    // ─── Planner: weekly × hourly grid ───
-    const weekSched=[
-      {day:0,h:8,end:9,type:'eng',label:'영단어'},{day:0,h:9,end:10,type:'math',label:'수학'},
-      {day:0,h:14,end:15,type:'read',label:'독서'},{day:0,h:15,end:16,type:'sci',label:'과학'},
-      {day:1,h:8,end:9,type:'math',label:'수학'},{day:1,h:9,end:10,type:'sci',label:'과학'},
-      {day:1,h:14,end:15,type:'eng',label:'영단어'},{day:1,h:17,end:18,type:'read',label:'독서'},
-      {day:2,h:8,end:9,type:'eng',label:'영단어'},{day:2,h:10,end:11,type:'read',label:'독서'},
-      {day:2,h:15,end:16,type:'math',label:'수학'},
-      {day:3,h:8,end:9,type:'math',label:'수학'},{day:3,h:9,end:10,type:'eng',label:'영단어'},
-      {day:3,h:14,end:15,type:'sci',label:'과학'},{day:3,h:16,end:17,type:'read',label:'독서'},
-      {day:4,h:8,end:9,type:'sci',label:'과학'},{day:4,h:14,end:15,type:'read',label:'독서'},
-      {day:4,h:15,end:16,type:'eng',label:'영단어'},{day:4,h:18,end:19,type:'math',label:'수학'},
-      {day:5,h:9,end:10,type:'eng',label:'영단어'},{day:5,h:10,end:11,type:'math',label:'수학'},
-      {day:5,h:14,end:15,type:'sci',label:'과학'},{day:5,h:16,end:17,type:'read',label:'독서'},
-      {day:6,h:10,end:11,type:'read',label:'독서'},{day:6,h:15,end:16,type:'eng',label:'영단어'},
-      {day:6,h:17,end:18,type:'math',label:'수학'},{day:6,h:19,end:20,type:'sci',label:'과학'}
-    ];
-    const dayLabels=['월','화','수','목','금','토','일'];
-    const now=new Date();const todayDay=(now.getDay()+6)%7;const currentH=now.getHours();
-    const header=document.getElementById('plannerWeekHeader');
-    const blank=document.createElement('div');blank.className='planner-day-label';blank.textContent='';header.appendChild(blank);
-    dayLabels.forEach((d,i)=>{const el=document.createElement('div');el.className='planner-day-label'+(i===todayDay?' today':'');el.textContent=d;header.appendChild(el);});
-    const body=document.getElementById('plannerBody');
-    for(let h=6;h<=22;h++){
-      const row=document.createElement('div');row.className='planner-row';
-      const tl=document.createElement('div');tl.className='planner-time'+(h===currentH?' current':'');
-      tl.textContent=(h<10?'0':'')+h+':00';row.appendChild(tl);
-      for(let d=0;d<7;d++){
-        const cell=document.createElement('div');cell.className='planner-cell';
-        if(d===todayDay&&h===currentH)cell.classList.add('current-cell');
-        const ev=weekSched.find(e=>e.day===d&&h>=e.h&&h<e.end);
-        if(ev){const b=document.createElement('div');b.className='plan-block '+ev.type;b.textContent=ev.label;cell.appendChild(b);}
-        row.appendChild(cell);
+    (function () {
+      const CA = document.getElementById('contentArea');
+      // Build content sections via JS to keep HTML smaller
+      const sections = [
+        {
+          id: 'sec-today', title: '오늘 할 일', sub: '오늘 학습할 프로그램', books: [
+            { t: '공부하는<br>이유', c: '기본편', cls: 'cover-s1', href: 'https://kimsoosuk.github.io/study-reason/', lt: '공부하는 이유', ls: '기본편' },
+            { t: '변환<br>사고력', c: '두정엽', cls: 'cover-m1', href: '#', lt: '변환 사고력', ls: '두정엽' },
+          ]
+        },
+        { id: 'sec-method', title: '수석의 공부법', sub: '공부의 기본기를 세우는 14가지 원칙', white: true },
+        {
+          id: 'sec-study', title: '나의 공부법', sub: '공부의 기본기를 다져보세요', books: [
+            { t: '공부하는<br>이유', c: '기본편', cls: 'cover-s1', href: 'https://kimsoosuk.github.io/study-reason/', lt: '공부하는 이유', ls: '기본편' },
+            { t: '내공부<br>스케줄짜기', c: '기본편', cls: 'cover-s2', href: 'https://kimsoosuk.github.io/myschedule/', lt: '내공부 스케줄짜기', ls: '기본편' },
+            { t: '영어 바이블<br>문학', c: '문과편', cls: 'cover-s3', href: 'https://kimsoosuk.github.io/bible-english/', lt: '영어 바이블 문학', ls: '문과편' },
+            { t: '고1 3모<br>대비법', c: '과학편', cls: 'cover-s4', href: 'https://kimsoosuk.github.io/science_exam/', lt: '고1 3모 대비법', ls: '과학편' },
+            { t: '고1 3모<br>대비법', c: '영어편', cls: 'cover-s5', href: 'https://kimsoosuk.github.io/eng-exam/', lt: '고1 3모 대비법', ls: '영어편' },
+          ]
+        },
+        {
+          id: 'sec-mind', title: '나의 머리', sub: '사고력을 키우는 학습 컨텐츠', books: [
+            { t: '변환<br>사고력', c: '두정엽', cls: 'cover-m1', href: '#', lt: '변환 사고력', ls: '두정엽' },
+            { t: '가치<br>사고력', c: '변연계', cls: 'cover-m2', href: '#', lt: '가치 사고력', ls: '변연계' },
+          ]
+        },
+        {
+          id: 'sec-life', title: '나의 생활', sub: '공부 체질을 만드는 생활 습관', books: [
+            { t: '겸손', c: '공부 체질', cls: 'cover-h1', href: '#', lt: '겸손', ls: '공부 체질' },
+            { t: '연표', c: '공부 체질', cls: 'cover-h2', href: '#', lt: '연표', ls: '공부 체질' },
+            { t: '예습', c: '공부 체질', cls: 'cover-h3', href: '#', lt: '예습', ls: '공부 체질' },
+            { t: '과정', c: '공부 체질', cls: 'cover-h4', href: '#', lt: '과정', ls: '공부 체질' },
+            { t: '훈련', c: '공부 체질', cls: 'cover-h5', href: '#', lt: '훈련', ls: '공부 체질' },
+            { t: '실험', c: '공부 체질', cls: 'cover-h6', href: '#', lt: '실험', ls: '공부 체질' },
+            { t: '문제집', c: '공부 체질', cls: 'cover-h7', href: '#', lt: '문제집', ls: '공부 체질' },
+          ]
+        },
+        {
+          id: 'sec-think', title: '나의 생각', sub: '가치관과 사고를 정리하는 공간', books: [
+            { t: '가치관<br>선생님', c: '기본편', cls: 'cover-t1', href: 'https://kimsoosuk.github.io/value/', lt: '가치관 선생님', ls: '기본편' },
+          ]
+        },
+        {
+          id: 'sec-dict', title: '수석의 사전', sub: '과목별 핵심 사전', books: [
+            { t: '과학<br>사전', c: '이과편', cls: 'cover-d1', href: 'https://kimsoosuk.github.io/science_teacher/', lt: '과학 사전', ls: '이과편' },
+            { t: '영어<br>사전', c: '문과편', cls: 'cover-d2', href: 'https://kimsoosuk.github.io/eng_dictionary/', lt: '영어 사전', ls: '문과편' },
+            { t: '국어<br>사전', c: '문과편', cls: 'cover-d3', href: 'https://kimsoosuk.github.io/kor-dictionary/', lt: '국어 사전', ls: '문과편' },
+            { t: '수학<br>사전', c: '이과편', cls: 'cover-d4', href: '#', lt: '수학 사전', ls: '이과편' },
+            { t: '역사<br>사전', c: '문과편', cls: 'cover-d5', href: '#', lt: '역사 사전', ls: '문과편' },
+            { t: '독서<br>선생님', c: '기본편', cls: 'cover-d6', href: 'https://kimsoosuk.github.io/book_teacher/', lt: '독서 선생님', ls: '기본편' },
+          ]
+        },
+      ];
+
+      function makeBook(b, i) {
+        return `<a class="book-item animate-in delay-${i % 4 + 1}" href="${b.href}" target="_blank"><div class="book-cover"><div class="book-cover-iw"><div class="book-cover-bg ${b.cls}"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div></div></div><div class="bc-text bc-top"><div class="book-cover-title">${b.t}</div></div><div class="bc-text bc-bot"><div class="book-cover-cat">${b.c}</div></div></a>`;
       }
-      body.appendChild(row);
-    }
 
-    // ─── Carousel ───
-    const slides=document.getElementById('bbSlides');
-    const dots=document.querySelectorAll('.bb-dot');
-    let currentSlide=0;const totalSlides=3;
-    function goToSlide(i){currentSlide=i;slides.style.transform=`translateX(-${i*(100/totalSlides)}%)`;dots.forEach((d,j)=>d.classList.toggle('active',j===i));}
-    dots.forEach(dot=>dot.addEventListener('click',()=>goToSlide(parseInt(dot.dataset.slide))));
-    const carousel=document.getElementById('bbCarousel');let touchStartX=0;
-    carousel.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
-    carousel.addEventListener('touchend',e=>{const diff=touchStartX-e.changedTouches[0].clientX;if(Math.abs(diff)>50){if(diff>0&&currentSlide<totalSlides-1)goToSlide(currentSlide+1);else if(diff<0&&currentSlide>0)goToSlide(currentSlide-1);}},{passive:true});
-    document.getElementById('bbPrev').addEventListener('click',()=>goToSlide(currentSlide>0?currentSlide-1:totalSlides-1));
-    document.getElementById('bbNext').addEventListener('click',()=>goToSlide((currentSlide+1)%totalSlides));
+      const methodData = [
+        { j: 'ㄱ', s: '공부', t: '공부하는 이유', cc: 'jc1', h: 'https://kimsoosuk.github.io/study-reason/' },
+        { j: 'ㄴ', s: '내공부', t: '내공부 스케줄짜기', cc: 'jc2', h: 'https://kimsoosuk.github.io/myschedule/' },
+        { j: 'ㄷ', s: '답', t: '공부란 무엇인가', cc: 'jc3', h: '#' },
+        { j: 'ㄹ', s: '루틴', t: '영어 단어 암기법', cc: 'jc4', h: '#' },
+        { j: 'ㅁ', s: '문해', t: '영어 국어처럼 공부하기', cc: 'jc5', h: '#' },
+        { j: 'ㅂ', s: '본질', t: '요약하기', cc: 'jc6', h: '#' },
+        { j: 'ㅅ', s: '설명', t: '글 짓기', cc: 'jc7', h: '#' },
+        { j: 'ㅇ', s: '원리', t: '수학 공부의 기본', cc: 'jc8', h: '#' },
+        { j: 'ㅈ', s: '점검', t: '복습법', cc: 'jc9', h: '#' },
+        { j: 'ㅊ', s: '체계', t: '구성하기', cc: 'jc10', h: '#' },
+        { j: 'ㅋ', s: '키워드', t: '나에게 맞는 암기법', cc: 'jc11', h: '#' },
+        { j: 'ㅌ', s: '탐구', t: '과학 공부법', cc: 'jc12', h: '#' },
+        { j: 'ㅍ', s: '파악', t: '과학 이미지법', cc: 'jc13', h: '#' },
+        { j: 'ㅎ', s: '학습관', t: '나 가르치기', cc: 'jc14', h: '#' },
+      ];
 
-    // ─── Chat auto-greeting & Layout toggle ───
-    const chatPanel = document.getElementById('sec-chat');
-    document.getElementById('chatToggleBtn').addEventListener('click', () => {
-      chatPanel.classList.toggle('collapsed');
-      document.body.classList.toggle('chat-collapsed');
-    });
+      function makeWhiteBook(d, i) {
+        return `<a class="book-item animate-in delay-${i % 4 + 1}" href="${d.h}" target="_blank"><div class="book-cover cover-white"><div class="book-cover-iw"><div class="book-cover-bg" style="background:#ffffff"></div><div class="book-cover-inner-border" style="border-color:rgba(91,58,122,.3)"></div><div class="book-cover-shine"></div></div></div><div class="bc-text" style="top:clamp(16px,2.5vw,26px)"><div class="white-jamo">${d.j}</div><div class="white-sub">${d.s}</div></div><div class="bc-text" style="bottom:clamp(14px,2vw,24px)"><div style="font-size:clamp(10px,1.4vw,12px);color:#888;font-weight:500;letter-spacing:.2px">${d.t}</div></div></a>`;
+      }
 
-    const chatArea=document.getElementById('aiChatArea');
-    let greeted=false;
-    function addBubble(text,role){const b=document.createElement('div');b.className='ai-bubble '+role;b.textContent=text;chatArea.appendChild(b);chatArea.scrollTop=chatArea.scrollHeight;}
-    const chatObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!greeted){greeted=true;setTimeout(()=>addBubble('오늘의 학습 진도: 공부하는 이유 1장, 변환 사고력 20페이지를 진행할 차례입니다. 화이팅!','ai'),500);}});},{threshold:0.1});
-    chatObserver.observe(chatPanel);
-    const replies=['좋은 자세네요! 계속해서 그렇게 해주세요.', '궁금한 점이 있으면 언제든 말해주세요.'];
-    let replyIdx=0;
-    function sendMsg(){const txt=document.getElementById('aiInput').value.trim();if(!txt)return;addBubble(txt,'user');document.getElementById('aiInput').value='';setTimeout(()=>addBubble(replies[replyIdx++%replies.length],'ai'),700);}
-    document.getElementById('aiSendBtn').addEventListener('click',sendMsg);
-    document.getElementById('aiInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
+      let html = '';
+      sections.forEach(sec => {
+        html += `<section class="programs-section" id="${sec.id}"><div class="program-header animate-in"><div class="program-title">${sec.title}</div><div class="program-subtitle">${sec.sub}</div></div><div class="program-scroll">`;
+        if (sec.white) {
+          methodData.forEach((d, i) => { html += makeWhiteBook(d, i); });
+        } else if (sec.books) {
+          sec.books.forEach((b, i) => { html += makeBook(b, i); });
+        }
+        html += `</div></section>`;
+      });
 
-    // ─── Pomodoro Timer ───
-    const WORK=25*60,REST=5*60,CIRCUMFERENCE=2*Math.PI*52;
-    let timerTotal=WORK,timerRemaining=WORK,timerRunning=false,timerInterval=null,isRest=false;
-    const prog=document.getElementById('timerProgress');
-    const tText=document.getElementById('timerText');
-    const modeLabel=document.getElementById('timerModeLabel');
-    const startBtn=document.getElementById('timerStartBtn');
-    const resetBtn=document.getElementById('timerResetBtn');
-    function updateTimer(){
-      const m=Math.floor(timerRemaining/60),s=timerRemaining%60;
-      tText.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
-      const offset=CIRCUMFERENCE*(1-timerRemaining/timerTotal);
-      prog.style.strokeDashoffset=offset;
-    }
-    function tick(){timerRemaining--;if(timerRemaining<0){clearInterval(timerInterval);timerRunning=false;
-      if(!isRest){isRest=true;timerTotal=REST;timerRemaining=REST;modeLabel.textContent='휴식 시간';modeLabel.className='timer-mode rest-mode';prog.classList.add('rest');startBtn.textContent='시작';}
-      else{isRest=false;timerTotal=WORK;timerRemaining=WORK;modeLabel.textContent='공부 시간';modeLabel.className='timer-mode';prog.classList.remove('rest');startBtn.textContent='시작';}
-    }updateTimer();}
-    startBtn.addEventListener('click',()=>{if(timerRunning){clearInterval(timerInterval);timerRunning=false;startBtn.textContent='시작';}else{timerRunning=true;startBtn.textContent='정지';timerInterval=setInterval(tick,1000);}});
-    resetBtn.addEventListener('click',()=>{clearInterval(timerInterval);timerRunning=false;isRest=false;timerTotal=WORK;timerRemaining=WORK;modeLabel.textContent='공부 시간';modeLabel.className='timer-mode';prog.classList.remove('rest');startBtn.textContent='시작';updateTimer();});
-    updateTimer();
+      // Timer
+      html += `<section class="timer-section" id="sec-timer"><div class="program-header animate-in"><div class="program-title">공부 타이머</div><div class="program-subtitle">25분 집중, 5분 휴식 — 포모도로 기법</div></div><div class="timer-wrap"><div class="timer-mode" id="tML">공부 시간</div><svg class="timer-svg" viewBox="0 0 120 120"><circle class="timer-bg" cx="60" cy="60" r="52"/><circle class="timer-progress" id="tP" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="0"/><text class="timer-text" id="tT" x="60" y="45" text-anchor="middle" dominant-baseline="central">25:00</text><text class="timer-label-txt" x="60" y="80" text-anchor="middle">25분 집중 / 5분 휴식</text></svg><div class="timer-controls"><button class="timer-btn start" id="tS">시작</button><button class="timer-btn reset" id="tR">초기화</button></div></div></section>`;
 
-    // ─── Scroll animations ───
-    const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='';e.target.style.animationPlayState='running';}});},{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
-    document.querySelectorAll('.animate-in').forEach(el=>{el.style.opacity='0';el.style.animationPlayState='paused';observer.observe(el);});
+      // Diagnostics
+      html += `<section class="programs-section" id="sec-diag" style="padding-bottom:20px;background:#fff"><div class="program-header animate-in"><div class="program-title">진단</div><div class="program-subtitle">나를 알아가는 공부 진단</div></div><div class="diag-scroll" style="padding-bottom:10px">`;
+      [{ t: '공부머리 진단', d: 'IQ보다 더 성적에 실질적인 영향을 미치는 공부머리를 진단합니다.' }, { t: '공부체질 진단', d: '몰입, 보상, 경쟁, 기질 등 수많은 공부 조건들을 분석합니다.' }, { t: '사춘기 학습유형 진단', d: '부모 자녀 기질 분석으로 사춘기 문제를 예방합니다.' }, { t: '중학수학능력 진단', d: '과목 별 실력을 파악하기 위한 진단을 실시합니다.' }, { t: '학습저항성 진단', d: '공부에 대한 감정을 분석하여 학습저항성을 발견합니다.' }].forEach((c, i) => {
+        html += `<div class="diag-card animate-in delay-${i % 4 + 1}"><div class="diag-card-title">${c.t}</div><div class="diag-card-desc">${c.d}</div><span class="diag-card-tag">진단하기</span></div>`;
+      });
+      html += `</div></section>`;
 
-    // ─── Dock scroll + spy ───
-    document.querySelectorAll('.dock-item[href]').forEach(link=>{link.addEventListener('click',e=>{const href=link.getAttribute('href');if(!href||href==='#')return;e.preventDefault();const target=document.querySelector(href);if(target)target.scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('.dock-item').forEach(i=>i.classList.remove('active'));link.classList.add('active');});});
-    const spy=[{id:'bulletin',el:document.getElementById('dockHome')},{id:'sec-today',el:document.getElementById('dockToday')},{id:'sec-study',el:document.getElementById('dockStudy')},{id:'sec-chat',el:document.getElementById('dockChat')}];
-    let scrollTimer;
-    window.addEventListener('scroll',()=>{clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{const scrollY=window.scrollY+window.innerHeight/3;let active=spy[0];spy.forEach(s=>{const el=document.getElementById(s.id);if(el&&el.offsetTop<=scrollY)active=s;});document.querySelectorAll('.dock-item').forEach(i=>i.classList.remove('active'));if(active.el)active.el.classList.add('active');},80);});
-  })();
+      CA.innerHTML = html;
+
+      // Homework books
+      const hwData = [{ cls: 'hw-cover-sci', t: '과학 단어<br>3단원', s: '이과편' }, { cls: 'hw-cover-eng', t: '영단어<br>Day 15', s: '문과편' }, { cls: 'hw-cover-read', t: '독서 감상문<br>제출', s: '사고력편' }, { cls: 'hw-cover-plan', t: '다음 주<br>계획 세우기', s: '생활편' }];
+      const hwScroll = document.getElementById('hwScroll');
+      hwData.forEach(h => {
+        hwScroll.innerHTML += `<div class="hw-book"><div class="hw-book-cover"><div class="hw-cover-bg ${h.cls}"></div><div class="hw-cover-shine"></div><div class="hw-inner-border"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5"><div class="hw-cover-title">${h.t}</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5"><div class="hw-cover-subtitle">${h.s}</div></div></div></div>`;
+      });
+
+      // Planner
+      const sched = [{ day: 0, h: 8, end: 9, type: 'eng', l: '영단어' }, { day: 0, h: 9, end: 10, type: 'math', l: '수학' }, { day: 0, h: 14, end: 15, type: 'read', l: '독서' }, { day: 0, h: 15, end: 16, type: 'sci', l: '과학' }, { day: 0, h: 17, end: 18, type: 'eng', l: '영작문' }, { day: 0, h: 19, end: 20, type: 'math', l: '수학복습' }, { day: 1, h: 8, end: 9, type: 'math', l: '수학' }, { day: 1, h: 9, end: 10, type: 'sci', l: '과학' }, { day: 1, h: 14, end: 15, type: 'eng', l: '영단어' }, { day: 1, h: 16, end: 17, type: 'read', l: '독서' }, { day: 1, h: 18, end: 19, type: 'math', l: '수학심화' }, { day: 2, h: 8, end: 9, type: 'eng', l: '영단어' }, { day: 2, h: 10, end: 11, type: 'read', l: '독서' }, { day: 2, h: 15, end: 16, type: 'math', l: '수학' }, { day: 2, h: 17, end: 18, type: 'sci', l: '과학실험' }, { day: 2, h: 19, end: 20, type: 'eng', l: '영어듣기' }, { day: 3, h: 8, end: 9, type: 'math', l: '수학' }, { day: 3, h: 9, end: 10, type: 'eng', l: '영단어' }, { day: 3, h: 14, end: 15, type: 'sci', l: '과학' }, { day: 3, h: 16, end: 17, type: 'read', l: '독서토론' }, { day: 3, h: 18, end: 19, type: 'math', l: '수학복습' }, { day: 4, h: 8, end: 9, type: 'sci', l: '과학' }, { day: 4, h: 14, end: 15, type: 'read', l: '독서' }, { day: 4, h: 15, end: 16, type: 'eng', l: '영단어' }, { day: 4, h: 17, end: 18, type: 'math', l: '수학심화' }, { day: 4, h: 19, end: 20, type: 'sci', l: '과학정리' }, { day: 5, h: 9, end: 10, type: 'eng', l: '영단어' }, { day: 5, h: 10, end: 11, type: 'math', l: '수학' }, { day: 5, h: 14, end: 15, type: 'sci', l: '과학' }, { day: 5, h: 16, end: 17, type: 'read', l: '독서' }, { day: 5, h: 18, end: 19, type: 'eng', l: '영작문' }, { day: 6, h: 10, end: 11, type: 'read', l: '독서' }, { day: 6, h: 15, end: 16, type: 'eng', l: '영단어' }, { day: 6, h: 17, end: 18, type: 'math', l: '수학복습' }, { day: 6, h: 19, end: 20, type: 'sci', l: '과학정리' }];
+      const dL = ['월', '화', '수', '목', '금', '토', '일'];
+      const now = new Date(), tD = (now.getDay() + 6) % 7, cH = now.getHours();
+      const pH = document.getElementById('pwH');
+      pH.innerHTML = '<div class="planner-day-label"></div>' + dL.map((d, i) => `<div class="planner-day-label${i === tD ? ' today' : ''}">${d}</div>`).join('');
+      const pB = document.getElementById('pwB');
+      let pHTML = '';
+      for (let h = 6; h <= 22; h++) {
+        pHTML += `<div class="planner-row"><div class="planner-time${h === cH ? ' current' : ''}">${(h < 10 ? '0' : '') + h}:00</div>`;
+        for (let d = 0; d < 7; d++) {
+          const cc = d === tD && h === cH ? ' current-cell' : '';
+          const ev = sched.find(e => e.day === d && h >= e.h && h < e.end);
+          pHTML += `<div class="planner-cell${cc}">${ev ? `<div class="plan-block ${ev.type}">${ev.l}</div>` : ''}</div>`;
+        }
+        pHTML += `</div>`;
+      }
+      pB.innerHTML = pHTML;
+
+      // Infinite Carousel with clone-and-snap
+      const slides = document.getElementById('bbSlides'), dots = document.querySelectorAll('.bb-dot');
+      const total = 3;
+      // Clone last slide to beginning and first slide to end
+      const allSlides = slides.querySelectorAll('.bb-slide');
+      const cloneFirst = allSlides[0].cloneNode(true);
+      const cloneLast = allSlides[allSlides.length - 1].cloneNode(true);
+      slides.appendChild(cloneFirst);
+      slides.insertBefore(cloneLast, allSlides[0]);
+      // Now we have 5 slides: [clone-last, 0, 1, 2, clone-first]
+      // Index 1 = real slide 0, index 2 = real slide 1, etc.
+      let pos = 1; // start at real slide 0
+      let animating = false;
+      const sw = 20; // each slide is 20% of container
+      function setPos(p, animate) {
+        if (!animate) slides.style.transition = 'none';
+        else slides.style.transition = 'transform .5s cubic-bezier(.4,0,.2,1)';
+        slides.style.transform = `translateX(-${p * sw}%)`;
+      }
+      setPos(pos, false);
+      function updateDots() { const real = (pos - 1 + total) % total; dots.forEach((d, j) => d.classList.toggle('active', j === real)); }
+      updateDots();
+      function goDir(dir) {
+        if (animating) return; animating = true;
+        pos += dir;
+        setPos(pos, true);
+        updateDots();
+        setTimeout(() => {
+          if (pos <= 0) { pos = total; setPos(pos, false); }
+          else if (pos >= total + 1) { pos = 1; setPos(pos, false); }
+          animating = false;
+        }, 520);
+      }
+      function goTo(realIdx) {
+        if (animating) return;
+        pos = realIdx + 1;
+        setPos(pos, true);
+        updateDots();
+        animating = true; setTimeout(() => { animating = false; }, 520);
+      }
+      dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.slide)));
+      const car = document.getElementById('bbCarousel'); let tx = 0;
+      car.addEventListener('touchstart', e => { tx = e.touches[0].clientX }, { passive: true });
+      car.addEventListener('touchend', e => { const d = tx - e.changedTouches[0].clientX; if (Math.abs(d) > 50) goDir(d > 0 ? 1 : -1); }, { passive: true });
+      document.getElementById('bbPrev').addEventListener('click', () => goDir(-1));
+      document.getElementById('bbNext').addEventListener('click', () => goDir(1));
+
+      // Chat
+      const cp = document.getElementById('chatPanel'), ca = document.getElementById('aiChatArea');
+      function toggleChat() { cp.classList.toggle('collapsed'); document.body.classList.toggle('chat-collapsed'); }
+      document.getElementById('chatCollapseBtn').addEventListener('click', toggleChat);
+      document.getElementById('chatBookmark').addEventListener('click', toggleChat);
+      document.getElementById('dockChat').addEventListener('click', e => { e.preventDefault(); if (cp.classList.contains('collapsed')) toggleChat(); });
+      let greeted = false;
+      function greet() { if (greeted) return; greeted = true; setTimeout(() => addB('안녕! 반가워', 'ai'), 400); setTimeout(() => addB('오늘 하루 잘 보내고 있어?', 'ai'), 1200); }
+      function addB(t, r) { const b = document.createElement('div'); b.className = 'ai-bubble ' + r; b.textContent = t; ca.appendChild(b); ca.scrollTop = ca.scrollHeight; }
+      if (window.innerWidth <= 768) setTimeout(greet, 600);
+      const cObs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) greet(); }); }, { threshold: .1 });
+      cObs.observe(cp);
+      const reps = ['좋은 자세네요! 계속해서 그렇게 해주세요.', '궁금한 점이 있으면 언제든 말해주세요.']; let ri = 0;
+      function sendMsg() { const t = document.getElementById('aiInput').value.trim(); if (!t) return; addB(t, 'user'); document.getElementById('aiInput').value = ''; setTimeout(() => addB(reps[ri++ % reps.length], 'ai'), 700); }
+      document.getElementById('aiSendBtn').addEventListener('click', sendMsg);
+      document.getElementById('aiInput').addEventListener('keydown', e => { if (e.key === 'Enter') sendMsg(); });
+
+      // Timer
+      const W = 25 * 60, R = 5 * 60, C = 2 * Math.PI * 52; let tTot = W, tRem = W, tRun = false, tI = null, isR = false;
+      const pr = document.getElementById('tP'), tt = document.getElementById('tT'), ml = document.getElementById('tML'), sb = document.getElementById('tS'), rb = document.getElementById('tR');
+      function uT() { const m = Math.floor(tRem / 60), s = tRem % 60; tt.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s; pr.style.strokeDashoffset = C * (1 - tRem / tTot); }
+      function tk() { tRem--; if (tRem < 0) { clearInterval(tI); tRun = false; if (!isR) { isR = true; tTot = R; tRem = R; ml.textContent = '휴식 시간'; ml.className = 'timer-mode rest-mode'; pr.classList.add('rest'); sb.textContent = '시작'; } else { isR = false; tTot = W; tRem = W; ml.textContent = '공부 시간'; ml.className = 'timer-mode'; pr.classList.remove('rest'); sb.textContent = '시작'; } } uT(); }
+      sb.addEventListener('click', () => { if (tRun) { clearInterval(tI); tRun = false; sb.textContent = '시작'; } else { tRun = true; sb.textContent = '정지'; tI = setInterval(tk, 1000); } });
+      rb.addEventListener('click', () => { clearInterval(tI); tRun = false; isR = false; tTot = W; tRem = W; ml.textContent = '공부 시간'; ml.className = 'timer-mode'; pr.classList.remove('rest'); sb.textContent = '시작'; uT(); });
+      uT();
+
+      // Scroll animations
+      const obs = new IntersectionObserver(es => { es.forEach(e => { if (e.isIntersecting) { e.target.style.opacity = ''; e.target.style.animationPlayState = 'running'; } }); }, { threshold: .1, rootMargin: '0px 0px -30px 0px' });
+      document.querySelectorAll('.animate-in').forEach(el => { el.style.opacity = '0'; el.style.animationPlayState = 'paused'; obs.observe(el); });
+
+      // Dock
+      document.querySelectorAll('.dock-item[href]').forEach(l => { l.addEventListener('click', e => { const h = l.getAttribute('href'); if (!h || h === '#') return; e.preventDefault(); const t = document.querySelector(h); if (t) t.scrollIntoView({ behavior: 'smooth', block: 'start' }); document.querySelectorAll('.dock-item').forEach(i => i.classList.remove('active')); l.classList.add('active'); }); });
+      const spy = [{ id: 'bulletin', el: document.getElementById('dockHome') }, { id: 'sec-today', el: document.getElementById('dockToday') }, { id: 'sec-study', el: document.getElementById('dockStudy') }];
+      let st; window.addEventListener('scroll', () => { clearTimeout(st); st = setTimeout(() => { const y = window.scrollY + window.innerHeight / 3; let a = spy[0]; spy.forEach(s => { const el = document.getElementById(s.id); if (el && el.offsetTop <= y) a = s; }); document.querySelectorAll('.dock-item').forEach(i => i.classList.remove('active')); if (a.el) a.el.classList.add('active'); }, 80); });
+    })();
   </script>
-
 </body>
-</html>
 
+</html>
