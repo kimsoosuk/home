@@ -950,12 +950,39 @@
     /* ═══════════════════════════════════════
    MAIN LAYOUT — desktop: left chat + right scroll
    ═══════════════════════════════════════ */
-    .main-layout { display: flex; }
+    .main-layout { display: flex; width: 100%; min-height: 100vh; position: relative; overflow-x: hidden; }
     .chat-panel {
-      width: 320px; flex-shrink: 0; position: sticky; top: 0;
-      height: 100vh; display: flex; flex-direction: column;
+      width: 320px; flex-shrink: 0; position: fixed; top: 0; left: 0; bottom: 0;
+      height: 100vh; padding-bottom: calc(64px + env(safe-area-inset-bottom)); box-sizing: border-box;
+      display: flex; flex-direction: column;
       background: #fafafa; border-right: 0.5px solid rgba(0,0,0,0.08);
-      z-index: 10;
+      z-index: 100;
+      transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+
+    /* Make bulletin board align with chat panel on desktop */
+    @media (min-width: 769px) {
+      .bulletin-board {
+        margin-left: 320px;
+        transition: margin-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      }
+      body.chat-collapsed .bulletin-board {
+        margin-left: 0;
+      }
+    }
+    .chat-panel.collapsed {
+      transform: translateX(-100%);
+    }
+    .chat-toggle-btn {
+      position: absolute; top: 18px; right: -42px; width: 34px; height: 34px;
+      background: #fff; border: 1px solid #e0e0e0; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.1); z-index: 101;
+      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .chat-toggle-btn svg { width: 18px; height: 18px; fill: none; stroke: #666; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+    .chat-panel.collapsed .chat-toggle-btn {
+      transform: rotate(180deg);
     }
     .chat-panel-header {
       padding: 18px 20px 14px; border-bottom: 1px solid rgba(0,0,0,0.06);
@@ -979,7 +1006,13 @@
     .ai-send-btn { width: 34px; height: 34px; border-radius: 50%; background: var(--brand-green); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.2s; }
     .ai-send-btn:hover { background: #228636; }
     .ai-send-btn svg { width: 16px; height: 16px; fill: #fff; stroke: none; }
-    .content-area { flex: 1; min-width: 0; }
+    .content-area {
+      flex: 1; min-width: 0; margin-left: 320px;
+      transition: margin-left 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    body.chat-collapsed .content-area {
+      margin-left: 0;
+    }
 
     /* ═══════════════════════════════════════
    BOTTOM NAV — 4 items
@@ -1030,8 +1063,8 @@
     .timer-bg { fill: none; stroke: #eee; stroke-width: 8; }
     .timer-progress { fill: none; stroke: var(--brand-green); stroke-width: 8; stroke-linecap: round; transition: stroke-dashoffset 1s linear; transform: rotate(-90deg); transform-origin: center; }
     .timer-progress.rest { stroke: #e8a838; }
-    .timer-text { font-size: 32px; font-weight: 700; fill: var(--text-primary); font-family: 'Playfair Display', serif; }
-    .timer-label { font-size: 12px; fill: var(--text-secondary); }
+    .timer-text { font-size: 26px; font-weight: 700; fill: var(--text-primary); font-family: 'Playfair Display', serif; }
+    .timer-label { font-size: 8.5px; fill: var(--text-secondary); font-weight: 500; }
     .timer-controls { display: flex; gap: 12px; }
     .timer-btn { padding: 10px 28px; border-radius: 24px; border: none; font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
     .timer-btn.start { background: var(--brand-green); color: #fff; }
@@ -1071,16 +1104,19 @@
    RESPONSIVE
    ═══════════════════════════════════════ */
     @media (max-width: 768px) {
-      .main-layout { flex-direction: column; }
-      .chat-panel { position: relative; width: 100%; height: 75vh; }
-      .content-area { width: 100%; }
+      .main-layout { flex-direction: column; overflow-x: visible; }
+      .chat-panel, .chat-panel.collapsed { position: relative; width: 100%; height: 75vh; transform: none !important; padding-bottom: 0px; }
+      .chat-toggle-btn { display: none; }
+      .content-area { width: 100%; margin-left: 0 !important; }
       .book-spread { aspect-ratio: 3 / 4; }
       .bs-page-left { display: none; }
       .bs-page-right { width: 100%; border-radius: 2px; box-shadow: none; }
       .book-spread::after { display: none; }
     }
     @media (max-width: 480px) {
-      .book-item { width: 105px; }
+      .book-item { width: 155px; }
+      .book-cover-title { font-size: clamp(17px, 5vw, 20px); line-height: 1.25; margin-bottom: 6px; }
+      .book-cover-cat { font-size: clamp(11.5px, 3.5vw, 13.5px); }
       .diag-card { flex: 0 0 240px; }
     }
   </style>
@@ -1226,9 +1262,12 @@
   <div class="main-layout">
     <!-- CHAT PANEL (left on desktop, inline on mobile) -->
     <aside class="chat-panel" id="sec-chat">
+      <button class="chat-toggle-btn" id="chatToggleBtn" aria-label="채팅 접기/펴기">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+      </button>
       <div class="chat-panel-header">
         <div class="chat-panel-title">
-          <span class="ai-status"></span>김수석 선생님<span>항상 곁에 있어요</span>
+          <span class="ai-status"></span>김수석 선생님
         </div>
       </div>
       <div class="ai-chat-area" id="aiChatArea"></div>
@@ -1316,8 +1355,8 @@
           <svg class="timer-svg" viewBox="0 0 120 120">
             <circle class="timer-bg" cx="60" cy="60" r="52"/>
             <circle class="timer-progress" id="timerProgress" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="0"/>
-            <text class="timer-text" id="timerText" x="60" y="62" text-anchor="middle" dominant-baseline="central">25:00</text>
-            <text class="timer-label" x="60" y="82" text-anchor="middle">FOCUS</text>
+            <text class="timer-text" id="timerText" x="60" y="45" text-anchor="middle" dominant-baseline="central">25:00</text>
+            <text class="timer-label" x="60" y="80" text-anchor="middle">25분 집중 / 5분 휴식</text>
           </svg>
           <div class="timer-controls">
             <button class="timer-btn start" id="timerStartBtn">시작</button>
@@ -1436,12 +1475,18 @@
     document.getElementById('bbPrev').addEventListener('click',()=>goToSlide(currentSlide>0?currentSlide-1:totalSlides-1));
     document.getElementById('bbNext').addEventListener('click',()=>goToSlide((currentSlide+1)%totalSlides));
 
-    // ─── Chat auto-greeting ───
+    // ─── Chat auto-greeting & Layout toggle ───
+    const chatPanel = document.getElementById('sec-chat');
+    document.getElementById('chatToggleBtn').addEventListener('click', () => {
+      chatPanel.classList.toggle('collapsed');
+      document.body.classList.toggle('chat-collapsed');
+    });
+
     const chatArea=document.getElementById('aiChatArea');
     let greeted=false;
     function addBubble(text,role){const b=document.createElement('div');b.className='ai-bubble '+role;b.textContent=text;chatArea.appendChild(b);chatArea.scrollTop=chatArea.scrollHeight;}
     const chatObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!greeted){greeted=true;setTimeout(()=>addBubble('오늘의 학습 진도: 공부하는 이유 1장, 변환 사고력 20페이지를 진행할 차례입니다. 화이팅!','ai'),500);}});},{threshold:0.1});
-    chatObserver.observe(document.getElementById('sec-chat'));
+    chatObserver.observe(chatPanel);
     const replies=['좋은 자세네요! 계속해서 그렇게 해주세요.', '궁금한 점이 있으면 언제든 말해주세요.'];
     let replyIdx=0;
     function sendMsg(){const txt=document.getElementById('aiInput').value.trim();if(!txt)return;addBubble(txt,'user');document.getElementById('aiInput').value='';setTimeout(()=>addBubble(replies[replyIdx++%replies.length],'ai'),700);}
@@ -1485,265 +1530,3 @@
 </body>
 </html>
 
-  <!-- ═══════════════ MAIN LAYOUT ═══════════════ -->
-  <div class="main-layout">
-    <!-- CHAT PANEL (left on desktop, inline on mobile) -->
-    <aside class="chat-panel" id="sec-chat">
-      <div class="chat-panel-header">
-        <div class="chat-panel-title">
-          <span class="ai-status"></span>김수석 선생님<span>항상 곁에 있어요</span>
-        </div>
-      </div>
-      <div class="ai-chat-area" id="aiChatArea"></div>
-      <div class="ai-input-row">
-        <input class="ai-input" id="aiInput" type="text" placeholder="김수석 선생님에게 물어보세요..." />
-        <button class="ai-send-btn" id="aiSendBtn">
-          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
-        </button>
-      </div>
-    </aside>
-
-    <!-- CONTENT AREA (scrollable) -->
-    <div class="content-area">
-
-      <!-- 1. 오늘 할 일 -->
-      <section class="programs-study" id="sec-today">
-        <div class="program-header animate-in"><div class="program-title">오늘 할 일</div><div class="program-subtitle">오늘 학습할 프로그램</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/study-reason/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">공부하는<br>이유</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">기본편</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-mind-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">변환<br>사고력</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">두정엽</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 2. 나의 공부법 -->
-      <section class="programs-study" id="sec-study">
-        <div class="program-header animate-in"><div class="program-title">나의 공부법</div><div class="program-subtitle">공부의 기본기를 다져보세요</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/study-reason/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">공부하는<br>이유</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">기본편</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/myschedule/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-2"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">내공부<br>스케줄짜기</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">기본편</div></div></div></a>
-          <a class="book-item animate-in delay-3" href="https://kimsoosuk.github.io/bible-english/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-3"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">영어 바이블<br>문학</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">문과편</div></div></div></a>
-          <a class="book-item animate-in delay-4" href="https://kimsoosuk.github.io/science_exam/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-4"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">고1 3모<br>대비법</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">과학편</div></div></div></a>
-          <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/eng-exam/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-study-5"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">고1 3모<br>대비법</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">영어편</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 3. 나의 머리 -->
-      <section class="programs-study" id="sec-mind">
-        <div class="program-header animate-in"><div class="program-title">나의 머리</div><div class="program-subtitle">사고력을 키우는 학습 컨텐츠</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-mind-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">변환<br>사고력</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">두정엽</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-mind-2"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">가치<br>사고력</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">변연계</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 4. 나의 생활 -->
-      <section class="programs-study" id="sec-life">
-        <div class="program-header animate-in"><div class="program-title">나의 생활</div><div class="program-subtitle">공부 체질을 만드는 생활 습관</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">겸손</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-2"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">연표</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-3" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-3"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">예습</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-4" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-4"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">과정</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-1" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-5"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">훈련</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-6"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">실험</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-          <a class="book-item animate-in delay-3" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-habit-7"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">문제집</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">공부 체질</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 5. 나의 생각 -->
-      <section class="programs-study" id="sec-think">
-        <div class="program-header animate-in"><div class="program-title">나의 생각</div><div class="program-subtitle">가치관과 사고를 정리하는 공간</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/value/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-think-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">가치관<br>선생님</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">기본편</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 6. 수석의 사전 -->
-      <section class="programs-study" id="sec-dict">
-        <div class="program-header animate-in"><div class="program-title">수석의 사전</div><div class="program-subtitle">과목별 핵심 사전</div></div>
-        <div class="program-scroll">
-          <a class="book-item animate-in delay-1" href="https://kimsoosuk.github.io/science_teacher/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-1"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">과학<br>사전</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">이과편</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/eng_dictionary/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-2"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">영어<br>사전</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">문과편</div></div></div></a>
-          <a class="book-item animate-in delay-3" href="https://kimsoosuk.github.io/kor-dictionary/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-3"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">국어<br>사전</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">문과편</div></div></div></a>
-          <a class="book-item animate-in delay-4" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-4"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">수학<br>사전</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">이과편</div></div></div></a>
-          <a class="book-item animate-in delay-1" href="#" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-5"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">역사<br>사전</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">문과편</div></div></div></a>
-          <a class="book-item animate-in delay-2" href="https://kimsoosuk.github.io/book_teacher/" target="_blank" rel="noopener"><div class="book-cover"><div class="book-cover-bg cover-dict-6"></div><div class="book-cover-inner-border"></div><div class="book-cover-shine"></div><div style="position:absolute;top:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-title" style="margin-bottom:0;">독서<br>선생님</div></div><div style="position:absolute;bottom:32px;left:0;right:0;text-align:center;z-index:5;"><div class="book-cover-cat">기본편</div></div></div></a>
-        </div>
-      </section>
-
-      <!-- 7. 공부 타이머 (포모도로) -->
-      <section class="timer-section" id="sec-timer">
-        <div class="program-header animate-in"><div class="program-title">공부 타이머</div><div class="program-subtitle">25분 집중, 5분 휴식 — 포모도로 기법</div></div>
-        <div class="timer-wrap">
-          <div class="timer-mode" id="timerModeLabel">공부 시간</div>
-          <svg class="timer-svg" viewBox="0 0 120 120">
-            <circle class="timer-bg" cx="60" cy="60" r="52"/>
-            <circle class="timer-progress" id="timerProgress" cx="60" cy="60" r="52" stroke-dasharray="326.73" stroke-dashoffset="0"/>
-            <text class="timer-text" id="timerText" x="60" y="62" text-anchor="middle" dominant-baseline="central">25:00</text>
-            <text class="timer-label" x="60" y="82" text-anchor="middle">FOCUS</text>
-          </svg>
-          <div class="timer-controls">
-            <button class="timer-btn start" id="timerStartBtn">시작</button>
-            <button class="timer-btn reset" id="timerResetBtn">초기화</button>
-          </div>
-        </div>
-      </section>
-
-      <!-- 8. 진단 -->
-      <section class="diag-section" id="sec-diag">
-        <div class="program-header animate-in"><div class="program-title">진단</div><div class="program-subtitle">나를 알아가는 공부 진단</div></div>
-        <div class="diag-scroll">
-          <div class="diag-card animate-in delay-1">
-            <div class="diag-card-title">공부머리 진단</div>
-            <div class="diag-card-desc">IQ보다 더 성적에 실질적인 영향을 미치는 공부머리를 진단합니다. 교과과정을 기반으로 공부에 꼭 필요한 100가지 뇌의 활동과 사고력을 직접적으로 진단합니다.</div>
-            <span class="diag-card-tag">진단하기</span>
-          </div>
-          <div class="diag-card animate-in delay-2">
-            <div class="diag-card-title">공부체질 진단</div>
-            <div class="diag-card-desc">몰입, 보상, 경쟁, 기질, 원칙, 학원, 선행, 공부방, 생활, 기술, 이과목, 문과목 등 수많은 공부 조건들을 분석하여 정체된 학습 문제의 근본 원인을 발견합니다.</div>
-            <span class="diag-card-tag">진단하기</span>
-          </div>
-          <div class="diag-card animate-in delay-3">
-            <div class="diag-card-title">사춘기 학습유형 진단</div>
-            <div class="diag-card-desc">사춘기 때 공부가 한 번에 무너질 수 있습니다. 부모 자녀 기질 분석으로 사춘기 문제를 예방하고 사춘기 시기에도 흔들림 없는 학습이 가능하도록 합니다.</div>
-            <span class="diag-card-tag">진단하기</span>
-          </div>
-          <div class="diag-card animate-in delay-4">
-            <div class="diag-card-title">중학수학능력 진단</div>
-            <div class="diag-card-desc">필요한 경우 수학, 국어 등 과목 별 실력을 파악하기 위한 진단을 실시합니다. 보통 예비중1을 대상으로 실시되며 중1~2 학생들도 필요에 따라 진행합니다.</div>
-            <span class="diag-card-tag">진단하기</span>
-          </div>
-          <div class="diag-card animate-in delay-1">
-            <div class="diag-card-title">학습저항성 진단</div>
-            <div class="diag-card-desc">공부에 안 좋은 감정을 가지고 있으면 뇌가 감정 처리를 위해 활발히 사용되지 못합니다. 이를 '학습저항성'이라 하며 어떤 분야에 얼만큼 발생하는지까지 알아냅니다.</div>
-            <span class="diag-card-tag">진단하기</span>
-          </div>
-        </div>
-      </section>
-
-    </div><!-- /content-area -->
-  </div><!-- /main-layout -->
-
-  <!-- ═══════════════ DOCK (4 items) ═══════════════ -->
-  <nav class="dock-nav" id="dockNav">
-    <a class="dock-item active" href="#bulletin" id="dockHome">
-      <div class="dock-icon"><svg viewBox="0 0 24 24"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-4 0a1 1 0 01-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 01-1 1h-2z"/></svg></div>
-      <span class="dock-label">수석의방</span>
-    </a>
-    <a class="dock-item" href="#sec-today" id="dockToday">
-      <!-- 연필 아이콘 -->
-      <div class="dock-icon"><svg viewBox="0 0 24 24"><path d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"/></svg></div>
-      <span class="dock-label">내공부</span>
-    </a>
-    <a class="dock-item" href="#sec-study" id="dockStudy">
-      <!-- 책 아이콘 -->
-      <div class="dock-icon"><svg viewBox="0 0 24 24"><path d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg></div>
-      <span class="dock-label">공부법</span>
-    </a>
-    <a class="dock-item" href="#sec-chat" id="dockChat">
-      <!-- 말풍선 아이콘 -->
-      <div class="dock-icon"><svg viewBox="0 0 24 24"><path d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-4 4-1-4z"/></svg></div>
-      <span class="dock-label">김수석</span>
-    </a>
-  </nav>
-
-  <!-- ═══════════════ SCRIPTS ═══════════════ -->
-  <script>
-  (function(){
-    // ─── Planner: weekly × hourly grid ───
-    const weekSched=[
-      {day:0,h:8,end:9,type:'eng',label:'영단어'},{day:0,h:9,end:10,type:'math',label:'수학'},
-      {day:0,h:14,end:15,type:'read',label:'독서'},{day:0,h:15,end:16,type:'sci',label:'과학'},
-      {day:1,h:8,end:9,type:'math',label:'수학'},{day:1,h:9,end:10,type:'sci',label:'과학'},
-      {day:1,h:14,end:15,type:'eng',label:'영단어'},{day:1,h:17,end:18,type:'read',label:'독서'},
-      {day:2,h:8,end:9,type:'eng',label:'영단어'},{day:2,h:10,end:11,type:'read',label:'독서'},
-      {day:2,h:15,end:16,type:'math',label:'수학'},
-      {day:3,h:8,end:9,type:'math',label:'수학'},{day:3,h:9,end:10,type:'eng',label:'영단어'},
-      {day:3,h:14,end:15,type:'sci',label:'과학'},{day:3,h:16,end:17,type:'read',label:'독서'},
-      {day:4,h:8,end:9,type:'sci',label:'과학'},{day:4,h:14,end:15,type:'read',label:'독서'},
-      {day:4,h:15,end:16,type:'eng',label:'영단어'},{day:4,h:18,end:19,type:'math',label:'수학'},
-      {day:5,h:9,end:10,type:'eng',label:'영단어'},{day:5,h:10,end:11,type:'math',label:'수학'},
-      {day:5,h:14,end:15,type:'sci',label:'과학'},{day:5,h:16,end:17,type:'read',label:'독서'},
-      {day:6,h:10,end:11,type:'read',label:'독서'},{day:6,h:15,end:16,type:'eng',label:'영단어'},
-      {day:6,h:17,end:18,type:'math',label:'수학'},{day:6,h:19,end:20,type:'sci',label:'과학'}
-    ];
-    const dayLabels=['월','화','수','목','금','토','일'];
-    const now=new Date();const todayDay=(now.getDay()+6)%7;const currentH=now.getHours();
-    const header=document.getElementById('plannerWeekHeader');
-    const blank=document.createElement('div');blank.className='planner-day-label';blank.textContent='';header.appendChild(blank);
-    dayLabels.forEach((d,i)=>{const el=document.createElement('div');el.className='planner-day-label'+(i===todayDay?' today':'');el.textContent=d;header.appendChild(el);});
-    const body=document.getElementById('plannerBody');
-    for(let h=6;h<=22;h++){
-      const row=document.createElement('div');row.className='planner-row';
-      const tl=document.createElement('div');tl.className='planner-time'+(h===currentH?' current':'');
-      tl.textContent=(h<10?'0':'')+h+':00';row.appendChild(tl);
-      for(let d=0;d<7;d++){
-        const cell=document.createElement('div');cell.className='planner-cell';
-        if(d===todayDay&&h===currentH)cell.classList.add('current-cell');
-        const ev=weekSched.find(e=>e.day===d&&h>=e.h&&h<e.end);
-        if(ev){const b=document.createElement('div');b.className='plan-block '+ev.type;b.textContent=ev.label;cell.appendChild(b);}
-        row.appendChild(cell);
-      }
-      body.appendChild(row);
-    }
-
-    // ─── Carousel ───
-    const slides=document.getElementById('bbSlides');
-    const dots=document.querySelectorAll('.bb-dot');
-    let currentSlide=0;const totalSlides=3;
-    function goToSlide(i){currentSlide=i;slides.style.transform=`translateX(-${i*(100/totalSlides)}%)`;dots.forEach((d,j)=>d.classList.toggle('active',j===i));}
-    dots.forEach(dot=>dot.addEventListener('click',()=>goToSlide(parseInt(dot.dataset.slide))));
-    const carousel=document.getElementById('bbCarousel');let touchStartX=0;
-    carousel.addEventListener('touchstart',e=>{touchStartX=e.touches[0].clientX;},{passive:true});
-    carousel.addEventListener('touchend',e=>{const diff=touchStartX-e.changedTouches[0].clientX;if(Math.abs(diff)>50){if(diff>0&&currentSlide<totalSlides-1)goToSlide(currentSlide+1);else if(diff<0&&currentSlide>0)goToSlide(currentSlide-1);}},{passive:true});
-    document.getElementById('bbPrev').addEventListener('click',()=>goToSlide(currentSlide>0?currentSlide-1:totalSlides-1));
-    document.getElementById('bbNext').addEventListener('click',()=>goToSlide((currentSlide+1)%totalSlides));
-
-    // ─── Chat auto-greeting ───
-    const chatArea=document.getElementById('aiChatArea');
-    let greeted=false;
-    function addBubble(text,role){const b=document.createElement('div');b.className='ai-bubble '+role;b.textContent=text;chatArea.appendChild(b);chatArea.scrollTop=chatArea.scrollHeight;}
-    const chatObserver=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting&&!greeted){greeted=true;setTimeout(()=>addBubble("오늘의 학습 진도: 공부하는 이유 1장, 변환 사고력 20페이지를 진행할 차례입니다. 화이팅!",'ai'),500);}});},{threshold:0.1});
-    chatObserver.observe(document.getElementById('sec-chat'));
-    const replies=['좋은 자세네요! 계속해서 그렇게 해주세요.', '궁금한 점이 있으면 언제든 말해주세요.'];
-    let replyIdx=0;
-    function sendMsg(){const txt=document.getElementById('aiInput').value.trim();if(!txt)return;addBubble(txt,'user');document.getElementById('aiInput').value='';setTimeout(()=>addBubble(replies[replyIdx++%replies.length],'ai'),700);}
-    document.getElementById('aiSendBtn').addEventListener('click',sendMsg);
-    document.getElementById('aiInput').addEventListener('keydown',e=>{if(e.key==='Enter')sendMsg();});
-
-    // ─── Pomodoro Timer ───
-    const WORK=25*60,REST=5*60,CIRCUMFERENCE=2*Math.PI*52;
-    let timerTotal=WORK,timerRemaining=WORK,timerRunning=false,timerInterval=null,isRest=false;
-    const prog=document.getElementById('timerProgress');
-    const tText=document.getElementById('timerText');
-    const modeLabel=document.getElementById('timerModeLabel');
-    const startBtn=document.getElementById('timerStartBtn');
-    const resetBtn=document.getElementById('timerResetBtn');
-    function updateTimer(){
-      const m=Math.floor(timerRemaining/60),s=timerRemaining%60;
-      tText.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;
-      const offset=CIRCUMFERENCE*(1-timerRemaining/timerTotal);
-      prog.style.strokeDashoffset=offset;
-    }
-    function tick(){timerRemaining--;if(timerRemaining<0){clearInterval(timerInterval);timerRunning=false;
-      if(!isRest){isRest=true;timerTotal=REST;timerRemaining=REST;modeLabel.textContent='휴식 시간';modeLabel.className='timer-mode rest-mode';prog.classList.add('rest');startBtn.textContent='시작';}
-      else{isRest=false;timerTotal=WORK;timerRemaining=WORK;modeLabel.textContent='공부 시간';modeLabel.className='timer-mode';prog.classList.remove('rest');startBtn.textContent='시작';}
-    }updateTimer();}
-    startBtn.addEventListener('click',()=>{if(timerRunning){clearInterval(timerInterval);timerRunning=false;startBtn.textContent='시작';}else{timerRunning=true;startBtn.textContent='정지';timerInterval=setInterval(tick,1000);}});
-    resetBtn.addEventListener('click',()=>{clearInterval(timerInterval);timerRunning=false;isRest=false;timerTotal=WORK;timerRemaining=WORK;modeLabel.textContent='공부 시간';modeLabel.className='timer-mode';prog.classList.remove('rest');startBtn.textContent='시작';updateTimer();});
-    updateTimer();
-
-    // ─── Scroll animations ───
-    const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.style.opacity='';e.target.style.animationPlayState='running';}});},{threshold:0.1,rootMargin:'0px 0px -30px 0px'});
-    document.querySelectorAll('.animate-in').forEach(el=>{el.style.opacity='0';el.style.animationPlayState='paused';observer.observe(el);});
-
-    // ─── Dock scroll + spy ───
-    document.querySelectorAll('.dock-item[href]').forEach(link=>{link.addEventListener('click',e=>{const href=link.getAttribute('href');if(!href||href==='#')return;e.preventDefault();const target=document.querySelector(href);if(target)target.scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('.dock-item').forEach(i=>i.classList.remove('active'));link.classList.add('active');});});
-    const spy=[{id:'bulletin',el:document.getElementById('dockHome')},{id:'sec-today',el:document.getElementById('dockToday')},{id:'sec-study',el:document.getElementById('dockStudy')},{id:'sec-chat',el:document.getElementById('dockChat')}];
-    let scrollTimer;
-    window.addEventListener('scroll',()=>{clearTimeout(scrollTimer);scrollTimer=setTimeout(()=>{const scrollY=window.scrollY+window.innerHeight/3;let active=spy[0];spy.forEach(s=>{const el=document.getElementById(s.id);if(el&&el.offsetTop<=scrollY)active=s;});document.querySelectorAll('.dock-item').forEach(i=>i.classList.remove('active'));if(active.el)active.el.classList.add('active');},80);});
-  })();
-  </script>
-
-</body>
-</html>
